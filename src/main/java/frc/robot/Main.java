@@ -27,5 +27,3 @@ public final class Main {
     RobotBase.startRobot(Robot::new);
   }
 }
-
-// if you can see this, everyone is successfully linked to the github repository! :)
