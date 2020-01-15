@@ -26,11 +26,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
 
 	// Subsystems
-	private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
   	// Commands
- 	private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
  	private final ShooterShoot shooterShoot = new ShooterShoot();
  	private final ShooterStop shooterStop = new ShooterStop();
 
