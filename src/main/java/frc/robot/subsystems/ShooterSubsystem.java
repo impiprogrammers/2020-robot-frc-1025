@@ -1,11 +1,17 @@
 package frc.robot.subsystems;
-
+import edu.wpi.first.wpilibj.PWMSparkMax;
+//Hot Dog Stand Is The Best Theme
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
-  /**
-   * Creates a new ExampleSubsystem.
-   */
+  
+    //Motor Controllers
+    private PWMSparkMax Motor;
+  
+
+
+
+
   public ShooterSubsystem() {
 
   }
