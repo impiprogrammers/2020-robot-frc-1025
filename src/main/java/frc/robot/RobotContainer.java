@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ChasisSubsystem;
@@ -18,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.ImpiLib;
-import frc.robot.RobotContainer.configureButtonBindings();
 
 
 /**
@@ -35,6 +35,7 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   public static ChasisSubsystem chasisSubsystem = new ChasisSubsystem();
+  public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -58,8 +59,8 @@ public class RobotContainer {
 	final double DEADZONE_WRIST = 0.1;
 	final double DEADZONE_CLIMBER = 0.1;
 
-	XboxController driverController =  new XboxController(Constants.OI_DRIVER_CONTROLLER_CHANNEL);
-	XboxController buttonsController = new XboxController(Constants.OI_BUTTONS_CONTROLLER_CHANNEL);
+	final XboxController driverController = new XboxController(Constants.OI_DRIVER_CONTROLLER_CHANNEL);
+	final XboxController buttonsController = new XboxController(Constants.OI_BUTTONS_CONTROLLER_CHANNEL);
 
 	final JoystickButton driverButtonA = new JoystickButton(driverController, 1);
 	final JoystickButton driverButtonB = new JoystickButton(driverController, 2);
@@ -78,6 +79,8 @@ public class RobotContainer {
 	final JoystickButton buttonsButtonStart = new JoystickButton(buttonsController , 8);
 	final JoystickButton buttonsButtonLeftBumper = new JoystickButton(buttonsController, 5);
 	final JoystickButton buttonsButtonRightBumper = new JoystickButton(buttonsController, 6);
+    return DEADZONE_CLIMBER;
+	}
 
 	final double getDriverLeftX() {
 		return ImpiLib.signedSquare(ImpiLib.clamp(1.0, -1.0, getDriverController().getRawAxis(0)));
@@ -99,10 +102,6 @@ public class RobotContainer {
 		return ImpiLib.signedSquare(-getDriverController().getRawAxis(2)) + ImpiLib.signedSquare(getDriverController().getRawAxis(3));
 	}
 
-	final double getButtonsLeftX() {
-		return ImpiLib.signedSquare(ImpiLib.clamp(1.0, -1.0, getButtonsController().getRawAxis(0)));
-	}
-
 	final double getButtonsLeftY() {
 		return -ImpiLib.signedSquare(ImpiLib.clamp(1.0, -1.0, getButtonsController().getRawAxis(1)));
 	}
@@ -115,11 +114,15 @@ public class RobotContainer {
 		return ImpiLib.signedSquare(ImpiLib.clamp(1.0, -1.0, getButtonsController().getRawAxis(4)));
 	}
 
+	final double getButtonsRightX() {
+		return ImpiLib.signedSquare(ImpiLib.clamp(1.0, -1.0, getButtonsController().getRawAxis(0)));
+	}
+
 	final double getButtonsTriggerAxis() {
 		return ImpiLib.signedSquare(-getButtonsController().getRawAxis(2)) + ImpiLib.signedSquare(getButtonsController().getRawAxis(3));
 	}
 
-	final XboxController getDriverController() {
+	public final static XboxController getDriverController() {
 		return getDriverController();
 	}
 
@@ -128,7 +131,7 @@ public class RobotContainer {
 	}
 
 
-  }
+  
 
 
   /**

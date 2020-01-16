@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ChasisSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.ImpiLib;
 
 public class DriveManuallyCommand extends CommandBase {
@@ -31,9 +32,9 @@ public class DriveManuallyCommand extends CommandBase {
   @Override
   public void execute() {		
     XboxController DriverController = RobotContainer.getDriverController();
-		double speed =   ImpiLib.signedSquare(ImpiLib.deadzone(DriverController.getY(Hand.kLeft),  0.05));
-		double rotation = ImpiLib.signedSquare(ImpiLib.deadzone(DriverController.getX(Hand.kRight), 0.05));
-		RobotContainer.chasisSubsystem.drive.arcadeDrive((), ());
+		double move =   ImpiLib.signedSquare(ImpiLib.deadzone(DriverController.getY(Hand.kLeft),  0.05));
+		double turn = ImpiLib.signedSquare(ImpiLib.deadzone(DriverController.getX(Hand.kRight), 0.05));
+		RobotContainer.chasisSubsystem.drive.arcadeDrive(move, turn);
   }
 
   // Called once the command ends or is interrupted.
