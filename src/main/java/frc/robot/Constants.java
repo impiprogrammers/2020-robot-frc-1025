@@ -21,6 +21,9 @@ public final class Constants {
     public static final int rightFrontPort = 1;
     public static final int leftRearPort = 2;
     public static final int rightRearPort = 3;
+
+    public static final int intakeArmPort = 4;
+    public static final int intakePullPort = 5;
     
     // Controllers
     public static final int OI_DRIVER_CONTROLLER_CHANNEL = 0;
