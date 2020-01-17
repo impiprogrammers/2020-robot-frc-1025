@@ -116,8 +116,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
 	public void shoot(double setpoint) {
 		leftPID.setReference(-setpoint, ControlType.kVelocity);
-		rightPID.setReference(-setpoint, ControlType.kVelocity);
-		// leftMotor.pidWrite(-.25);p
+		rightPID.setReference(setpoint, ControlType.kVelocity);
+		// leftMotor.pidWrite(-.25);
 		// rightMotor.pidWrite(-.25);
 		
 		SmartDashboard.putNumber("Setpoint", setpoint);
@@ -126,7 +126,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 
 	public void stop() {
-		leftMotor.set(0);
-		rightMotor.set(0);
+		leftPID.setReference(0, ControlType.kVelocity);
+		rightPID.setReference(0, ControlType.kVelocity);
 	}
 }
