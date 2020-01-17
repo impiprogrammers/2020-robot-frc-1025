@@ -36,19 +36,19 @@ public class ShooterSubsystem extends SubsystemBase {
 
 	public ShooterSubsystem() {
 		// Set PID Values
-		// leftPID.setP(p0);
-		// leftPID.setI(i0);
-		// leftPID.setD(d0);
-		// leftPID.setIZone(iz0);
-		// leftPID.setFF(ff0);
-		// leftPID.setOutputRange(min0, max0);deplo
+		leftPID.setP(p0);
+		leftPID.setI(i0);
+		leftPID.setD(d0);
+		leftPID.setIZone(iz0);
+		leftPID.setFF(ff0);
+		leftPID.setOutputRange(min0, max0);
 
-		// rightPID.setP(p0);
-		// rightPID.setI(i0);
-		// rightPID.setD(d0);
-		// rightPID.setIZone(iz0);
-		// rightPID.setFF(ff0);
-		// rightPID.setOutputRange(min0, max0);
+		rightPID.setP(p0);
+		rightPID.setI(i0);
+		rightPID.setD(d0);
+		rightPID.setIZone(iz0);
+		rightPID.setFF(ff0);
+		rightPID.setOutputRange(min0, max0);
 
 		// Put PID Values on SmartDashboard
 		SmartDashboard.putNumber("P Gain", p0);
@@ -68,13 +68,13 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 	public void PIDsetup(){
 		// Get PID Values from SmartDashboard
-		double p = SmartDashboard.getNumber("P Gain", 0);
-		double i = SmartDashboard.getNumber("I Gain", 0);
-		double d = SmartDashboard.getNumber("D Gain", 0);
-		double iz = SmartDashboard.getNumber("I Zone", 0);
-		double ff = SmartDashboard.getNumber("Feed Forward", 0);
-		double min = SmartDashboard.getNumber("Min Output", 0);
-		double max = SmartDashboard.getNumber("Max Output", 0);
+		double p = SmartDashboard.getNumber("P Gain", p0);
+		double i = SmartDashboard.getNumber("I Gain", i0);
+		double d = SmartDashboard.getNumber("D Gain", d0);
+		double iz = SmartDashboard.getNumber("I Zone", iz0);
+		double ff = SmartDashboard.getNumber("Feed Forward", ff0);
+		double min = SmartDashboard.getNumber("Min Output", min0);
+		double max = SmartDashboard.getNumber("Max Output", max0);
 
 		// Reassign PID Values if Changed
 		if (p != p0) {
@@ -117,9 +117,10 @@ public class ShooterSubsystem extends SubsystemBase {
 	public void shoot(double setpoint) {
 		leftPID.setReference(-setpoint, ControlType.kVelocity);
 		rightPID.setReference(-setpoint, ControlType.kVelocity);
-		leftMotor.pidWrite(-.25);
-		rightMotor.pidWrite(-.25);
-			
+		// leftMotor.pidWrite(-.25);p
+		// rightMotor.pidWrite(-.25);
+		
+		SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Velocity", rightEncoder.getVelocity());
 		
 	}
