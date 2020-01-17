@@ -59,9 +59,6 @@ public class ShooterSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Min Output", min0);
 		SmartDashboard.putNumber("Max Output", max0);
 
-		rightMotor.setInverted(true);
-
-
 	}
 
 	@Override
@@ -117,13 +114,11 @@ public class ShooterSubsystem extends SubsystemBase {
 		}
 	}
 
-	public void shoot() {
-		double setpoint = maxRPM;
-		
-		leftPID.setReference(setpoint, ControlType.kVelocity);
-		rightPID.setReference(setpoint, ControlType.kVelocity);
-		leftMotor.pidWrite(1);
-		rightMotor.pidWrite(1);
+	public void shoot(double setpoint) {
+		leftPID.setReference(-setpoint, ControlType.kVelocity);
+		rightPID.setReference(-setpoint, ControlType.kVelocity);
+		// leftMotor.pidWrite(1);
+		// rightMotor.pidWrite(1);
 			
 		SmartDashboard.putNumber("Velocity", rightEncoder.getVelocity());
 		

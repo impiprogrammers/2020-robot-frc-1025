@@ -6,10 +6,12 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShooterShoot extends CommandBase {
 
 	ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	double setpoint;
 
-	public ShooterShoot() {
+	public ShooterShoot(double setpoint) {
 		shooterSubsystem = new ShooterSubsystem();
 		addRequirements(shooterSubsystem);
+		this.setpoint = setpoint;
 	}
 
 	// Called when the command is initially scheduled.
@@ -23,7 +25,7 @@ public class ShooterShoot extends CommandBase {
 	@Override
 	public void execute() {
 		
-		shooterSubsystem.shoot();
+		shooterSubsystem.shoot(setpoint);
 	}
 
 	// Called once the command ends or is interrupted.
