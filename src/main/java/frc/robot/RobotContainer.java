@@ -24,7 +24,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
 
 	// Subsystems
-  	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	
+	// Commands
+	private final ShooterShoot shooterShoot1 = new ShooterShoot(1000);
+	private final ShooterShoot shooterShoot2 = new ShooterShoot(2000);
+	private final ShooterShoot shooterShoot3 = new ShooterShoot(3000);
+	private final ShooterStop shooterStop = new ShooterStop();
 
  	// OI
 	private final XboxController controller = new XboxController(Constants.XBOX_CONTROLLER);
@@ -45,10 +51,10 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() {
-		buttonA.whenPressed(new ShooterShoot(1000));
-		buttonX.whenPressed(new ShooterShoot(2000));
-		buttonY.whenPressed(new ShooterShoot(3000));
-		buttonB.whenPressed(new ShooterStop());
+		buttonA.whenPressed(shooterShoot1);
+		buttonX.whenPressed(shooterShoot2);
+		buttonY.whenPressed(shooterShoot3);
+		buttonB.whenPressed(shooterStop);
   	}
 
 
