@@ -59,12 +59,6 @@ public class ShooterSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Min Output", min0);
 		SmartDashboard.putNumber("Max Output", max0);
 
-<<<<<<< HEAD
-		//rightMotor.setInverted(true);
-
-
-=======
->>>>>>> 5b21f7facb183d283371a9a703bab5c9a45ac503
 	}
 
 	@Override
