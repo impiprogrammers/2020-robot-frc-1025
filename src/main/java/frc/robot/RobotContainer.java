@@ -26,10 +26,6 @@ public class RobotContainer {
 	// Subsystems
   	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
-  	// Commands
- 	private final ShooterShoot shooterShoot = new ShooterShoot();
- 	private final ShooterStop shooterStop = new ShooterStop();
-
  	// OI
 	private final XboxController controller = new XboxController(Constants.XBOX_CONTROLLER);
 	
@@ -49,7 +45,9 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() {
-		buttonA.whenPressed(new ShooterShoot());
+		buttonA.whenPressed(new ShooterShoot(1000));
+		buttonX.whenPressed(new ShooterShoot(2000));
+		buttonY.whenPressed(new ShooterShoot(3000));
 		buttonB.whenPressed(new ShooterStop());
   	}
 
@@ -61,6 +59,6 @@ public class RobotContainer {
 	  */
   	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		return shooterStop;
+		return new ShooterStop();
 	}
 }
