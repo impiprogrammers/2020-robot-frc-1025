@@ -33,10 +33,8 @@ public class IntakeManuallyCommand extends CommandBase {
   @Override
   public void execute() {		
     XboxController ButtonsController = RobotContainer.getButtonsController();
-		double flap = ImpiLib.signedSquare(ImpiLib.deadzone(ButtonsController.getTriggerAxis(Hand.kLeft),  0.05));
-		double spin = ImpiLib.signedSquare(ImpiLib.deadzone(ButtonsController.getTriggerAxis(Hand.kRight), 0.05));
-        RobotContainer.intakeSubsystem.intakeArm.set(flap);
-        RobotContainer.intakeSubsystem.intakePull.set(spin);
+		double pull = ImpiLib.signedSquare(ImpiLib.deadzone(ButtonsController.getTriggerAxis(Hand.kLeft),  1.0));
+        RobotContainer.intakeSubsystem.intakeMaster.set(pull);
   }
 
   // Called once the command ends or is interrupted.

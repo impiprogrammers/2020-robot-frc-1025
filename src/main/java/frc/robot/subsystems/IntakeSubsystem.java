@@ -13,21 +13,26 @@
           /**
             * Creates a new ChasisSubsystem.
             */
-           public WPI_TalonSRX intakeArm = new WPI_TalonSRX(Constants.intakeArmPort);
-           public WPI_TalonSRX intakePull = new WPI_TalonSRX(Constants.intakePullPort);
+           public WPI_TalonSRX intakeMaster = new WPI_TalonSRX(Constants.intakeMasterPort);
+           public WPI_TalonSRX intakeSlave = new WPI_TalonSRX(Constants.intakeSlavePort);
          
-           public DifferentialDrive drive = new DifferentialDrive(intakeArm, intakePull);
+           public DifferentialDrive drive = new DifferentialDrive(intakeMaster, intakeSlave);
            
            public IntakeSubsystem() {
+            intakeSlave.follow(intakeMaster);
+            intakeSlave.configNominalOutputReverse(100);
+            
            }
            // this is manualDrive() method
-           public void manualIntake(double flap, double spin) {
-            drive.arcadeDrive(flap, spin);
+           public void manualIntake(double pull, double spin) {
+            drive.arcadeDrive(pull,0);
            }
-         
+           
            @Override
            public void periodic() {
              // This method will be called once per scheduler run
              setDefaultCommand(new IntakeManuallyCommand());
+
+
            }
         }
