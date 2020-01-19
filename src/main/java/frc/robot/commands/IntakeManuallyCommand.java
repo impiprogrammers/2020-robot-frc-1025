@@ -9,18 +9,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.ChasisSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.ImpiLib;
+import edu.wpi.first.wpilibj.SpeedController;
 
-public class DriveManuallyCommand extends CommandBase {
+public class IntakeManuallyCommand extends CommandBase {
   /**
    * Creates a new DriveManuallyCommand.
    */
-  public DriveManuallyCommand() {
+  public IntakeManuallyCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.chasisSubsystem);
+    addRequirements(RobotContainer.intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -31,10 +32,11 @@ public class DriveManuallyCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {		
-    XboxController DriverController = RobotContainer.getDriverController();
-		double move = ImpiLib.signedSquare(ImpiLib.deadzone(DriverController.getY(Hand.kLeft),  0.05));
-		double turn = ImpiLib.signedSquare(ImpiLib.deadzone(DriverController.getX(Hand.kRight), 0.05));
-		RobotContainer.chasisSubsystem.drive.arcadeDrive(move, turn);
+    XboxController ButtonsController = RobotContainer.getButtonsController();
+		double flap = ImpiLib.signedSquare(ImpiLib.deadzone(ButtonsController.getTriggerAxis(Hand.kLeft),  0.05));
+		double spin = ImpiLib.signedSquare(ImpiLib.deadzone(ButtonsController.getTriggerAxis(Hand.kRight), 0.05));
+        RobotContainer.intakeSubsystem.intakeArm.set(flap);
+        RobotContainer.intakeSubsystem.intakePull.set(spin);
   }
 
   // Called once the command ends or is interrupted.

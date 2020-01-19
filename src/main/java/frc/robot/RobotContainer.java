@@ -126,7 +126,7 @@ public class RobotContainer {
 		return getDriverController();
 	}
 
-	final XboxController getButtonsController() {
+	public final static XboxController getButtonsController() {
 		return getButtonsController();
 	}
 
