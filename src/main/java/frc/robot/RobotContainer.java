@@ -9,8 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ChassisDrive;
 import frc.robot.commands.ShooterShoot;
 import frc.robot.commands.ShooterStop;
+import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -24,7 +26,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
 
 	// Subsystems
-	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	
 	// Commands
 	private final ShooterShoot shooterShoot1 = new ShooterShoot(4000);
@@ -32,13 +35,16 @@ public class RobotContainer {
 	private final ShooterShoot shooterShoot3 = new ShooterShoot(5700);
 	private final ShooterStop shooterStop = new ShooterStop();
 
+	private final ChassisDrive chassisDrive = new ChassisDrive();
+
  	// OI
-	private final XboxController controller = new XboxController(Constants.XBOX_CONTROLLER);
+	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
+	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
 	
-	private final JoystickButton buttonA = new JoystickButton(controller, XboxController.Button.kA.value);
-	private final JoystickButton buttonB = new JoystickButton(controller, XboxController.Button.kB.value);
-	private final JoystickButton buttonX = new JoystickButton(controller, XboxController.Button.kX.value);
-	private final JoystickButton buttonY = new JoystickButton(controller, XboxController.Button.kY.value);
+	private final JoystickButton buttonA = new JoystickButton(buttonsController, XboxController.Button.kA.value);
+	private final JoystickButton buttonB = new JoystickButton(buttonsController, XboxController.Button.kB.value);
+	private final JoystickButton buttonX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
+	private final JoystickButton buttonY = new JoystickButton(buttonsController, XboxController.Button.kY.value);
 
  	public RobotContainer() {
 		configureButtonBindings();
@@ -55,8 +61,7 @@ public class RobotContainer {
 		buttonX.whenPressed(shooterShoot2);
 		buttonY.whenPressed(shooterShoot3);
 		buttonB.whenPressed(shooterStop);
-  	}
-
+	  }
 
  	/**
   	* Use this to pass the autonomous command to the main {@link Robot} class.
