@@ -24,6 +24,7 @@ public final class Constants {
 
     public static final int intakeMasterPort = 4;
     public static final int intakeSlavePort = 5;
+    public static final int shooterFeederPort = 13;
     
     // Controllers
     public static final int OI_DRIVER_CONTROLLER_CHANNEL = 0;

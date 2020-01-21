@@ -13,6 +13,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ShooterFeederSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ChasisSubsystem;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -36,6 +37,8 @@ public class RobotContainer {
 
   public static ChasisSubsystem chasisSubsystem = new ChasisSubsystem();
   public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public static ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
