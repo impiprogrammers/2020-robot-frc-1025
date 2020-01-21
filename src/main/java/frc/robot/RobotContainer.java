@@ -9,11 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ChassisDrive;
-import frc.robot.commands.ShooterShoot;
-import frc.robot.commands.ShooterStop;
-import frc.robot.subsystems.ChassisSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
