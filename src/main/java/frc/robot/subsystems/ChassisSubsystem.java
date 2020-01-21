@@ -31,8 +31,8 @@ public class ChassisSubsystem extends SubsystemBase {
   public DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
 
   public ChassisSubsystem() {
-	leftRear.follow(leftFront);
-	rightRear.follow(rightFront);
+	  leftRear.follow(leftFront);
+	  rightRear.follow(rightFront);
   }
   
   public void manualDrive(double move, double turn) {
