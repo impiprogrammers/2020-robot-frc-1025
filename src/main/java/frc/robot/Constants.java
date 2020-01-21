@@ -16,14 +16,14 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int XBOX_CONTROLLER_DRIVER = 0;
-    public static final int XBOX_CONTROLLER_BUTTONS = 1;
+    // OI
+    public static final int DRIVER_CONTROLLER_PORT = 0;
+    public static final int BUTTONS_CONTROLLER_PORT = 0;
 
-    public static final int SHOOTER_LEFT_MOTOR = 1;
-    public static final int SHOOTER_RIGHT_MOTOR = 4;
+    // Intake
+    public static final int INTAKE_EXTENDER_MODULE = 4;
+    public static final int INTAKE_ROLLERS_PORT = 5;
 
-    public static final int CHASSIS_LEFT_FRONT_MOTOR = 0;
-    public static final int CHASSIS_RIGHT_FRONT_MOTOR = 1;
-    public static final int CHASSIS_LEFT_REAR_MOTOR = 2;
-    public static final int CHASSIS_RIGHT_REAR_MOTOR = 3;
+    // PCM
+    public static final int INTAKE_EXTENDER_CHANNEL = 0;
 }

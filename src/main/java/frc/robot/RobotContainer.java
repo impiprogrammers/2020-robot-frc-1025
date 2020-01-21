@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.IntakeExtenderToggle;
 import frc.robot.subsystems.IntakeSubsystem;
 
 /**
@@ -27,8 +28,15 @@ public class RobotContainer {
 	
 	// Commands
 
- 	// OI
+	IntakeExtenderToggle intakeExtenderToggle = new IntakeExtenderToggle();
 
+	// OI
+	
+	XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+	XboxController buttonsController = new XboxController(Constants.BUTTONS_CONTROLLER_PORT);
+
+	JoystickButton leftBumper = new JoystickButton(driverController, XboxController.Button.kBumperLeft.value);
+	
  	public RobotContainer() {
 		configureButtonBindings();
  	}
@@ -40,6 +48,7 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() {
+		 leftBumper.whenPressed(intakeExtenderToggle);
 	  }
 
  	/**
@@ -49,6 +58,6 @@ public class RobotContainer {
 	  */
   	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		return new ShooterStop();
+		return new IntakeExtenderToggle();
 	}
 }
