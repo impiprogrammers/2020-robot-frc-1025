@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.IntakeExtenderToggle;
+import frc.robot.commands.IntakeRollersRoll;
 import frc.robot.subsystems.IntakeSubsystem;
 
 /**
@@ -29,11 +30,12 @@ public class RobotContainer {
 	// Commands
 
 	IntakeExtenderToggle intakeExtenderToggle = new IntakeExtenderToggle();
+	IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
 
 	// OI
 	
-	XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
-	XboxController buttonsController = new XboxController(Constants.BUTTONS_CONTROLLER_PORT);
+	public static XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+	public static XboxController buttonsController = new XboxController(Constants.BUTTONS_CONTROLLER_PORT);
 
 	JoystickButton leftBumper = new JoystickButton(driverController, XboxController.Button.kBumperLeft.value);
 	

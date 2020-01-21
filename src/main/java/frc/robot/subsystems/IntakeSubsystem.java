@@ -7,11 +7,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.IntakeRollersRoll;
 
 public class IntakeSubsystem extends SubsystemBase {
 
@@ -19,7 +21,7 @@ public class IntakeSubsystem extends SubsystemBase {
 	TalonSRX intakeRollers = new TalonSRX(Constants.INTAKE_ROLLERS_PORT);
 
 	public IntakeSubsystem() {
-
+		setDefaultCommand(new IntakeRollersRoll());
 	}
 
 	@Override
@@ -33,6 +35,10 @@ public class IntakeSubsystem extends SubsystemBase {
 		} else {
 			intakeExtender.set(true);
 		}
+	}
+
+	public void rollersRoll(double speed) {
+		intakeRollers.set(ControlMode.PercentOutput, speed);
 	}
 
 
