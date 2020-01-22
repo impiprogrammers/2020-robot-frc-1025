@@ -24,7 +24,10 @@ public class RobotContainer {
 	
 	// Commands
 
- 	// OI
+	// OI
+	
+	public static XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
+	public static XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
 
  	public RobotContainer() {
 		configureButtonBindings();
