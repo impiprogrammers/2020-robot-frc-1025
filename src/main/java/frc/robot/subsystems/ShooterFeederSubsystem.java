@@ -29,7 +29,7 @@ public class ShooterFeederSubsystem extends SubsystemBase {
       shooterFeederRoller.set(ControlMode.PercentOutput, 1.0);
 
   }
-  public void stop() {
+  public void stopFeeder() {
     shooterFeederRoller.set(ControlMode.PercentOutput, 0.0);
   }
 
