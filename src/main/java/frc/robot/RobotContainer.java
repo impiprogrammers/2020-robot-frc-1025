@@ -11,6 +11,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.climber.ClimberExtenderExtend;
+import frc.robot.commands.climber.ClimberExtenderRetract;
+import frc.robot.commands.climber.ClimberLockToggle;
+import frc.robot.commands.climber.ClimberShimmyLeft;
+import frc.robot.commands.climber.ClimberShimmyRight;
+import frc.robot.commands.climber.ClimberWinchUnwinch;
+import frc.robot.commands.climber.ClimberWinchWinch;
+import frc.robot.subsystems.ClimberSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -21,8 +29,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
 
 	// Subsystems
+
+	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	
 	// Commands
+
+	ClimberExtenderExtend climberExtenderExtend = new ClimberExtenderExtend();
+	ClimberExtenderRetract climberExtenderRetract = new ClimberExtenderRetract();
+	ClimberLockToggle climberLockToggle = new ClimberLockToggle();
+	ClimberWinchWinch climberWinchWinch = new ClimberWinchWinch();
+	ClimberWinchUnwinch climberWinchUnwinch = new ClimberWinchUnwinch();
+	ClimberShimmyLeft climberShimmyLeft = new ClimberShimmyLeft();
+	ClimberShimmyRight climberShimmyRight = new ClimberShimmyRight();
 
 	// OI
 	

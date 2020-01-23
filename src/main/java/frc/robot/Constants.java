@@ -16,6 +16,18 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    // OI
     public static final int XBOX_CONTROLLER_DRIVER = 0;
     public static final int XBOX_CONTROLLER_BUTTONS = 1;
+
+    // Climber
+    public static final int CLIMBER_EXTENDER_MODULE = 13;
+    public static final int CLIMBER_LOCK_MODULE = 14;
+    public static final int CLIMBER_WINCH_PORT = 15;
+    public static final int CLMBER_SHIMMY_PORT = 16;
+
+    // PCM
+    public static final int CLIMBER_EXTENDER_CHANNEL = 0;
+    public static final int CLIMBER_LOCK_CHANNEL = 0;
+
 }
