@@ -20,28 +20,29 @@ import frc.robot.commands.*;
 public class ChassisSubsystem extends SubsystemBase {
 
 
-  public WPI_TalonSRX leftFront = new WPI_TalonSRX(Constants.CHASSIS_LEFT_FRONT_MOTOR);
-  public WPI_TalonSRX rightFront = new WPI_TalonSRX(Constants.CHASSIS_RIGHT_FRONT_MOTOR);
-  public WPI_TalonSRX leftRear = new WPI_TalonSRX(Constants.CHASSIS_LEFT_REAR_MOTOR);
-  public WPI_TalonSRX rightRear = new WPI_TalonSRX(Constants.CHASSIS_RIGHT_REAR_MOTOR);
+	public WPI_TalonSRX leftFront = new WPI_TalonSRX(Constants.CHASSIS_LEFT_FRONT_MOTOR);
+	public WPI_TalonSRX rightFront = new WPI_TalonSRX(Constants.CHASSIS_RIGHT_FRONT_MOTOR);
+	public WPI_TalonSRX leftRear = new WPI_TalonSRX(Constants.CHASSIS_LEFT_REAR_MOTOR);
+	public WPI_TalonSRX rightRear = new WPI_TalonSRX(Constants.CHASSIS_RIGHT_REAR_MOTOR);
 
-  SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(leftFront, leftRear);
-  SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(rightFront, rightRear);
+	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(leftFront, leftRear);
+	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(rightFront, rightRear);
 
-  public DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
+	public DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
 
-  public ChassisSubsystem() {
-    setDefaultCommand(new ChassisDrive());
-  }
-  
-  public void manualDrive(double move, double turn) {
-	// if(move > .5) move = .5;
+	public ChassisSubsystem() {
+		setDefaultCommand(new ChassisDrive());
+	}
+	
+	public void manualDrive(double move, double turn) {
+		// if(move > .5) move = .5;
 
-	drive.arcadeDrive(move, turn);
-  }
+		drive.arcadeDrive(move, turn);
+	}
 
-  @Override
-  public void periodic() {
+
+	@Override
+	public void periodic() {
 	// This method will be called once per scheduler run
-  }
+	}
 }
