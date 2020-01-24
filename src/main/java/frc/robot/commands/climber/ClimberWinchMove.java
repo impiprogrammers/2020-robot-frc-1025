@@ -8,15 +8,17 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ImpiLib2020;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class ClimberShimmyRight extends CommandBase {
+public class ClimberWinchMove extends CommandBase {
 	
 	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
-	public ClimberShimmyRight() {
+	public ClimberWinchMove() {
 		addRequirements(climberSubsystem);
 	}
 
@@ -29,7 +31,13 @@ public class ClimberShimmyRight extends CommandBase {
 	@Override
 	public void execute() {
 		XboxController driverController = RobotContainer.driverController;
-		climberSubsystem.shimmyMove(0.5);
+		double leftTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kLeft), 0.05);
+		double rightTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kRight), 0.05);
+		if (rightTriggerAxis > 0) {
+			climberSubsystem.winchMove(Math.pow(rightTriggerAxis, 2));
+		} else if (leftTriggerAxis > 0) {
+			climberSubsystem.winchMove(-Math.pow(rightTriggerAxis, 2));
+		}
 	}
 
 	// Called once the command ends or is interrupted.

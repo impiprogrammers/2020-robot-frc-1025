@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class ClimberShimmyLeft extends CommandBase {
+public class ClimberShimmyMove extends CommandBase {
 	
 	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
-	public ClimberShimmyLeft() {
+	public ClimberShimmyMove() {
 		addRequirements(climberSubsystem);
 	}
 
@@ -29,7 +29,11 @@ public class ClimberShimmyLeft extends CommandBase {
 	@Override
 	public void execute() {
 		XboxController driverController = RobotContainer.driverController;
-		climberSubsystem.shimmyMove(-0.5);
+		if (driverController.getPOV() == 90) {
+			climberSubsystem.shimmyMove(0.5);
+		} else if (driverController.getPOV() == 270) {
+			climberSubsystem.shimmyMove(-0.5);
+		}
 	}
 
 	// Called once the command ends or is interrupted.

@@ -10,14 +10,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.climber.ClimberExtenderExtend;
 import frc.robot.commands.climber.ClimberExtenderRetract;
 import frc.robot.commands.climber.ClimberLockToggle;
-import frc.robot.commands.climber.ClimberShimmyLeft;
-import frc.robot.commands.climber.ClimberShimmyRight;
-import frc.robot.commands.climber.ClimberWinchUnwinch;
-import frc.robot.commands.climber.ClimberWinchWinch;
+import frc.robot.commands.climber.ClimberShimmyMove;
+import frc.robot.commands.climber.ClimberWinchMove;
 import frc.robot.subsystems.ClimberSubsystem;
 
 /**
@@ -37,10 +34,8 @@ public class RobotContainer {
 	ClimberExtenderExtend climberExtenderExtend = new ClimberExtenderExtend();
 	ClimberExtenderRetract climberExtenderRetract = new ClimberExtenderRetract();
 	ClimberLockToggle climberLockToggle = new ClimberLockToggle();
-	ClimberWinchWinch climberWinchWinch = new ClimberWinchWinch();
-	ClimberWinchUnwinch climberWinchUnwinch = new ClimberWinchUnwinch();
-	ClimberShimmyLeft climberShimmyLeft = new ClimberShimmyLeft();
-	ClimberShimmyRight climberShimmyRight = new ClimberShimmyRight();
+	ClimberWinchMove climberWinchMove = new ClimberWinchMove();
+	ClimberShimmyMove climberShimmyMove = new ClimberShimmyMove();
 
 	// OI
 	
@@ -67,6 +62,6 @@ public class RobotContainer {
 	  */
   	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		return new ShooterStop();
+		return new ClimberShimmyMove();
 	}
 }

@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.climber.ClimberLoop;
 
 public class ClimberSubsystem extends SubsystemBase {
 	
@@ -15,7 +16,7 @@ public class ClimberSubsystem extends SubsystemBase {
 	TalonSRX shimmy = new TalonSRX(Constants.CLMBER_SHIMMY_PORT);
 
 	public ClimberSubsystem() {
-		
+		setDefaultCommand(new ClimberLoop());
 	}
 
 	@Override
