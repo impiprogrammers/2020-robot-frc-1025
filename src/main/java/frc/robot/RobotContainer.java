@@ -33,12 +33,13 @@ public class RobotContainer {
 	private final ShooterStop shooterStop = new ShooterStop();
 
  	// OI
-	private final XboxController controller = new XboxController(Constants.XBOX_CONTROLLER);
+	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
+	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
 	
-	private final JoystickButton buttonA = new JoystickButton(controller, XboxController.Button.kA.value);
-	private final JoystickButton buttonB = new JoystickButton(controller, XboxController.Button.kB.value);
-	private final JoystickButton buttonX = new JoystickButton(controller, XboxController.Button.kX.value);
-	private final JoystickButton buttonY = new JoystickButton(controller, XboxController.Button.kY.value);
+	private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
+	private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
+	private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
+	private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
 
  	public RobotContainer() {
 		configureButtonBindings();
