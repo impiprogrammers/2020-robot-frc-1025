@@ -13,16 +13,16 @@ import frc.robot.Constants;
 public class ShooterSubsystem extends SubsystemBase {
 
 	// Motor Controllers
-	private CANSparkMax leftMotor = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
-	private CANSparkMax rightMotor = new CANSparkMax(Constants.SHOOTER_RIGHT_MOTOR, MotorType.kBrushless);
+	private CANSparkMax shooterLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
+	private CANSparkMax shooterRight = new CANSparkMax(Constants.SHOOTER_RIGHT_MOTOR, MotorType.kBrushless);
 
 	
 	// PID Controllers
-	private CANPIDController leftPID = leftMotor.getPIDController();
-	private CANPIDController rightPID = rightMotor.getPIDController();
+	private CANPIDController leftPID = shooterLeft.getPIDController();
+	private CANPIDController rightPID = shooterRight.getPIDController();
 
-	private CANEncoder leftEncoder = leftMotor.getEncoder();
-	private CANEncoder rightEncoder = rightMotor.getEncoder();
+	private CANEncoder leftEncoder = shooterLeft.getEncoder();
+	private CANEncoder rightEncoder = shooterRight.getEncoder();
 
 	// Doubles
 	private double p0 = 5e-5;
@@ -117,8 +117,8 @@ public class ShooterSubsystem extends SubsystemBase {
 	public void shoot(double setpoint) {
 		leftPID.setReference(-setpoint, ControlType.kVelocity);
 		rightPID.setReference(setpoint, ControlType.kVelocity);
-		// leftMotor.pidWrite(-.25);
-		// rightMotor.pidWrite(-.25);
+		// shooterLeft.pidWrite(-.25);
+		// shooterRight.pidWrite(-.25);
 		
 		SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Velocity", rightEncoder.getVelocity());
