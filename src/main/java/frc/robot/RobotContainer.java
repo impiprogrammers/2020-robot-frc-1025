@@ -42,13 +42,10 @@ public class RobotContainer {
 	public static XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
 	public static XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
 
-	int buttonA = XboxController.Button.kA.value;
-	int buttonB = XboxController.Button.kB.value;
-	int buttonX = XboxController.Button.kX.value;
-	int buttonY = XboxController.Button.kY.value;
+	JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
 
-	int buttonSelect = XboxController.Button.kBack.value;
-	int buttonStart = XboxController.Button.kStart.value;
+	JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
+	JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
 
  	public RobotContainer() {
 		configureButtonBindings();
@@ -61,7 +58,9 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() {
-		
+		driverA.whenPressed(climberLockToggle);
+		driverSelect.whenPressed(climberExtenderExtend);
+		driverStart.whenPressed(climberExtenderRetract);
 	}
 
  	/**
