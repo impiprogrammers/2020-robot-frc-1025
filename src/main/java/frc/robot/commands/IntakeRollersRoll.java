@@ -30,8 +30,8 @@ public class IntakeRollersRoll extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		XboxController driverController = RobotContainer.driverController;
-		intakeSubsystem.rollersRoll(Math.pow(ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kLeft), 0.05), 2));
+		XboxController buttonsController = RobotContainer.buttonsController;
+		intakeSubsystem.rollersRoll(Math.pow(ImpiLib2020.deadzone(buttonsController.getTriggerAxis(Hand.kLeft), 0.05), 2));
 	}
 
 	// Called once the command ends or is interrupted.
