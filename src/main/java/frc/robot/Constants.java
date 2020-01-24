@@ -18,4 +18,6 @@ package frc.robot;
 public final class Constants {
     public static final int XBOX_CONTROLLER_DRIVER = 0;
     public static final int XBOX_CONTROLLER_BUTTONS = 1;
+	public static final int CONTROL_PANEL_WHEEL = 18;
+	public static final int CONTROL_PANEL_PISTON = 0;
 }
