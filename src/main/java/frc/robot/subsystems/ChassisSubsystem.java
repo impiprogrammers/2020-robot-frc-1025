@@ -7,7 +7,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -15,20 +16,20 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.*;
+import frc.robot.commands.chassis.ChassisDrive;
 
 public class ChassisSubsystem extends SubsystemBase {
 
 
-	public WPI_TalonSRX leftFront = new WPI_TalonSRX(Constants.CHASSIS_LEFT_FRONT_MOTOR);
-	public WPI_TalonSRX rightFront = new WPI_TalonSRX(Constants.CHASSIS_RIGHT_FRONT_MOTOR);
-	public WPI_TalonSRX leftRear = new WPI_TalonSRX(Constants.CHASSIS_LEFT_REAR_MOTOR);
-	public WPI_TalonSRX rightRear = new WPI_TalonSRX(Constants.CHASSIS_RIGHT_REAR_MOTOR);
+	public CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CHASSIS_LEFT_FRONT_MOTOR, MotorType.kBrushless);
+	public CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CHASSIS_RIGHT_FRONT_MOTOR, MotorType.kBrushless);
+	public CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CHASSIS_LEFT_REAR_MOTOR, MotorType.kBrushless);
+	public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_MOTOR, MotorType.kBrushless);
 
-	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(leftFront, leftRear);
-	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(rightFront, rightRear);
+	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftFront, driveMotorLeftRear);
+	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRightFront, driveMotorRightRear);
 
-	public DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
+	public DifferentialDrive drive = new DifferentialDrive(driveMotorLeftFront, driveMotorRightFront);
 
 	public ChassisSubsystem() {
 		setDefaultCommand(new ChassisDrive());

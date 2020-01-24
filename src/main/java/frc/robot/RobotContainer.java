@@ -9,11 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ChassisDrive;
-import frc.robot.commands.ShooterShoot;
-import frc.robot.commands.ShooterStop;
+import frc.robot.commands.chassis.ChassisDrive;
 import frc.robot.subsystems.ChassisSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -26,15 +23,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
 
 	// Subsystems
-	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	
 	// Commands
-	private final ShooterShoot shooterShoot1 = new ShooterShoot(4000);
-	private final ShooterShoot shooterShoot2 = new ShooterShoot(5000);
-	private final ShooterShoot shooterShoot3 = new ShooterShoot(5700);
-	private final ShooterStop shooterStop = new ShooterStop();
-
 	private final ChassisDrive chassisDrive = new ChassisDrive();
 
  	// OI
@@ -57,10 +48,6 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() {
-		buttonA.whenPressed(shooterShoot1);
-		buttonX.whenPressed(shooterShoot2);
-		buttonY.whenPressed(shooterShoot3);
-		buttonB.whenPressed(shooterStop);
 	  }
 
  	/**
@@ -70,6 +57,6 @@ public class RobotContainer {
 	  */
   	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		return new ShooterStop();
+		return new ChassisDrive();
 	}
 }
