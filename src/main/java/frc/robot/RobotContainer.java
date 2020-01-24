@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ConveyorRoll;
+import frc.robot.subsystems.ConveyorSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -21,11 +23,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
 
 	// Subsystems
+	ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	
 	// Commands
+	ConveyorRoll conveyorRoll = new ConveyorRoll();
 
 	// OI
-	
 	public static XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
 	public static XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
 
@@ -49,6 +52,6 @@ public class RobotContainer {
 	  */
   	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		return new ShooterStop();
+		return new ConveyorRoll();
 	}
 }
