@@ -15,7 +15,7 @@ public class ClimberSubsystem extends SubsystemBase {
 	TalonSRX shimmy = new TalonSRX(Constants.CLMBER_SHIMMY_PORT);
 
 	public ClimberSubsystem() {
-
+		
 	}
 
 	@Override
