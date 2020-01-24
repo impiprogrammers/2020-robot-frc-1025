@@ -37,7 +37,7 @@ public class RobotContainer {
 	public static XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
 	public static XboxController buttonsController = new XboxController(Constants.BUTTONS_CONTROLLER_PORT);
 
-	JoystickButton leftBumper = new JoystickButton(driverController, XboxController.Button.kBumperLeft.value);
+	JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
 	
  	public RobotContainer() {
 		configureButtonBindings();
@@ -50,7 +50,7 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() {
-		 leftBumper.whenPressed(intakeExtenderToggle);
+		 buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 	  }
 
  	/**
