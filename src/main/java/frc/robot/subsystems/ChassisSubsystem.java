@@ -31,8 +31,7 @@ public class ChassisSubsystem extends SubsystemBase {
   public DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
 
   public ChassisSubsystem() {
-	  leftRear.follow(leftFront);
-	  rightRear.follow(rightFront);
+    setDefaultCommand(new ChassisDrive());
   }
   
   public void manualDrive(double move, double turn) {
@@ -44,6 +43,5 @@ public class ChassisSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
 	// This method will be called once per scheduler run
-	setDefaultCommand(new ChassisDrive());
   }
 }
