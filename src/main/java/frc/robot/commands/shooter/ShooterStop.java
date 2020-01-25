@@ -8,7 +8,6 @@ public class ShooterStop extends CommandBase {
 	ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
 	public ShooterStop() {
-		shooterSubsystem = new ShooterSubsystem();
 		addRequirements(shooterSubsystem);
 	}
 

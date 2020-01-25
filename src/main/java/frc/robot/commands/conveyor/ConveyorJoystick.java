@@ -5,21 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.chassis;
+package frc.robot.commands.conveyor;
+
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ImpiLib2020;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.ChassisSubsystem;
-import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.ConveyorSubsystem;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import frc.robot.ImpiLib2020;
 
-public class ChassisDrive extends CommandBase {
-	
-	ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+public class ConveyorJoystick extends CommandBase {
 
-	public ChassisDrive() {
-		addRequirements(chassisSubsystem);
+	private final ConveyorSubsystem conveyorJoystick = new ConveyorSubsystem();
+
+	public ConveyorJoystick() {
+		addRequirements(conveyorJoystick);
 	}
 
 	// Called when the command is initially scheduled.
@@ -29,11 +29,9 @@ public class ChassisDrive extends CommandBase {
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
-	public void execute() {		
-		XboxController driverController = RobotContainer.driverController;
-		double move = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(driverController.getY(Hand.kLeft),  0.05), -1, 1));
-		double turn = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(driverController.getX(Hand.kRight), 0.05), -1, 1));
-		chassisSubsystem.arcadeDrive(move, turn);
+	public void execute() {
+		conveyorJoystick.conveyorRoll(Math.pow(ImpiLib2020.deadzone(RobotContainer.buttonsController.getY(Hand.kRight), 0.05), 2));
+
 	}
 
 	// Called once the command ends or is interrupted.

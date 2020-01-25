@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.ConveyorRoll;
+import frc.robot.commands.conveyor.ConveyorRoll;
 
 public class ConveyorSubsystem extends SubsystemBase {
 

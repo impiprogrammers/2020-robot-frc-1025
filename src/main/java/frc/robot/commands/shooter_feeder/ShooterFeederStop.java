@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 
 public class ShooterFeederStop extends CommandBase {
-  private final ShooterFeederSubsystem m_shooterFeeder = new ShooterFeederSubsystem();
+  ShooterFeederSubsystem shooterFeeder = new ShooterFeederSubsystem();
 
   public ShooterFeederStop() {
-    addRequirements(m_shooterFeeder);
+    addRequirements(shooterFeeder);
   }
  
   @Override
@@ -23,7 +23,7 @@ public class ShooterFeederStop extends CommandBase {
 
   @Override
   public void execute() {
-    m_shooterFeeder.stop();
+    shooterFeeder.stop();
   }
 
   @Override
