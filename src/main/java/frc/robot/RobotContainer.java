@@ -13,6 +13,9 @@ import frc.robot.commands.chassis.ChassisDrive;
 import frc.robot.subsystems.ChassisSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.IntakeExtenderToggle;
+import frc.robot.commands.IntakeRollersRoll;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -28,15 +31,20 @@ public class RobotContainer {
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
 
- 	// OI
-	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
-	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
+	IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	
-	private final JoystickButton buttonA = new JoystickButton(buttonsController, XboxController.Button.kA.value);
-	private final JoystickButton buttonB = new JoystickButton(buttonsController, XboxController.Button.kB.value);
-	private final JoystickButton buttonX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
-	private final JoystickButton buttonY = new JoystickButton(buttonsController, XboxController.Button.kY.value);
+	// Commands
 
+	IntakeExtenderToggle intakeExtenderToggle = new IntakeExtenderToggle();
+	IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
+
+	// OI
+	
+	public static XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+	public static XboxController buttonsController = new XboxController(Constants.BUTTONS_CONTROLLER_PORT);
+
+	JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
+	
  	public RobotContainer() {
 		configureButtonBindings();
  	}
@@ -48,6 +56,7 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() {
+		 buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 	  }
 
  	/**
