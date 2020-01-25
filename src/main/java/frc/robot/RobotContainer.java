@@ -15,11 +15,11 @@ import frc.robot.commands.intake.IntakeRollersRoll;
 import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.commands.shooter.ShooterShoot;
 import frc.robot.commands.shooter.ShooterStop;
+import frc.robot.commands.shooter.ShooterToggle;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.ConveyorRoll;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.commands.shooter_feeder.ShooterFeederSpin;
 import frc.robot.commands.shooter_feeder.ShooterFeederStop;
@@ -29,6 +29,7 @@ import frc.robot.commands.climber.ClimberExtenderRetract;
 import frc.robot.commands.climber.ClimberLockToggle;
 import frc.robot.commands.climber.ClimberShimmyMove;
 import frc.robot.commands.climber.ClimberWinchMove;
+import frc.robot.commands.conveyor.ConveyorRoll;
 import frc.robot.subsystems.ClimberSubsystem;
 
 /**
@@ -56,6 +57,8 @@ public class RobotContainer {
 	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
 
 	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
+	private final ShooterStop shooterStop = new ShooterStop();
+	private final ShooterToggle shooterToggle = new ShooterToggle(5700);
 
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll();
 
@@ -76,10 +79,12 @@ public class RobotContainer {
 	private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
 	private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
 	private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
-
-	private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
 	private final JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
 	private final JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
+
+	private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
+	private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
+	
 
 	// Global Variables
 	public static boolean climberMode = false;
@@ -94,12 +99,13 @@ public class RobotContainer {
  	* edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
- 	private void configureButtonBindings() {
-		 buttonsLeftBumper.whenPressed(intakeExtenderToggle);
-		 
+ 	private void configureButtonBindings() { 
 		driverA.whenPressed(climberLockToggle);
 		driverSelect.whenPressed(climberExtenderExtend);
 		driverStart.whenPressed(climberExtenderRetract);
+
+		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
+		buttonsRightBumper.whenPressed(shooterToggle);
 	}
 
  	/**

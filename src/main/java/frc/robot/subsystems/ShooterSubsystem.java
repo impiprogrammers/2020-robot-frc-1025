@@ -34,6 +34,9 @@ public class ShooterSubsystem extends SubsystemBase {
 	private double max0 = 1;
 	private double maxRPM = 5700;
 
+	// Booleans
+	private boolean shooterEnabled = false;
+
 	public ShooterSubsystem() {
 		// Set PID Values
 		leftPID.setP(p0);
@@ -122,11 +125,23 @@ public class ShooterSubsystem extends SubsystemBase {
 		
 		SmartDashboard.putNumber("Setpoint", setpoint);
 		SmartDashboard.putNumber("Velocity", rightEncoder.getVelocity());
+
+		shooterEnabled = true;
 		
 	}
 
 	public void stop() {
 		leftPID.setReference(0, ControlType.kVelocity);
 		rightPID.setReference(0, ControlType.kVelocity);
+
+		shooterEnabled = false;
+	}
+
+	public void toggle(double setpoint) {
+		if (shooterEnabled) {
+			stop();
+		} else {
+			shoot(setpoint);
+		}
 	}
 }
