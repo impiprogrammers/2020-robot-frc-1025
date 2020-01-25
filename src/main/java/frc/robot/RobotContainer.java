@@ -47,6 +47,9 @@ public class RobotContainer {
 	JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
 	JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
 
+	// Global Variables
+	public static boolean climberMode = false;
+
  	public RobotContainer() {
 		configureButtonBindings();
  	}

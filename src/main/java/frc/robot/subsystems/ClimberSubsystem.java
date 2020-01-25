@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.climber.ClimberLoop;
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -26,14 +27,16 @@ public class ClimberSubsystem extends SubsystemBase {
 
 	public void extenderExtend() {
 		climberExtender.set(true);
+		RobotContainer.climberMode = true;
 	}
 	
 	public void extenderRetract() {
 		climberExtender.set(false);
+		RobotContainer.climberMode = false;
 	}
 
 	public void lockToggle() {
-		if (climberExtender.get()) {
+		if (RobotContainer.climberMode) {
 			if (climberLock.get()) {
 				climberLock.set(false);
 			} else {
@@ -43,14 +46,21 @@ public class ClimberSubsystem extends SubsystemBase {
 	}
 
 	public void winchMove(double speed) {
-		if (climberExtender.get()) {
+		if (RobotContainer.climberMode) {
 			climberWinch.set(ControlMode.PercentOutput, speed);
 		}
 	}
 
 	public void shimmyMove(double speed) {
-		if (climberExtender.get()) {
+		if (RobotContainer.climberMode) {
 			shimmy.set(ControlMode.PercentOutput, speed);
 		}
 	}
+
+	public void stop() {
+		climberWinch.set(ControlMode.PercentOutput, 0);
+		shimmy.set(ControlMode.PercentOutput, 0);
+	}
+
+	// todo: discuss whether or not stop() method should also disable the joysticks and/or disable climber mode + lock the lock
 }
