@@ -33,9 +33,9 @@ public class ChassisDrive extends CommandBase {
   @Override
   public void execute() {		
     XboxController DriverController = RobotContainer.driverController;
-		double move = ImpiLib2020.signedSquare(ImpiLib2020.deadzone(DriverController.getY(Hand.kLeft),  0.05));
-		double turn = ImpiLib2020.signedSquare(ImpiLib2020.deadzone(DriverController.getX(Hand.kRight), 0.05));
-		chassisSubsystem.drive.arcadeDrive(move, turn);
+		double move = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(DriverController.getY(Hand.kLeft),  0.05), -1, 1));
+		double turn = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(DriverController.getX(Hand.kRight), 0.05), -1, 1));
+		chassisSubsystem.arcadeDrive(move, turn);
   }
 
   // Called once the command ends or is interrupted.

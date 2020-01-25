@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -31,14 +32,25 @@ public class ChassisSubsystem extends SubsystemBase {
 
 	public ChassisSubsystem() {
 		setDefaultCommand(new ChassisDrive());
+
+		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
+		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
+		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
+		driveMotorRightRear.setIdleMode(IdleMode.kCoast);
+
+		driveMotorLeftFront.setSmartCurrentLimit(20);
+		driveMotorRightFront.setSmartCurrentLimit(20);
+		driveMotorLeftRear.setSmartCurrentLimit(20);
+		driveMotorRightRear.setSmartCurrentLimit(20);
 	}
 	
-	public void manualDrive(double move, double turn) {
-		// if(move > .5) move = .5;
-
+	public void arcadeDrive(double move, double turn) {
 		drive.arcadeDrive(move, turn);
 	}
 
+	public void tankDrive(double left, double right) {
+		drive.tankDrive(left, right);
+	}
 
 	@Override
 	public void periodic() {
