@@ -9,28 +9,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.chassis.ChassisDrive;
-import frc.robot.commands.intake.IntakeExtenderToggle;
-import frc.robot.commands.intake.IntakeRollersRoll;
-import frc.robot.subsystems.ChassisSubsystem;
-import frc.robot.commands.shooter.ShooterShoot;
-import frc.robot.commands.shooter.ShooterStop;
-import frc.robot.commands.shooter.ShooterToggle;
-import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ConveyorSubsystem;
-import frc.robot.commands.shooter_feeder.ShooterFeederSpin;
-import frc.robot.commands.shooter_feeder.ShooterFeederStop;
-import frc.robot.subsystems.ShooterFeederSubsystem;
-import frc.robot.commands.climber.ClimberExtenderExtend;
-import frc.robot.commands.climber.ClimberExtenderRetract;
-import frc.robot.commands.climber.ClimberLockToggle;
-import frc.robot.commands.climber.ClimberShimmyMove;
-import frc.robot.commands.climber.ClimberWinchMove;
-import frc.robot.commands.conveyor.ConveyorRoll;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.*;
+import frc.robot.commands.chassis.*;
+import frc.robot.commands.climber.*;
+import frc.robot.commands.conveyor.*;
+import frc.robot.commands.intake.*;
+import frc.robot.commands.shooter_feeder.*;
+import frc.robot.commands.shooter.*;
+import frc.robot.commands.shooter_feeder.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a

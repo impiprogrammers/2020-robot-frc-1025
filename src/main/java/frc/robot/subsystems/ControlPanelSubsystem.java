@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
+		==========
+		UNFINISHED
+		==========
+*/
+
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.I2C;
-
 import com.revrobotics.ColorSensorV3;
-
-import com.revrobotics.ColorMatchResult;
-
 import com.revrobotics.ColorMatch;
-
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -54,6 +54,6 @@ public class ControlPanelSubsystem extends SubsystemBase {
 	}
 	@Override
 	public void periodic() {
-		// This method will be called once per scheduler run
+		
 	}
 }

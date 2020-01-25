@@ -41,5 +41,4 @@ public class IntakeSubsystem extends SubsystemBase {
 		intakeRollers.set(ControlMode.PercentOutput, speed);
 	}
 
-
 }
