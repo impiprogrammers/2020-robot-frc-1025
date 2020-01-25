@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ConveyorRoll;
 import frc.robot.subsystems.ConveyorSubsystem;
-
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -27,6 +26,7 @@ public class RobotContainer {
 	
 	// Commands
 	ConveyorRoll conveyorRoll = new ConveyorRoll();
+
 
 	// OI
 	public static XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);

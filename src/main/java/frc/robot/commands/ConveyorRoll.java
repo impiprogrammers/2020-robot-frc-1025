@@ -17,18 +17,21 @@ public class ConveyorRoll extends CommandBase {
 
 	@Override
 	public void initialize() {
+		XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
+		conveyorSubsystem.conveyorRoll(0.05);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
-		conveyorSubsystem.conveyorRoll(ImpiLib2020.signedSquare(ImpiLib2020.deadzone(buttonsController.getY(Hand.kRight), 0.05)));
+		conveyorSubsystem.conveyorRoll(0.05);
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+
 	}
 
 	// Returns true when the command should end.
