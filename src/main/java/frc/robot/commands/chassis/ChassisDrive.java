@@ -16,11 +16,9 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class ChassisDrive extends CommandBase {
   
-  ChassisSubsystem chassisSubsystem;
+  ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 
   public ChassisDrive() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    chassisSubsystem = new ChassisSubsystem();
     addRequirements(chassisSubsystem);
   }
 
