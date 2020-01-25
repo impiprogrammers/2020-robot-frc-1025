@@ -19,6 +19,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.ConveyorRoll;
+import frc.robot.subsystems.ConveyorSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -29,7 +31,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class RobotContainer {
 
 	// Subsystems
-	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+	private final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
@@ -38,6 +43,8 @@ public class RobotContainer {
 	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
 
 	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
+
+	private final ConveyorRoll conveyorRoll = new ConveyorRoll();
 
  	// OI
 	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
@@ -49,7 +56,7 @@ public class RobotContainer {
 	private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
 
 	JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
-	
+
  	public RobotContainer() {
 		configureButtonBindings();
  	}
