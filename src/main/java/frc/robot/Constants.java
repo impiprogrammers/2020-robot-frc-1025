@@ -29,6 +29,10 @@ public final class Constants {
     public static final int INTAKE_EXTENDER_MODULE = 4;
     public static final int INTAKE_ROLLERS_PORT = 5;
 
+    // Shooter
+    public static final int SHOOTER_LEFT_PORT = 6;
+	public static final int SHOOTER_RIGHT_PORT = 7;
+
     // PCM
     public static final int INTAKE_EXTENDER_CHANNEL = 0;
 }

@@ -13,8 +13,8 @@ import frc.robot.Constants;
 public class ShooterSubsystem extends SubsystemBase {
 
 	// Motor Controllers
-	private CANSparkMax shooterLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
-	private CANSparkMax shooterRight = new CANSparkMax(Constants.SHOOTER_RIGHT_MOTOR, MotorType.kBrushless);
+	private CANSparkMax shooterLeft = new CANSparkMax(Constants.SHOOTER_LEFT_PORT, MotorType.kBrushless);
+	private CANSparkMax shooterRight = new CANSparkMax(Constants.SHOOTER_RIGHT_PORT, MotorType.kBrushless);
 
 	
 	// PID Controllers
