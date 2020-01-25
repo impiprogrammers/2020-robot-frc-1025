@@ -24,4 +24,9 @@ public class ConveyorSubsystem extends SubsystemBase {
 		conveyorRollers.set(ControlMode.PercentOutput, speed);
 	}
 
+	public void conveyorStop(double speed){
+		
+
+	}
+
 }
