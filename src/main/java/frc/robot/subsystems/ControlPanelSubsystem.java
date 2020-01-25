@@ -23,8 +23,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
-	private TalonSRX controlPanelWheel =  new TalonSRX(Constants.CONTROL_PANEL_WHEEL);
-	private Solenoid controlPanelPiston = new Solenoid(Constants.CONTROL_PANEL_PISTON);
+	private TalonSRX controlPanelWheel =  new TalonSRX(Constants.CONTROL_PANEL_WHEEL_PORT);
+	private Solenoid controlPanelPiston = new Solenoid(Constants.CONTROL_PANEL_PISTON_MODULE, Constants.CONTROL_PANEL_PISTON_CHANNEL);
 	private final I2C.Port i2cPort = I2C.Port.kOnboard;
 	private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 	private final ColorMatch colorMatcher = new ColorMatch();
