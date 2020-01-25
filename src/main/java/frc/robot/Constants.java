@@ -37,6 +37,9 @@ public final class Constants {
     // Conveyor
     public static final int CONVEYOR_ROLLERS_PORT = 11;
 
+    // Shooter Feeder
+    public static final int SHOOTER_FEEDER_PORT = 12;
+
     // PCM
     public static final int INTAKE_EXTENDER_CHANNEL = 0;
 }

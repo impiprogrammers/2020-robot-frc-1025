@@ -21,6 +21,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.ConveyorRoll;
 import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.commands.shooter_feeder.ShooterFeederSpin;
+import frc.robot.commands.shooter_feeder.ShooterFeederStop;
+import frc.robot.subsystems.ShooterFeederSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -36,6 +39,8 @@ public class RobotContainer {
 	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	
+	ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
 
@@ -46,10 +51,13 @@ public class RobotContainer {
 
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll();
 
+	private ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
+	private ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
+
  	// OI
 	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
 	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
-	
+
 	private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
 	private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
 	private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
