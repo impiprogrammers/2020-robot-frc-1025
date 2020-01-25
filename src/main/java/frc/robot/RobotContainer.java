@@ -27,7 +27,7 @@ public class RobotContainer {
 	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	
 	// Commands
-	private final ShooterShoot shooterShoot1 = new ShooterShoot(4000);
+	private final ShooterShoot shooterShoot1 = new ShooterShoot(100);
 	private final ShooterShoot shooterShoot2 = new ShooterShoot(5000);
 	private final ShooterShoot shooterShoot3 = new ShooterShoot(5700);
 	private final ShooterStop shooterStop = new ShooterStop();
