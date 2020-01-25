@@ -52,8 +52,4 @@ public class ControlPanelSubsystem extends SubsystemBase {
 	public void controlPanelWheelColor(){
 		
 	}
-	@Override
-	public void periodic() {
-		
-	}
 }

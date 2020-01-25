@@ -18,11 +18,6 @@ public class ConveyorSubsystem extends SubsystemBase {
 		setDefaultCommand(new ConveyorRoll());
 	}
 
-	@Override
-	public void periodic() {
-		
-	}
-
 	public void conveyorRoll(double speed) {
 		conveyorRollers.set(ControlMode.PercentOutput, speed);
 	}

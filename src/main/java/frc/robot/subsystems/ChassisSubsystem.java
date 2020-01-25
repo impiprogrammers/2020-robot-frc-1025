@@ -51,9 +51,4 @@ public class ChassisSubsystem extends SubsystemBase {
 	public void tankDrive(double left, double right) {
 		drive.tankDrive(left, right);
 	}
-
-	@Override
-	public void periodic() {
-	
-	}
 }

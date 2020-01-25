@@ -20,11 +20,6 @@ public class ClimberSubsystem extends SubsystemBase {
 		setDefaultCommand(new ClimberLoop());
 	}
 
-	@Override
-	public void periodic() {
-		
-	}
-
 	public void extenderExtend() {
 		climberExtender.set(true);
 		RobotContainer.climberMode = true;

@@ -24,12 +24,7 @@ public class IntakeSubsystem extends SubsystemBase {
 		setDefaultCommand(new IntakeRollersRoll());
 	}
 
-	@Override
-	public void periodic() {
-		
-	}
-
-	public void extenderToggle() {
+	public void intakeToggle() {
 		if (intakeExtender.get()) {
 			intakeExtender.set(false);
 		} else {
