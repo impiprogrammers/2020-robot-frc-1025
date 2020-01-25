@@ -1,31 +1,27 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.chassis;
 
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ImpiLib2020;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.ChassisSubsystem;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
-/**
- * An example command that uses an example subsystem.
- */
-public class ExampleCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+public class ChassisDrive extends CommandBase {
+  
+  ChassisSubsystem chassisSubsystem;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public ChassisDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    chassisSubsystem = new ChassisSubsystem();
+    addRequirements(chassisSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -35,7 +31,11 @@ public class ExampleCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() {		
+    XboxController DriverController = RobotContainer.driverController;
+		double move = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(DriverController.getY(Hand.kLeft),  0.05), -1, 1));
+		double turn = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(DriverController.getX(Hand.kRight), 0.05), -1, 1));
+		chassisSubsystem.arcadeDrive(move, turn);
   }
 
   // Called once the command ends or is interrupted.
