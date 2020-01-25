@@ -46,10 +46,16 @@ public final class Constants {
     public static final int CLIMBER_WINCH_PORT = 15;
     public static final int CLMBER_SHIMMY_PORT = 16;
 
+    // Control Panel
+	public static final int CONTROL_PANEL_WHEEL_PORT = 18;
+    public static final int CONTROL_PANEL_PISTON_MODULE = 19;
+
     // PCM
     public static final int INTAKE_EXTENDER_CHANNEL = 0;
     
-    public static final int CLIMBER_EXTENDER_CHANNEL = 0;
-    public static final int CLIMBER_LOCK_CHANNEL = 0;
+    public static final int CLIMBER_EXTENDER_CHANNEL = 1;
+    public static final int CLIMBER_LOCK_CHANNEL = 2;
 
+    public static final int CONTROL_PANEL_PISTON_CHANNEL = 3;
 }
+
