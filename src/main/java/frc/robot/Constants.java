@@ -40,6 +40,16 @@ public final class Constants {
     // Shooter Feeder
     public static final int SHOOTER_FEEDER_PORT = 12;
 
+    // Climber
+    public static final int CLIMBER_EXTENDER_MODULE = 13;
+    public static final int CLIMBER_LOCK_MODULE = 14;
+    public static final int CLIMBER_WINCH_PORT = 15;
+    public static final int CLMBER_SHIMMY_PORT = 16;
+
     // PCM
     public static final int INTAKE_EXTENDER_CHANNEL = 0;
+    
+    public static final int CLIMBER_EXTENDER_CHANNEL = 0;
+    public static final int CLIMBER_LOCK_CHANNEL = 0;
+
 }

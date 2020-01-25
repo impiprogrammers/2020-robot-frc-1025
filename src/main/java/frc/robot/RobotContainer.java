@@ -24,6 +24,12 @@ import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.commands.shooter_feeder.ShooterFeederSpin;
 import frc.robot.commands.shooter_feeder.ShooterFeederStop;
 import frc.robot.subsystems.ShooterFeederSubsystem;
+import frc.robot.commands.climber.ClimberExtenderExtend;
+import frc.robot.commands.climber.ClimberExtenderRetract;
+import frc.robot.commands.climber.ClimberLockToggle;
+import frc.robot.commands.climber.ClimberShimmyMove;
+import frc.robot.commands.climber.ClimberWinchMove;
+import frc.robot.subsystems.ClimberSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -40,6 +46,8 @@ public class RobotContainer {
 	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	
 	ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+
+	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
@@ -53,6 +61,12 @@ public class RobotContainer {
 
 	private ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
 	private ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
+	
+	private final ClimberExtenderExtend climberExtenderExtend = new ClimberExtenderExtend();
+	private final ClimberExtenderRetract climberExtenderRetract = new ClimberExtenderRetract();
+	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle();
+	private final ClimberWinchMove climberWinchMove = new ClimberWinchMove();
+	private final ClimberShimmyMove climberShimmyMove = new ClimberShimmyMove();
 
  	// OI
 	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
@@ -63,7 +77,12 @@ public class RobotContainer {
 	private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
 	private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
 
-	JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
+	private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
+	private final JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
+	private final JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
+
+	// Global Variables
+	public static boolean climberMode = false;
 
  	public RobotContainer() {
 		configureButtonBindings();
@@ -77,7 +96,11 @@ public class RobotContainer {
   	*/
  	private void configureButtonBindings() {
 		 buttonsLeftBumper.whenPressed(intakeExtenderToggle);
-	  }
+		 
+		driverA.whenPressed(climberLockToggle);
+		driverSelect.whenPressed(climberExtenderExtend);
+		driverStart.whenPressed(climberExtenderRetract);
+	}
 
  	/**
   	* Use this to pass the autonomous command to the main {@link Robot} class.
