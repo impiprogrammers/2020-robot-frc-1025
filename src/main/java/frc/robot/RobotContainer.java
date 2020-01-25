@@ -13,6 +13,9 @@ import frc.robot.commands.chassis.ChassisDrive;
 import frc.robot.commands.intake.IntakeExtenderToggle;
 import frc.robot.commands.intake.IntakeRollersRoll;
 import frc.robot.subsystems.ChassisSubsystem;
+import frc.robot.commands.shooter.ShooterShoot;
+import frc.robot.commands.shooter.ShooterStop;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -31,17 +34,19 @@ public class RobotContainer {
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
 
-	IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	
-	// Commands
+	private final IntakeExtenderToggle intakeExtenderToggle = new IntakeExtenderToggle();
+	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
 
-	IntakeExtenderToggle intakeExtenderToggle = new IntakeExtenderToggle();
-	IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
+	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
 
-	// OI
+ 	// OI
+	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
+	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
 	
-	public static XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
-	public static XboxController buttonsController = new XboxController(Constants.BUTTONS_CONTROLLER_PORT);
+	private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
+	private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
+	private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
+	private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
 
 	JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
 	

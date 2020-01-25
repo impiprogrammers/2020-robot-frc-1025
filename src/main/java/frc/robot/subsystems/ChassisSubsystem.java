@@ -20,10 +20,10 @@ import frc.robot.commands.chassis.ChassisDrive;
 public class ChassisSubsystem extends SubsystemBase {
 
 
-	public CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CHASSIS_LEFT_FRONT_MOTOR, MotorType.kBrushless);
-	public CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CHASSIS_RIGHT_FRONT_MOTOR, MotorType.kBrushless);
-	public CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CHASSIS_LEFT_REAR_MOTOR, MotorType.kBrushless);
-	public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_MOTOR, MotorType.kBrushless);
+	public CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
+	public CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CHASSIS_RIGHT_FRONT_PORT, MotorType.kBrushless);
+	public CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
+	public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
 
 	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftFront, driveMotorLeftRear);
 	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRightFront, driveMotorRightRear);
