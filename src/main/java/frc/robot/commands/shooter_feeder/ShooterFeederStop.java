@@ -5,27 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter_feeder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 
-public class StopFeeder extends CommandBase {
-  private final ShooterFeederSubsystem m_shooterFeeder;
- 
-  public StopFeeder(ShooterFeederSubsystem shooterFeeder) {
-    m_shooterFeeder = shooterFeeder;
+public class ShooterFeederStop extends CommandBase {
+  private final ShooterFeederSubsystem m_shooterFeeder = new ShooterFeederSubsystem();
+
+  public ShooterFeederStop() {
     addRequirements(m_shooterFeeder);
   }
  
   @Override
   public void initialize() {
-    m_shooterFeeder.stopFeeder();
   }
 
   @Override
   public void execute() {
-    m_shooterFeeder.stopFeeder();
+    m_shooterFeeder.stop();
   }
 
   @Override

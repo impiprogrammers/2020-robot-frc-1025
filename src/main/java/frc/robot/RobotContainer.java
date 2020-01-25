@@ -10,7 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.shooter_feeder.ShooterFeederSpin;
+import frc.robot.commands.shooter_feeder.ShooterFeederStop;
+import frc.robot.subsystems.ShooterFeederSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -22,7 +24,12 @@ public class RobotContainer {
 
 	// Subsystems
 	
+	ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+	
 	// Commands
+
+	ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
+	ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
 
 	// OI
 	
@@ -49,6 +56,6 @@ public class RobotContainer {
 	  */
   	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		return new ShooterStop();
+		return new ShooterFeederStop();
 	}
 }
