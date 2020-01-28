@@ -30,6 +30,9 @@ public final class Constants {
     public static final int INTAKE_EXTENDER_MODULE = 4;
     public static final int INTAKE_ROLLERS_PORT = 5;
 
+    // Turret
+    public static final int TURRET_ROTATE_PORT = 6;
+    
     // Shooter
     public static final int SHOOTER_LEFT_PORT = 7;
     public static final int SHOOTER_RIGHT_PORT = 8;
