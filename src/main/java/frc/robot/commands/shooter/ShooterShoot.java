@@ -1,11 +1,11 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.PIDShooterSubsystem;
 
 public class ShooterShoot extends CommandBase {
 
-	ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	PIDShooterSubsystem shooterSubsystem = new PIDShooterSubsystem();
 	double setpoint;
 
 	public ShooterShoot(double setpoint) {

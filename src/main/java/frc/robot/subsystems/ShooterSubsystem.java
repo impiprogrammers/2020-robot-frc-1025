@@ -16,7 +16,6 @@ public class ShooterSubsystem extends SubsystemBase {
 	private CANSparkMax shooterLeft = new CANSparkMax(Constants.SHOOTER_LEFT_PORT, MotorType.kBrushless);
 	private CANSparkMax shooterRight = new CANSparkMax(Constants.SHOOTER_RIGHT_PORT, MotorType.kBrushless);
 
-	
 	// PID Controllers
 	private CANPIDController leftPID = shooterLeft.getPIDController();
 	private CANPIDController rightPID = shooterRight.getPIDController();

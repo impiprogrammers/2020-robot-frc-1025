@@ -18,7 +18,6 @@ import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter_feeder.*;
 import frc.robot.commands.shooter.*;
-import frc.robot.commands.shooter_feeder.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -31,7 +30,7 @@ public class RobotContainer {
 	// Subsystems
 	private final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	private final PIDShooterSubsystem shooterSubsystem = new PIDShooterSubsystem();
 	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	
 	ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();

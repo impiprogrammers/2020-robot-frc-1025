@@ -3,7 +3,6 @@ package frc.robot.commands.conveyor;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.ImpiLib2020;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
