@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class ChassisDrive extends CommandBase {
 	
-	ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+	ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
 
 	public ChassisDrive() {
 		addRequirements(chassisSubsystem);

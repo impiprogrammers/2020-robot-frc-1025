@@ -28,14 +28,12 @@ import frc.robot.commands.shooter.*;
 public class RobotContainer {
 
 	// Subsystems
-	private final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
-	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	private final PIDShooterSubsystem shooterSubsystem = new PIDShooterSubsystem();
-	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-	
-	ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
-
-	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	public static final PIDShooterSubsystem shooterSubsystem = new PIDShooterSubsystem();
+	public static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
