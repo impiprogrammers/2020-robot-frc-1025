@@ -10,7 +10,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.turret.TurretRotate;
+import frc.robot.commands.turret.TurretSpin;
+import frc.robot.commands.turret.ToggleLimelightLock;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANEncoder;
@@ -45,15 +46,15 @@ double x = tx.getDouble(0.0);
 double y = ty.getDouble(0.0);
 double area = ta.getDouble(0.0);
 
-//post to smart dashboard periodically
-SmartDashboard.putNumber("LimelightX"- x);
-SmartDashboard.putNumber("LimelightY"- y);
-SmartDashboard.putNumber("LimelightArea"- area);
+// //post to smart dashboard periodically
+// SmartDashboard.putNumber("LimelightX", - x);
+// SmartDashboard.putNumber("LimelightY", - y);
+// SmartDashboard.putNumber("LimelightArea",  - a);
 
 public void Update_Limelight_Tracking()
 {
       // These numbers must be tuned for your Robot!  Be careful!
-      final double STEER_K = 0.03;                    // how hard to turn toward the target             // how hard to drive fwd toward the target
+      final double STEER_K = 0.03;                    // how hard to turn toward the target      
       final double DESIRED_TARGET_AREA = 13.0;        // Area of the target when the robot reaches the wall
       final double MAX_DRIVE = 0.7;                   // Simple speed limit so we don't drive too fast
 
@@ -61,22 +62,7 @@ public void Update_Limelight_Tracking()
       double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
       double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
-      if (tv < 1.0)
-      {
-        m_LimelightHasValidTarget = false;
-        m_LimelightSteerCommand = 0.0;
-        return;
-      }
-
-      m_LimelightHasValidTarget = true;
-
-      // Start with proportional steering
-      double steer_cmd = tx * STEER_K;
-      m_LimelightSteerCommand = steer_cmd;
-    }
-
-
-
+}
   /**
    * Creates a new TurretSubsystem.
    */
@@ -96,4 +82,27 @@ public void Update_Limelight_Tracking()
   public static void turretSpin(double speed) {
     turretRotate.set(speed);
 }
+
+
+  public static void ToggleLimelightLock(){
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tx = table.getEntry("tx");
+    double errorValue = tx.getDouble(0);
+    double Krip = -0.1;
+    double min_speed = 0.05;
+    double negativeErrorValue = -errorValue;
+    double steeringAdjustment = 0.0;
+
+    if ( -errorValue > 1.05 ) {
+      steeringAdjustment = Krip*negativeErrorValue - min_speed;
+      turretRotate.set(-steeringAdjustment);
+    }
+
+    else if (-errorValue < 0.95) {
+        steeringAdjustment = Krip*negativeErrorValue + min_speed;
+        turretRotate.set(steeringAdjustment);
+    }
+
+
+  }
 }
