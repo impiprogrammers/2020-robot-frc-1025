@@ -24,7 +24,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	public CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
 	// public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
 
-	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup( driveMotorLeftRear);
+	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftRear);
 	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRightFront);
 
 	public DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);

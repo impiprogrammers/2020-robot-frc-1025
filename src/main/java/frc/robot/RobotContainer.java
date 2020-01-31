@@ -27,7 +27,7 @@ public class RobotContainer {
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 
 	// Commands
-	private final ChassisDrive chassisDrive = new ChassisDrive(chassisSubsystem);
+	private final ChassisDrive chassisDrive = new ChassisDrive();
 
 	// OI
 	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
