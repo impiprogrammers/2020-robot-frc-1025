@@ -19,10 +19,10 @@ import frc.robot.Constants;
 public class ChassisSubsystem extends SubsystemBase {
 
 	
-	//public CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
+	// public CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
 	public CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CHASSIS_RIGHT_FRONT_PORT, MotorType.kBrushless);
 	public CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
-	//public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
+	// public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
 
 	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup( driveMotorLeftRear);
 	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRightFront);
@@ -30,19 +30,19 @@ public class ChassisSubsystem extends SubsystemBase {
 	public DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
 	public ChassisSubsystem() {
-		//setDefaultCommand(new ChassisDrive());
+		// setDefaultCommand(new ChassisDrive());
 
-		//driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
+		// driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
 		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
 		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
-		//driveMotorRightRear.setIdleMode(IdleMode.kCoast);
+		// driveMotorRightRear.setIdleMode(IdleMode.kCoast);
 
-		//driveMotorLeftFront.setSmartCurrentLimit(20);
+		// driveMotorLeftFront.setSmartCurrentLimit(20);
 		driveMotorRightFront.setSmartCurrentLimit(40);
 		driveMotorLeftRear.setSmartCurrentLimit(40);
-		//driveMotorRightRear.setSmartCurrentLimit(20);
+		// driveMotorRightRear.setSmartCurrentLimit(20);
 	}
-	
+
 	public void arcadeDrive(double move, double turn) {
 		drive.arcadeDrive(move, turn);
 	}

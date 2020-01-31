@@ -8,11 +8,12 @@
 package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeExtenderToggle extends CommandBase {
 
-	IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	IntakeSubsystem intakeSubsystem = RobotContainer.intakeSubsystem;
 	
 	public IntakeExtenderToggle() {
 		addRequirements(intakeSubsystem);

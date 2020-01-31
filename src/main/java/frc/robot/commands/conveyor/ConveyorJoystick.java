@@ -16,7 +16,7 @@ import frc.robot.ImpiLib2020;
 
 public class ConveyorJoystick extends CommandBase {
 
-	private final ConveyorSubsystem conveyorJoystick = new ConveyorSubsystem();
+	private final ConveyorSubsystem conveyorJoystick = RobotContainer.conveyorSubsystem;
 
 	public ConveyorJoystick() {
 		addRequirements(conveyorJoystick);

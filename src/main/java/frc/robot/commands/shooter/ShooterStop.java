@@ -1,11 +1,12 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.PIDShooterSubsystem;
 
 public class ShooterStop extends CommandBase {
 
-	PIDShooterSubsystem shooterSubsystem = new PIDShooterSubsystem();
+	PIDShooterSubsystem shooterSubsystem = RobotContainer.shooterSubsystem;
 
 	public ShooterStop() {
 		addRequirements(shooterSubsystem);

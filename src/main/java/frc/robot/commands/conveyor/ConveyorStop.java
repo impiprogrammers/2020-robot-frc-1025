@@ -8,11 +8,12 @@
 package frc.robot.commands.conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyorStop extends CommandBase {
 	
-	ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+	ConveyorSubsystem conveyorSubsystem = RobotContainer.conveyorSubsystem;
 
 	public ConveyorStop() {
 		addRequirements(conveyorSubsystem);
