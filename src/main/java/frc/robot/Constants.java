@@ -25,6 +25,6 @@ public final class Constants {
 	public static final int CHASSIS_LEFT_PORT = 2;
 
     // Elevator
-    public static final int ELEVATOR_MOTOR_PORT = 0;
+    public static final int ELEVATOR_MOTOR_PORT = 10;
 }
 
