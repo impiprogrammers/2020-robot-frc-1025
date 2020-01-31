@@ -27,5 +27,6 @@ public final class Constants {
     // Elevator
     public static final int ELEVATOR_MOTOR_PORT = 5;
     public static final int ELEVATOR_MOTOR_PORT_2 = 10;
+    public static final int ELEVATOR_BOTTOM_LIMIT_SWITCH_CHANNEL = 0;
 }
 
