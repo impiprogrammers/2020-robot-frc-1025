@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -18,11 +19,18 @@ public class ElevatorSubsystem extends SubsystemBase {
 	// Motor Controllers
 	TalonSRX elevatorMotor = new TalonSRX(Constants.ELEVATOR_MOTOR_PORT);
 
+	// Limit Switches
+	DigitalInput bottomLimitSwitch = new DigitalInput(Constants.ELEVATOR_BOTTOM_LIMIT_SWITCH_CHANNEL);
+
 	public ElevatorSubsystem() {
 
 	}
 
 	public void elevatorMove(double speed) {
-		elevatorMotor.set(ControlMode.PercentOutput, speed);
+		if (!bottomLimitSwitch.get()) {
+			elevatorMotor.set(ControlMode.PercentOutput, speed);
+		} else {
+			elevatorMotor.set(ControlMode.PercentOutput, 0);
+		}
 	}
 }
