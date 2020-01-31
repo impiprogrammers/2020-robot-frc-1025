@@ -17,6 +17,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 	// Motor Controllers
 	TalonSRX elevatorMotor = new TalonSRX(Constants.ELEVATOR_MOTOR_PORT);
+	TalonSRX elevatorMotor2 = new TalonSRX(Constants.ELEVATOR_MOTOR_PORT_2);
 
 	public ElevatorSubsystem() {
 
@@ -24,5 +25,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 	public void elevatorMove(double speed) {
 		elevatorMotor.set(ControlMode.PercentOutput, speed);
+		elevatorMotor2.set(ControlMode.PercentOutput, speed);
 	}
 }
