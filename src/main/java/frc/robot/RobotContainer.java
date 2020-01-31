@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.commands.chassis.*;
+import frc.robot.commands.elevator.ElevatorMove;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -25,9 +26,11 @@ public class RobotContainer {
 
 	// Subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
+	private final ElevatorMove elevatorMove = new ElevatorMove();
 
 	// OI
 	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
@@ -50,6 +53,7 @@ public class RobotContainer {
 
 	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
+		elevatorSubsystem.setDefaultCommand(elevatorMove);
 		configureButtonBindings();
 	}
 

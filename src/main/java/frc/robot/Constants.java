@@ -21,41 +21,10 @@ public final class Constants {
     public static final int XBOX_CONTROLLER_BUTTONS = 1;
 
     // Chassis
-    // public static final int CHASSIS_LEFT_FRONT_PORT = 1;
-	public static final int CHASSIS_RIGHT_FRONT_PORT = 1; // was 2
-	public static final int CHASSIS_LEFT_REAR_PORT = 2; // was 3
-    // public static final int CHASSIS_RIGHT_REAR_PORT = 4;
-    
-    // Intake
-    public static final int INTAKE_EXTENDER_MODULE = 4;
-    public static final int INTAKE_ROLLERS_PORT = 5;
+	public static final int CHASSIS_RIGHT_PORT = 1;
+	public static final int CHASSIS_LEFT_PORT = 2;
 
-    // Shooter
-    public static final int SHOOTER_LEFT_PORT = 7;
-    public static final int SHOOTER_RIGHT_PORT = 8;
-    
-    // Conveyor
-    public static final int CONVEYOR_ROLLERS_PORT = 11;
-
-    // Shooter Feeder
-    public static final int SHOOTER_FEEDER_PORT = 12;
-
-    // Climber
-    public static final int CLIMBER_EXTENDER_MODULE = 13;
-    public static final int CLIMBER_LOCK_MODULE = 14;
-    public static final int CLIMBER_WINCH_PORT = 15;
-    public static final int CLMBER_SHIMMY_PORT = 16;
-
-    // Control Panel
-	public static final int CONTROL_PANEL_WHEEL_PORT = 18;
-    public static final int CONTROL_PANEL_PISTON_MODULE = 19;
-
-    // PCM
-    public static final int INTAKE_EXTENDER_CHANNEL = 0;
-    
-    public static final int CLIMBER_EXTENDER_CHANNEL = 1;
-    public static final int CLIMBER_LOCK_CHANNEL = 2;
-
-    public static final int CONTROL_PANEL_PISTON_CHANNEL = 3;
+    // Elevator
+    public static final int ELEVATOR_MOTOR_PORT = 0;
 }
 
