@@ -22,7 +22,7 @@ public class ShooterFeederSpin extends CommandBase {
 
     @Override
     public void execute() {
-        shooterFeederSubsystem.spin(Math.pow(ImpiLib2020.deadzone(buttonsController.getTriggerAxis(Hand.kRight), 0.05), 2));
+        shooterFeederSubsystem.spin(ImpiLib2020.parseTrigger(buttonsController.getTriggerAxis(Hand.kRight), 0.05));
     }
 
     @Override

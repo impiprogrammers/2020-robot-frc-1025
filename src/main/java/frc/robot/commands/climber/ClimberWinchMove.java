@@ -31,12 +31,12 @@ public class ClimberWinchMove extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		double leftTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kLeft), 0.05);
-		double rightTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kRight), 0.05);
+		double leftTriggerAxis = ImpiLib2020.parseTrigger(driverController.getTriggerAxis(Hand.kLeft), 0.05);
+		double rightTriggerAxis = ImpiLib2020.parseTrigger(driverController.getTriggerAxis(Hand.kRight), 0.05);
 		if (rightTriggerAxis > 0) {
-			climberSubsystem.winchMove(Math.pow(rightTriggerAxis, 2));
+			climberSubsystem.winchMove(leftTriggerAxis);
 		} else if (leftTriggerAxis > 0) {
-			climberSubsystem.winchMove(-Math.pow(rightTriggerAxis, 2));
+			climberSubsystem.winchMove(-rightTriggerAxis);
 		}
 	}
 

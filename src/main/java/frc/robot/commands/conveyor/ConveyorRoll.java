@@ -23,7 +23,7 @@ public class ConveyorRoll extends CommandBase {
 	@Override
 	public void execute() {
 		XboxController buttonsController = RobotContainer.buttonsController;
-		conveyorSubsystem.conveyorRoll(Math.pow(ImpiLib2020.deadzone(buttonsController.getTriggerAxis(Hand.kRight), 0.05), 2));
+		conveyorSubsystem.conveyorRoll(ImpiLib2020.parseTrigger(buttonsController.getTriggerAxis(Hand.kRight), 0.05));
 	}
 
 	// Called once the command ends or is interrupted.

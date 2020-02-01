@@ -31,10 +31,8 @@ public class ChassisDrive extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		double move = ImpiLib2020
-				.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(driverController.getY(Hand.kLeft), 0.05), -1, 1));
-		double turn = ImpiLib2020
-				.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(driverController.getX(Hand.kRight), 0.05), -1, 1));
+		double move = ImpiLib2020.parseJoystick(driverController.getY(Hand.kLeft), 0.05);
+		double turn = ImpiLib2020.parseJoystick(driverController.getX(Hand.kRight), 0.05);
 		chassisSubsystem.arcadeDrive(move, turn);
 	}
 
