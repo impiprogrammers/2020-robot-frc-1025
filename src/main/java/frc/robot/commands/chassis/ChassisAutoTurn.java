@@ -8,37 +8,33 @@
 package frc.robot.commands.chassis;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ChassisSubsystem;
 
-public class ChassisAutoDrive extends PIDCommand {
-	
-	ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
+public class ChassisAutoTurn extends PIDCommand { // probably won't be used in favor of trajectory following/odometry
 
-	public ChassisAutoDrive() {
+	static ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
+
+	public ChassisAutoTurn() {
 		super(
 				// The controller that the command will use
-				new PIDController(0, 0, 0),
+				new PIDController(5e-5, 1e-6, 0),
 				// This should return the measurement
-				() -> 0,
+				() -> chassisSubsystem.getAngle(),
 				// This should return the setpoint (can also be a constant)
-				() -> 0,
+				SmartDashboard.getNumber("Target Angle", 0), // eventually make this command parameter
 				// This uses the output
 				output -> {
-					// Use the output here
+					chassisSubsystem.arcadeDrive(0, output);
 				});
-		// Use addRequirements() here to declare subsystem dependencies.
-		// Configure additional PID options by calling `getController` here.
-	}
-
-	@Override
-	public void execute() {
+		addRequirements(chassisSubsystem);
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return getController().atSetpoint();
 	}
 }
