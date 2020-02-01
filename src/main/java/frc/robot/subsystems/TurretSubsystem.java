@@ -10,8 +10,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.turret.TurretSpin;
 import frc.robot.commands.turret.ToggleLimelightLock;
+import frc.robot.subsystems.ShooterSubsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANEncoder;
@@ -83,6 +85,22 @@ public class TurretSubsystem extends SubsystemBase {
 
   public static void turretSpin(double speed) {
     turretRotate.set(speed);
+    // set LEDs 
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tv = table.getEntry("tv");
+    boolean targetVisibility = tv.getBoolean(false);
+    NetworkTableEntry tx = table.getEntry("tx");
+    double targetCentered = tx.getDouble(0);
+
+    if(targetVisibility) {
+      if(targetCentered >= -1 && targetCentered <= 1) {
+        if(RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+          SetLEDsSolidGreen();
+        } else {
+          SetLEDsFlashGreen();
+        }
+      }
+    }
   }
 
   public static void ToggleLimelightLock() {
