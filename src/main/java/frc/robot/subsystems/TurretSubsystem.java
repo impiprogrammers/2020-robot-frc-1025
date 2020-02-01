@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 public class TurretSubsystem extends SubsystemBase {
 
@@ -33,34 +35,44 @@ public class TurretSubsystem extends SubsystemBase {
 
   private CANEncoder turretEncoder = turretRotate.getEncoder();
 
-  //LIMELIGHT 
-//     \_(-_-)_/
+  // LIMELIGHT
+  // \_(-_-)_/
 
-NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-NetworkTableEntry tx = table.getEntry("tx");
-NetworkTableEntry ty = table.getEntry("ty");
-NetworkTableEntry ta = table.getEntry("ta");
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = table.getEntry("tx");
+  NetworkTableEntry ty = table.getEntry("ty");
+  NetworkTableEntry ta = table.getEntry("ta");
 
-//read values periodically
-double x = tx.getDouble(0.0);
-double y = ty.getDouble(0.0);
-double area = ta.getDouble(0.0);
+  // read values periodically
+  double x = tx.getDouble(0.0);
+  double y = ty.getDouble(0.0);
+  double area = ta.getDouble(0.0);
 
-public void Update_Limelight_Tracking()
-{
-      double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-      double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-      double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+  private static int rainbowFirstPixelHue;
+  private AddressableLED led = new AddressableLED(9);
+  private static AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(60);
+  private static int timer = 0;
 
-}
+  public void Update_Limelight_Tracking() {
+    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+    double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+
+  }
+
   /**
    * Creates a new TurretSubsystem.
    */
   public TurretSubsystem() {
- 
+
     turretRotate.setIdleMode(IdleMode.kBrake);
 
     turretRotate.setSmartCurrentLimit(20);
+
+    led.setLength(ledBuffer.getLength());
+
+    led.setData(ledBuffer);
+    led.start();
 
   }
 
@@ -71,10 +83,9 @@ public void Update_Limelight_Tracking()
 
   public static void turretSpin(double speed) {
     turretRotate.set(speed);
-}
+  }
 
-
-  public static void ToggleLimelightLock(){
+  public static void ToggleLimelightLock() {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     double errorValue = tx.getDouble(0);
@@ -83,16 +94,125 @@ public void Update_Limelight_Tracking()
     double negativeErrorValue = -errorValue;
     double steeringAdjustment = 0.0;
 
-    if ( -errorValue > 1.05 ) {
-      steeringAdjustment = Krip*negativeErrorValue - min_speed;
+    if (-errorValue > 1.05) {
+      steeringAdjustment = Krip * negativeErrorValue - min_speed;
       turretRotate.set(-steeringAdjustment);
     }
 
     else if (-errorValue < 0.95) {
-        steeringAdjustment = Krip*negativeErrorValue + min_speed;
-        turretRotate.set(steeringAdjustment);
+      steeringAdjustment = Krip * negativeErrorValue + min_speed;
+      turretRotate.set(steeringAdjustment);
     }
 
+  }
 
+  public static void SetLEDsOff() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setHSV(i, 0, 0, 0);
+    }
+  }
+
+  public static void SetLEDsSolidOrange() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setHSV(i, 30/2, 255, 255);
+    }
+  }
+
+  public static void SetLEDsFlashBlueOneSide() {
+    timer++;
+    if(timer > 100 ) {
+      for (var i = 0; i < ledBuffer.getLength(); i++) {
+        // ledBuffer.setHSV(i, 0, 0, 0);
+        if (i < ledBuffer.getLength()/2) {
+          ledBuffer.setHSV(i, 225/2, 255, 255);
+        } else {
+          ledBuffer.setHSV(i, 0/2, 0, 0);
+          }
+      }
+    } else {
+      for (var i = 0; i < ledBuffer.getLength(); i++) {
+        ledBuffer.setHSV(i, 0/2, 0, 0);
+      }
+    }
+    if (timer >= 200){
+      timer = 0;
+    }
+  }
+
+  public static void SetLEDsSolidBlueOneSide() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      // ledBuffer.setHSV(i, 0, 0, 0);
+      if (i < ledBuffer.getLength()/2) {
+        ledBuffer.setHSV(i, 225/2, 255, 255);
+      } else {
+        ledBuffer.setHSV(i, 0, 0, 0);
+      }
+    }
+  }
+
+  public static void SetLEDsFlashGreen() {
+    timer++;
+      if(timer > 100 ) {
+        for (var i = 0; i < ledBuffer.getLength(); i++) {
+          ledBuffer.setHSV(i, 0, 0, 0);
+        }
+    } else {
+      for (var i = 0; i < ledBuffer.getLength(); i++) {
+        ledBuffer.setHSV(i, 115/2, 255, 255);
+      }
+    }
+    if (timer >= 200){
+      timer = 0;
+    }
+  }
+
+  public static void SetLEDsSolidGreen() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setHSV(i, 115/2, 255, 255);
+    }
+  }
+
+  public static void SetLEDsFlashRed() {
+    timer++;
+      if(timer > 100 ) {
+        for (var i = 0; i < ledBuffer.getLength(); i++) {
+          ledBuffer.setHSV(i, 0, 0, 0);
+        }
+    } else {
+      for (var i = 0; i < ledBuffer.getLength(); i++) {
+        ledBuffer.setHSV(i, 0/2, 255, 255);
+      }
+    }
+    if (timer >= 200){
+      timer = 0;
+    }
+  }
+
+  public static void SetLEDsSolidRed() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setHSV(i, 0/2, 255, 255);
+    }
+  }
+
+  public static void SetLEDsFlashYellow() {
+    timer++;
+    if(timer > 100 ) {
+      for (var i = 0; i < ledBuffer.getLength(); i++) {
+        ledBuffer.setHSV(i, 0, 0, 0);
+      } 
+    } else {
+        for (var i = 0; i < ledBuffer.getLength(); i++) {
+        ledBuffer.setHSV(i, 42/2, 255, 255);
+        }
+      } 
+      if (timer >= 200){
+          timer = 0;
+    }
+  }
+
+  public static void SetLEDsSolidYellow() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setHSV(i, 42/2, 255, 255);
+    }
   }
 }

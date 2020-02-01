@@ -78,6 +78,9 @@ public class RobotContainer {
 	public static boolean climberMode = false;
 
  	public RobotContainer() {
+
+		TurretSubsystem.setDefaultCommand();
+
 		configureButtonBindings();
  	}
 
