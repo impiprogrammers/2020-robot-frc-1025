@@ -17,6 +17,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 public class ClimberWinchMove extends CommandBase {
 	
 	ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
+	XboxController driverController = RobotContainer.driverController;
 
 	public ClimberWinchMove() {
 		addRequirements(climberSubsystem);
@@ -30,7 +31,6 @@ public class ClimberWinchMove extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		XboxController driverController = RobotContainer.driverController;
 		double leftTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kLeft), 0.05);
 		double rightTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kRight), 0.05);
 		if (rightTriggerAxis > 0) {

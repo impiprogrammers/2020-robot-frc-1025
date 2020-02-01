@@ -15,6 +15,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 public class ClimberShimmyMove extends CommandBase {
 	
 	ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
+	XboxController driverController = RobotContainer.driverController;
 
 	public ClimberShimmyMove() {
 		addRequirements(climberSubsystem);
@@ -28,7 +29,6 @@ public class ClimberShimmyMove extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		XboxController driverController = RobotContainer.driverController;
 		if (driverController.getPOV() == 90) {
 			climberSubsystem.shimmyMove(0.5);
 		} else if (driverController.getPOV() == 270) {

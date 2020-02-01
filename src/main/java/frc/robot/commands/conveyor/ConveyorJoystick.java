@@ -11,15 +11,17 @@ package frc.robot.commands.conveyor;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.ImpiLib2020;
 
 public class ConveyorJoystick extends CommandBase {
 
-	private final ConveyorSubsystem conveyorJoystick = RobotContainer.conveyorSubsystem;
+	ConveyorSubsystem conveyorSubsystem = RobotContainer.conveyorSubsystem;
+	XboxController buttonsController = RobotContainer.buttonsController;
 
 	public ConveyorJoystick() {
-		addRequirements(conveyorJoystick);
+		addRequirements(conveyorSubsystem);
 	}
 
 	// Called when the command is initially scheduled.
@@ -30,7 +32,7 @@ public class ConveyorJoystick extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		conveyorJoystick.conveyorRoll(Math.pow(ImpiLib2020.deadzone(RobotContainer.buttonsController.getY(Hand.kRight), 0.05), 2));
+		conveyorSubsystem.conveyorRoll(Math.pow(ImpiLib2020.deadzone(buttonsController.getY(Hand.kRight), 0.05), 2));
 
 	}
 
