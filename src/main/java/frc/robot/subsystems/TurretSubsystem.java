@@ -136,7 +136,7 @@ public class TurretSubsystem extends SubsystemBase {
     }
   }
 
-  public static void SetLEDsFlashBlueOneSide() {
+  public static void SetLEDsFlashBlueRight() {
     timer++;
     if(timer > 100 ) {
       for (var i = 0; i < ledBuffer.getLength(); i++) {
@@ -157,10 +157,42 @@ public class TurretSubsystem extends SubsystemBase {
     }
   }
 
-  public static void SetLEDsSolidBlueOneSide() {
+  public static void SetLEDsFlashBlueleft() {
+    timer++;
+    if(timer > 100 ) {
+      for (var i = 0; i < (ledBuffer.getLength()); i++) {
+        // ledBuffer.setHSV(i, 0, 0, 0);
+        if (i < (ledBuffer.getLength()/2) + 30) {
+          ledBuffer.setHSV(i, 225/2, 255, 255);
+        } else {
+          ledBuffer.setHSV(i, 0/2, 0, 0);
+          }
+      }
+    } else {
+      for (var i = 0; i < ledBuffer.getLength(); i++) {
+        ledBuffer.setHSV(i, 0/2, 0, 0);
+      }
+    }
+    if (timer >= 200){
+      timer = 0;
+    }
+  }
+
+  public static void SetLEDsSolidBlueRight() {
     for (var i = 0; i < ledBuffer.getLength(); i++) {
       // ledBuffer.setHSV(i, 0, 0, 0);
       if (i < ledBuffer.getLength()/2) {
+        ledBuffer.setHSV(i, 225/2, 255, 255);
+      } else {
+        ledBuffer.setHSV(i, 0, 0, 0);
+      }
+    }
+  }
+
+  public static void SetLEDsSolidBlueLeft() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      // ledBuffer.setHSV(i, 0, 0, 0);
+      if (i < ledBuffer.getLength()/2 + 30) {
         ledBuffer.setHSV(i, 225/2, 255, 255);
       } else {
         ledBuffer.setHSV(i, 0, 0, 0);
