@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.commands.turret.*;
 
 public class ToggleLimelightLock extends CommandBase {
   //  * Creates a new ToggleLimelightLock.
@@ -44,6 +45,12 @@ public class ToggleLimelightLock extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+
+    XboxController buttonsController = RobotContainer.buttonsController;
+		if(Math.abs(buttonsController.getX(Hand.kLeft)) >= 0.05) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

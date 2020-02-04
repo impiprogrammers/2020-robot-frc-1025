@@ -83,7 +83,7 @@ public class TurretSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public static void turretSpin(double speed) {
+  public static void TurretSpin(double speed) {
     turretRotate.set(speed);
     // set LEDs 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -99,7 +99,22 @@ public class TurretSubsystem extends SubsystemBase {
         } else {
           SetLEDsFlashGreen();
         }
+      } else {
+          if(RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+            //SetLEDsSolidBlueLeft() || SetLEDsSolidBlueRight();
+          } else {
+            //SetLEDsFlashBlueleft() || SetLEDsFlashBlueRight();
+          }
       }
+    } else {
+        if(targetCentered >= -1 && targetCentered <= 1) {
+        } else {
+            if(RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+              SetLEDsSolidOrange();
+            } else {
+              SetLEDsOff();
+            }
+        }
     }
   }
 
@@ -107,6 +122,9 @@ public class TurretSubsystem extends SubsystemBase {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     double errorValue = tx.getDouble(0);
+    NetworkTableEntry tv = table.getEntry("tv");
+    boolean targetVisibility = tv.getBoolean(false);
+    double targetCentered = tx.getDouble(0);
     double Krip = -0.1;
     double min_speed = 0.05;
     double negativeErrorValue = -errorValue;
@@ -122,6 +140,30 @@ public class TurretSubsystem extends SubsystemBase {
       turretRotate.set(steeringAdjustment);
     }
 
+    if(targetVisibility) {
+      if(targetCentered >= -1 && targetCentered <= 1) {
+        if(RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+          SetLEDsSolidGreen();
+        } else {
+          SetLEDsFlashGreen();
+        }
+      } else {
+          if(RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+            //SetLEDsSolidBlueLeft() || SetLEDsSolidBlueRight();
+          } else {
+            //SetLEDsFlashBlueleft() || SetLEDsFlashBlueRight();
+          }
+      }
+    } else {
+        if(targetCentered >= -1 && targetCentered <= 1) {
+        } else {
+            if(RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+              SetLEDsSolidOrange();
+            } else {
+              SetLEDsOff();
+            }
+        }
+    }
   }
 
   public static void SetLEDsOff() {

@@ -17,6 +17,8 @@ import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter_feeder.*;
+import frc.robot.commands.turret.ToggleLimelightLock;
+import frc.robot.commands.turret.TurretSpin;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.shooter_feeder.*;
 
@@ -61,6 +63,10 @@ public class RobotContainer {
 	private final ClimberWinchMove climberWinchMove = new ClimberWinchMove();
 	private final ClimberShimmyMove climberShimmyMove = new ClimberShimmyMove();
 
+	private final TurretSpin turretSpin = new TurretSpin();
+	private final ToggleLimelightLock toggleLimelightLock = new ToggleLimelightLock();
+	
+	
  	// OI
 	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
 	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
@@ -81,7 +87,7 @@ public class RobotContainer {
 
  	public RobotContainer() {
 
-		turretSubsystem.setDefaultCommand();
+		turretSubsystem.setDefaultCommand(turretSpin);
 
 		configureButtonBindings();
  	}
