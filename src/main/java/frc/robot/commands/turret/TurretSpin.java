@@ -36,7 +36,10 @@ public class TurretSpin extends CommandBase {
   public void execute() {
 
     XboxController buttonsController = RobotContainer.buttonsController;
-		TurretSubsystem.TurretSpin(Math.pow(ImpiLib2020.deadzone(buttonsController.getX(Hand.kLeft), 0.05), 2));
+    TurretSubsystem.TurretSpin(Math.pow(ImpiLib2020.deadzone(buttonsController.getX(Hand.kLeft), 0.05), 2));
+    if(buttonsController.getXButton()) {
+      TurretSubsystem.ToggleLimelightLock();
+    }
   }
 
   // Called once the command ends or is interrupted.

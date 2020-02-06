@@ -33,7 +33,7 @@ public class ToggleLimelightLock extends CommandBase {
   public void execute() {
     
     XboxController buttonsController = RobotContainer.buttonsController;
-		TurretSubsystem.ToggleLimelightLock();
+    TurretSubsystem.ToggleLimelightLock();
   }
   
 
@@ -47,6 +47,9 @@ public class ToggleLimelightLock extends CommandBase {
   public boolean isFinished() {
 
     XboxController buttonsController = RobotContainer.buttonsController;
+    if(buttonsController.getXButton()) {
+      return true;
+    }
 		if(Math.abs(buttonsController.getX(Hand.kLeft)) >= 0.05) {
       return true;
     } else {
