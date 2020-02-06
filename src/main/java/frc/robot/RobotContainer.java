@@ -17,6 +17,8 @@ import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter_feeder.*;
+import frc.robot.commands.turret.ToggleLimelightLock;
+import frc.robot.commands.turret.TurretSpin;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.shooter_feeder.*;
 
@@ -31,10 +33,14 @@ public class RobotContainer {
 	// Subsystems
 	private final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-	private final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
-	private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+	
+	ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+
+	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+
+	public static final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
@@ -57,6 +63,10 @@ public class RobotContainer {
 	private final ClimberWinchMove climberWinchMove = new ClimberWinchMove();
 	private final ClimberShimmyMove climberShimmyMove = new ClimberShimmyMove();
 
+	private final TurretSpin turretSpin = new TurretSpin();
+	private final ToggleLimelightLock toggleLimelightLock = new ToggleLimelightLock();
+	
+	
  	// OI
 	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
 	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
@@ -76,7 +86,9 @@ public class RobotContainer {
 	public static boolean climberMode = false;
 
  	public RobotContainer() {
-		 
+
+		turretSubsystem.setDefaultCommand(turretSpin);
+
 		configureButtonBindings();
  	}
 

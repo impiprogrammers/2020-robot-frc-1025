@@ -1,139 +1,55 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
-public class ShooterSubsystem extends SubsystemBase {
+public class ShooterSubsystem extends PIDSubsystem {
 
 	// Motor Controllers
 	private CANSparkMax shooterLeft = new CANSparkMax(Constants.SHOOTER_LEFT_PORT, MotorType.kBrushless);
 	private CANSparkMax shooterRight = new CANSparkMax(Constants.SHOOTER_RIGHT_PORT, MotorType.kBrushless);
 
-	
-	// PID Controllers
-	private CANPIDController leftPID = shooterLeft.getPIDController();
-	private CANPIDController rightPID = shooterRight.getPIDController();
-
-	private CANEncoder leftEncoder = shooterLeft.getEncoder();
-	private CANEncoder rightEncoder = shooterRight.getEncoder();
-
-	// Doubles
-	private double p0 = 5e-5;
-	private double i0 = 1e-6;
-	private double d0 = 0;
-	private double iz0 = 0;
-	private double ff0 = 0;
-	private double min0 = -1;
-	private double max0 = 1;
-	private double maxRPM = 5700;
+	// Encoders
+	private CANEncoder shooterEncoder = shooterLeft.getEncoder();
+	// private CANEncoder rightEncoder = shooterRight.getEncoder();
 
 	// Booleans
 	private boolean shooterEnabled = false;
 
 	public ShooterSubsystem() {
-		// Set PID Values
-		leftPID.setP(p0);
-		leftPID.setI(i0);
-		leftPID.setD(d0);
-		leftPID.setIZone(iz0);
-		leftPID.setFF(ff0);
-		leftPID.setOutputRange(min0, max0);
-
-		rightPID.setP(p0);
-		rightPID.setI(i0);
-		rightPID.setD(d0);
-		rightPID.setIZone(iz0);
-		rightPID.setFF(ff0);
-		rightPID.setOutputRange(min0, max0);
-
-		// Put PID Values on SmartDashboard
-		SmartDashboard.putNumber("P Gain", p0);
-		SmartDashboard.putNumber("I Gain", i0);
-		SmartDashboard.putNumber("D Gain", d0);
-		SmartDashboard.putNumber("I Zone", iz0);
-		SmartDashboard.putNumber("Feed Forward", ff0);
-		SmartDashboard.putNumber("Min Output", min0);
-		SmartDashboard.putNumber("Max Output", max0);
-
+		super(new PIDController(5e-5, 1e-6, 0));
 	}
 
 	@Override
-	public void periodic() {
-		PIDsetup();
-	
+	public void useOutput(double output, double setpoint) {
+		shooterLeft.set(output);
 	}
-	public void PIDsetup(){
-		// Get PID Values from SmartDashboard
-		double p = SmartDashboard.getNumber("P Gain", p0);
-		double i = SmartDashboard.getNumber("I Gain", i0);
-		double d = SmartDashboard.getNumber("D Gain", d0);
-		double iz = SmartDashboard.getNumber("I Zone", iz0);
-		double ff = SmartDashboard.getNumber("Feed Forward", ff0);
-		double min = SmartDashboard.getNumber("Min Output", min0);
-		double max = SmartDashboard.getNumber("Max Output", max0);
 
-		// Reassign PID Values if Changed
-		if (p != p0) {
-			p0 = p;
-			rightPID.setP(p);
-			leftPID.setP(p);
-		}
-		if (i != i0) {
-			i0 = i;
-			rightPID.setI(i);
-			leftPID.setI(i);
-		}
-		if (d != d0) {
-			d0 = d;
-			rightPID.setD(d);
-			leftPID.setD(d);
-		}
-		if (iz != iz0) {
-			iz0 = iz;
-			rightPID.setIZone(iz);
-			leftPID.setIZone(iz);
-		}
-		if (ff != ff0) {
-			ff0 = ff;
-			rightPID.setFF(ff);
-			leftPID.setFF(ff);
-		}
-		if (min != min0) {
-			min0 = min;
-			rightPID.setOutputRange(min, max);
-			leftPID.setOutputRange(min, max);
-		}
-		if (max != max0) {
-			max0 = max;
-			rightPID.setOutputRange(max, min);
-			leftPID.setOutputRange(max, min);
-		}
+	@Override
+	public double getMeasurement() {
+		return shooterEncoder.getVelocity();
 	}
 
 	public void shoot(double setpoint) {
-		leftPID.setReference(-setpoint, ControlType.kVelocity);
-		rightPID.setReference(setpoint, ControlType.kVelocity);
-		// shooterLeft.pidWrite(-.25);
-		// shooterRight.pidWrite(-.25);
-		
-		SmartDashboard.putNumber("Setpoint", setpoint);
-		SmartDashboard.putNumber("Velocity", rightEncoder.getVelocity());
-
+		setSetpoint(setpoint);
+		enable();
 		shooterEnabled = true;
-		
 	}
 
 	public void stop() {
-		leftPID.setReference(0, ControlType.kVelocity);
-		rightPID.setReference(0, ControlType.kVelocity);
-
+		disable();
 		shooterEnabled = false;
 	}
 

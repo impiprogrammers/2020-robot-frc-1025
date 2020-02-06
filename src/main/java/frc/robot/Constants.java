@@ -1,5 +1,6 @@
+
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/*01* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                      */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -30,6 +31,9 @@ public final class Constants {
     public static final int INTAKE_EXTENDER_MODULE = 4;
     public static final int INTAKE_ROLLERS_PORT = 5;
 
+    // Turret
+    public static final int TURRET_ROTATE_PORT = 6;
+    
     // Shooter
     public static final int SHOOTER_LEFT_PORT = 7;
     public static final int SHOOTER_RIGHT_PORT = 8;
