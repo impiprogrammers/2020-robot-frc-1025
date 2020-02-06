@@ -12,9 +12,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeExtenderToggle extends CommandBase {
 
-	IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	
-	public IntakeExtenderToggle() {
+	IntakeSubsystem intakeSubsystem;
+
+	public IntakeExtenderToggle(IntakeSubsystem intakeSubsystem) {
+		this.intakeSubsystem = intakeSubsystem;
 		addRequirements(intakeSubsystem);
 	}
 

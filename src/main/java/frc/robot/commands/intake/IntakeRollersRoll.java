@@ -16,9 +16,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeRollersRoll extends CommandBase {
 
-	IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	IntakeSubsystem intakeSubsystem;
 
-	public IntakeRollersRoll() {
+	public IntakeRollersRoll(IntakeSubsystem intakeSubsystem) {
+		this.intakeSubsystem = intakeSubsystem;
 		addRequirements(intakeSubsystem);
 	}
 

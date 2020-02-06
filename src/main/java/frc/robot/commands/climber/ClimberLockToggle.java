@@ -12,9 +12,10 @@ import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberLockToggle extends CommandBase {
 	
-	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+	private final ClimberSubsystem climberSubsystem;
 
-	public ClimberLockToggle() {
+	public ClimberLockToggle(ClimberSubsystem climberSubsystem) {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 

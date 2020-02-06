@@ -10,9 +10,10 @@ import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyorRoll extends CommandBase {
 
-	ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+	ConveyorSubsystem conveyorSubsystem;
 
-	public ConveyorRoll() {
+	public ConveyorRoll(ConveyorSubsystem conveyorSubsystem) {
+		this.conveyorSubsystem = conveyorSubsystem;
 		addRequirements(conveyorSubsystem);
 	}
 

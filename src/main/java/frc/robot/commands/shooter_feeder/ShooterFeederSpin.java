@@ -9,9 +9,10 @@ import frc.robot.subsystems.ShooterFeederSubsystem;
 
 public class ShooterFeederSpin extends CommandBase {
 
-    ShooterFeederSubsystem shooterFeeder = new ShooterFeederSubsystem();
+    ShooterFeederSubsystem shooterFeeder;
 
-    public ShooterFeederSpin() {
+    public ShooterFeederSpin(ShooterFeederSubsystem shooterFeeder) {
+        this.shooterFeeder = shooterFeeder;
         addRequirements(shooterFeeder);
     }
 

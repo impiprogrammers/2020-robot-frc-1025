@@ -33,10 +33,8 @@ public class RobotContainer {
 	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-	
-	ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
-
-	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+	private final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+	private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
@@ -78,6 +76,7 @@ public class RobotContainer {
 	public static boolean climberMode = false;
 
  	public RobotContainer() {
+		 
 		configureButtonBindings();
  	}
 

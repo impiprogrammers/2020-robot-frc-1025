@@ -12,9 +12,10 @@ import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberExtenderExtend extends CommandBase {
 	
-	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+	private final ClimberSubsystem climberSubsystem;
 
-	public ClimberExtenderExtend() {
+	public ClimberExtenderExtend(ClimberSubsystem climberSubsystem) {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 

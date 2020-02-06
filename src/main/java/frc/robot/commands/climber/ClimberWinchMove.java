@@ -16,9 +16,10 @@ import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberWinchMove extends CommandBase {
 	
-	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+	private final ClimberSubsystem climberSubsystem;
 
-	public ClimberWinchMove() {
+	public ClimberWinchMove(ClimberSubsystem climberSubsystem) {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 

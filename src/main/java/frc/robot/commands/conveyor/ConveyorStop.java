@@ -12,9 +12,10 @@ import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyorStop extends CommandBase {
 	
-	ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+	ConveyorSubsystem conveyorSubsystem;
 
-	public ConveyorStop() {
+	public ConveyorStop(ConveyorSubsystem conveyorSubsystem) {
+		this.conveyorSubsystem = conveyorSubsystem;
 		addRequirements(conveyorSubsystem);
 	}
 
