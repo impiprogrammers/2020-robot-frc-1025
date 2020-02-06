@@ -8,6 +8,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 public class ClimberLoop extends ParallelCommandGroup {
 	
 	public ClimberLoop() {
-		super(new ClimberWinchMove(), new ClimberShimmyMove());
+		super(new ClimberWinchMove(), new ClimberclimberShimmyMove());
 	}
 }

@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climber;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class ClimberExtenderRetract extends CommandBase {
-	
-	private final ClimberSubsystem climberSubsystem;
+public class IntakeArmToggle extends CommandBase {
 
-	public ClimberExtenderRetract(ClimberSubsystem climberSubsystem) {
-		this.climberSubsystem = climberSubsystem;
-		addRequirements(climberSubsystem);
+	IntakeSubsystem intakeSubsystem;
+
+	public IntakeArmToggle(IntakeSubsystem intakeSubsystem) {
+		this.intakeSubsystem = intakeSubsystem;
+		addRequirements(intakeSubsystem);
 	}
 
 	// Called when the command is initially scheduled.
@@ -27,7 +27,7 @@ public class ClimberExtenderRetract extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		climberSubsystem.extenderRetract();
+		intakeSubsystem.intakeToggle();
 	}
 
 	// Called once the command ends or is interrupted.
@@ -38,6 +38,6 @@ public class ClimberExtenderRetract extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return true;
 	}
 }

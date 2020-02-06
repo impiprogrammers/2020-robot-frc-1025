@@ -31,9 +31,9 @@ public class ClimberShimmyMove extends CommandBase {
 	public void execute() {
 		XboxController driverController = RobotContainer.driverController;
 		if (driverController.getPOV() == 90) {
-			climberSubsystem.shimmyMove(0.5);
+			climberSubsystem.climberShimmyMove(0.5);
 		} else if (driverController.getPOV() == 270) {
-			climberSubsystem.shimmyMove(-0.5);
+			climberSubsystem.climberShimmyMove(-0.5);
 		}
 	}
 

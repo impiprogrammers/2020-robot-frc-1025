@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 
-public class IntakeExtenderToggle extends CommandBase {
+public class ClimberArmExtend extends CommandBase {
+	
+	private final ClimberSubsystem climberSubsystem;
 
-	IntakeSubsystem intakeSubsystem;
-
-	public IntakeExtenderToggle(IntakeSubsystem intakeSubsystem) {
-		this.intakeSubsystem = intakeSubsystem;
-		addRequirements(intakeSubsystem);
+	public ClimberArmExtend(ClimberSubsystem climberSubsystem) {
+		this.climberSubsystem = climberSubsystem;
+		addRequirements(climberSubsystem);
 	}
 
 	// Called when the command is initially scheduled.
@@ -27,7 +27,7 @@ public class IntakeExtenderToggle extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		intakeSubsystem.intakeToggle();
+		climberSubsystem.extenderExtend();
 	}
 
 	// Called once the command ends or is interrupted.

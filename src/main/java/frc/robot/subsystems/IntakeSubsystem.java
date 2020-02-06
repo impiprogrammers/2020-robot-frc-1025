@@ -17,7 +17,7 @@ import frc.robot.commands.intake.IntakeRollersRoll;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-	Solenoid intakeExtender = new Solenoid(Constants.INTAKE_EXTENDER_MODULE, Constants.INTAKE_EXTENDER_CHANNEL);
+	Solenoid intakeArm = new Solenoid(Constants.INTAKE_EXTENDER_MODULE, Constants.INTAKE_EXTENDER_CHANNEL);
 	TalonSRX intakeRollers = new TalonSRX(Constants.INTAKE_ROLLERS_PORT);
 
 	public IntakeSubsystem() {
@@ -25,10 +25,10 @@ public class IntakeSubsystem extends SubsystemBase {
 	}
 
 	public void intakeToggle() {
-		if (intakeExtender.get()) {
-			intakeExtender.set(false);
+		if (intakeArm.get()) {
+			intakeArm.set(false);
 		} else {
-			intakeExtender.set(true);
+			intakeArm.set(true);
 		}
 	}
 

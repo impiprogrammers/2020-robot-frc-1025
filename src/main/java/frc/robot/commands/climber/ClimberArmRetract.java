@@ -10,11 +10,11 @@ package frc.robot.commands.climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class ClimberExtenderExtend extends CommandBase {
+public class ClimberArmRetract extends CommandBase {
 	
 	private final ClimberSubsystem climberSubsystem;
 
-	public ClimberExtenderExtend(ClimberSubsystem climberSubsystem) {
+	public ClimberArmRetract(ClimberSubsystem climberSubsystem) {
 		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
@@ -27,7 +27,7 @@ public class ClimberExtenderExtend extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		climberSubsystem.extenderExtend();
+		climberSubsystem.extenderRetract();
 	}
 
 	// Called once the command ends or is interrupted.
@@ -38,6 +38,6 @@ public class ClimberExtenderExtend extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return true;
+		return false;
 	}
 }

@@ -48,7 +48,7 @@ public final class Constants {
     public static final int CLIMBER_EXTENDER_MODULE = 13;
     public static final int CLIMBER_LOCK_MODULE = 14;
     public static final int CLIMBER_WINCH_PORT = 15;
-    public static final int CLMBER_SHIMMY_PORT = 16;
+    public static final int CLMBER_climberShimmy_PORT = 16;
 
     // Control Panel
 	public static final int CONTROL_PANEL_WHEEL_PORT = 18;

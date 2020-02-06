@@ -57,11 +57,11 @@ public class RobotContainer {
 	private ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
 	private ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
 	
-	private final ClimberExtenderExtend climberExtenderExtend = new ClimberExtenderExtend();
-	private final ClimberExtenderRetract climberExtenderRetract = new ClimberExtenderRetract();
+	private final climberArmExtend climberArmExtend = new climberArmExtend();
+	private final climberArmRetract climberArmRetract = new climberArmRetract();
 	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle();
 	private final ClimberWinchMove climberWinchMove = new ClimberWinchMove();
-	private final ClimberShimmyMove climberShimmyMove = new ClimberShimmyMove();
+	private final ClimberclimberShimmyMove climberclimberShimmyMove = new ClimberclimberShimmyMove();
 
 	private final TurretSpin turretSpin = new TurretSpin();
 	private final ToggleLimelightLock toggleLimelightLock = new ToggleLimelightLock();
@@ -100,8 +100,8 @@ public class RobotContainer {
   	*/
  	private void configureButtonBindings() { 
 		driverA.whenPressed(climberLockToggle);
-		driverSelect.whenPressed(climberExtenderExtend);
-		driverStart.whenPressed(climberExtenderRetract);
+		driverSelect.whenPressed(climberArmExtend);
+		driverStart.whenPressed(climberArmRetract);
 
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
