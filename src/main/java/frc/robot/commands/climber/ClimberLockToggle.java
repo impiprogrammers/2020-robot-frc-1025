@@ -16,6 +16,7 @@ public class ClimberLockToggle extends CommandBase {
 	ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
 
 	public ClimberLockToggle() {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 

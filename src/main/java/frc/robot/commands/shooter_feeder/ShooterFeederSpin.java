@@ -13,6 +13,7 @@ public class ShooterFeederSpin extends CommandBase {
     XboxController buttonsController = RobotContainer.buttonsController;
 
     public ShooterFeederSpin() {
+        this.shooterFeederSubsystem = shooterFeederSubsystem;
         addRequirements(shooterFeederSubsystem);
     }
 

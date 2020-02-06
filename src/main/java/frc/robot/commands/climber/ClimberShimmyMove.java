@@ -18,6 +18,7 @@ public class ClimberShimmyMove extends CommandBase {
 	XboxController driverController = RobotContainer.driverController;
 
 	public ClimberShimmyMove() {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 

@@ -5,16 +5,18 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.Climber;
+import frc.robot.Constants.PCM;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.climber.ClimberLoop;
 
 public class ClimberSubsystem extends SubsystemBase {
 	
-	Solenoid climberExtender = new Solenoid(Constants.CLIMBER_EXTENDER_MODULE, Constants.CLIMBER_EXTENDER_CHANNEL);
-	Solenoid climberLock = new Solenoid(Constants.CLIMBER_LOCK_MODULE, Constants.CLIMBER_LOCK_CHANNEL);
-	TalonSRX climberWinch = new TalonSRX(Constants.CLIMBER_WINCH_PORT);
-	TalonSRX shimmy = new TalonSRX(Constants.CLMBER_SHIMMY_PORT);
+	Solenoid climberExtender = new Solenoid(Constants.Climber.CLIMBER_EXTENDER_MODULE, Constants.PCM.CLIMBER_EXTENDER_CHANNEL);
+	Solenoid climberLock = new Solenoid(Constants.Climber.CLIMBER_LOCK_MODULE, Constants.PCM.CLIMBER_LOCK_CHANNEL);
+	TalonSRX climberWinch = new TalonSRX(Constants.Climber.CLIMBER_WINCH_PORT);
+	TalonSRX shimmy = new TalonSRX(Constants.Climber.CLMBER_SHIMMY_PORT);
 
 	public ClimberSubsystem() {
 		setDefaultCommand(new ClimberLoop());

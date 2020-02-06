@@ -29,7 +29,9 @@ public class ChassisAutoTurn extends PIDCommand { // probably won't be used in f
 				output -> {
 					chassisSubsystem.arcadeDrive(0, output);
 				});
+		this.chassisSubsystem = chassisSubsystem;
 		addRequirements(chassisSubsystem);
+
 	}
 
 	// Returns true when the command should end.

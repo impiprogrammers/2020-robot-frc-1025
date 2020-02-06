@@ -16,6 +16,7 @@ public class ClimberStop extends CommandBase {
 	ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
 
 	public ClimberStop() {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 

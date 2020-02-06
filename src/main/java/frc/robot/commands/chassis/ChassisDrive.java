@@ -20,6 +20,7 @@ public class ChassisDrive extends CommandBase {
 	XboxController driverController = RobotContainer.driverController;
 
 	public ChassisDrive() {
+		this.chassisSubsystem = chassisSubsystem;
 		addRequirements(chassisSubsystem);
 	}
 

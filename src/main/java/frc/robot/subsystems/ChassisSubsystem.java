@@ -19,14 +19,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+import frc.robot.Constants.Chassis;
 public class ChassisSubsystem extends SubsystemBase {
 
 	// Motor Controllers
-	public CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
-	public CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CHASSIS_RIGHT_FRONT_PORT, MotorType.kBrushless);
-	public CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
-	public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
+	public CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.Chassis.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
+	public CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.Chassis.CHASSIS_RIGHT_FRONT_PORT, MotorType.kBrushless);
+	public CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.Chassis.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
+	public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.Chassis.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
 
 	// Speed Controller Groups
 	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup( driveMotorLeftRear);

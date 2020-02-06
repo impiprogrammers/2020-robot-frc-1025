@@ -11,7 +11,7 @@ public class ShooterFeederSubsystem extends SubsystemBase {
 	/**
 	 * Creates a new ExampleSubsystem.
 	 */
-	TalonSRX shooterFeederRoller = new TalonSRX(Constants.SHOOTER_FEEDER_PORT);
+	TalonSRX shooterFeederRoller = new TalonSRX(Constants.Shooter_Feeder.SHOOTER_FEEDER_PORT);
 
 	public ShooterFeederSubsystem() {
 

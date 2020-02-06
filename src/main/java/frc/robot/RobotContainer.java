@@ -60,8 +60,8 @@ public class RobotContainer {
 	private final ClimberShimmyMove climberShimmyMove = new ClimberShimmyMove();
 
 	// OI
-	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
-	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
+	public static final XboxController driverController = new XboxController(Constants.OI.XBOX_CONTROLLER_DRIVER);
+	public static final XboxController buttonsController = new XboxController(Constants.OI.XBOX_CONTROLLER_BUTTONS);
 
 	private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
 	private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);

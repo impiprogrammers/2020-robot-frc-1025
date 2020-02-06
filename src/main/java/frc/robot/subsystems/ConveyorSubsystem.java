@@ -5,11 +5,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.Conveyor;
 import frc.robot.commands.conveyor.ConveyorRoll;
 
 public class ConveyorSubsystem extends SubsystemBase {
 
-	TalonSRX conveyorRollers = new TalonSRX(Constants.CONVEYOR_ROLLERS_PORT);
+	TalonSRX conveyorRollers = new TalonSRX(Constants.Conveyor.CONVEYOR_ROLLERS_PORT);
 
 	public ConveyorSubsystem() {
 		conveyorRollers.set(ControlMode.PercentOutput, 0);

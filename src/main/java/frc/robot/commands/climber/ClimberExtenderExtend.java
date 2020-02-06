@@ -16,6 +16,7 @@ public class ClimberExtenderExtend extends CommandBase {
 	ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
 
 	public ClimberExtenderExtend() {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 

@@ -20,6 +20,7 @@ public class ClimberWinchMove extends CommandBase {
 	XboxController driverController = RobotContainer.driverController;
 
 	public ClimberWinchMove() {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 

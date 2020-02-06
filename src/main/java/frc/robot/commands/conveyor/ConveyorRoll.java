@@ -12,6 +12,7 @@ public class ConveyorRoll extends CommandBase {
 	ConveyorSubsystem conveyorSubsystem = RobotContainer.conveyorSubsystem;
 
 	public ConveyorRoll() {
+		this.conveyorSubsystem = conveyorSubsystem;
 		addRequirements(conveyorSubsystem);
 	}
 

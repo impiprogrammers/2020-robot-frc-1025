@@ -20,6 +20,7 @@ public class IntakeRollersRoll extends CommandBase {
 	XboxController buttonsController = RobotContainer.buttonsController;
 
 	public IntakeRollersRoll() {
+		this.intakeSubsystem = intakeSubsystem;
 		addRequirements(intakeSubsystem);
 	}
 

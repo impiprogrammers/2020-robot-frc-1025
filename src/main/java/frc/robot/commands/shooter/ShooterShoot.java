@@ -10,6 +10,7 @@ public class ShooterShoot extends CommandBase {
 	double setpoint;
 
 	public ShooterShoot(double setpoint) {
+		this.shooterSubsystem = shooterSubsystem;
 		addRequirements(shooterSubsystem);
 		this.setpoint = setpoint;
 	}

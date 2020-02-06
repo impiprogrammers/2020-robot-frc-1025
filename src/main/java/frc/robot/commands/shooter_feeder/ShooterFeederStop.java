@@ -15,6 +15,7 @@ public class ShooterFeederStop extends CommandBase {
   ShooterFeederSubsystem shooterFeeder = RobotContainer.shooterFeederSubsystem;
 
   public ShooterFeederStop() {
+  this.shooterFeeder = shooterFeeder;
     addRequirements(shooterFeeder);
   }
  

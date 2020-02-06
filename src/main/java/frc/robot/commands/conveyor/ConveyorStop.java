@@ -16,6 +16,7 @@ public class ConveyorStop extends CommandBase {
 	ConveyorSubsystem conveyorSubsystem = RobotContainer.conveyorSubsystem;
 
 	public ConveyorStop() {
+		this.conveyorSubsystem = conveyorSubsystem;
 		addRequirements(conveyorSubsystem);
 	}
 

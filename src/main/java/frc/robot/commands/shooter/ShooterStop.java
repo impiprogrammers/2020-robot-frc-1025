@@ -9,6 +9,7 @@ public class ShooterStop extends CommandBase {
 	PIDShooterSubsystem shooterSubsystem = RobotContainer.shooterSubsystem;
 
 	public ShooterStop() {
+		this.shooterSubsystem = shooterSubsystem;
 		addRequirements(shooterSubsystem);
 	}
 

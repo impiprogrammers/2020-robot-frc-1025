@@ -10,6 +10,7 @@ public class ShooterToggle extends CommandBase {
 	double setpoint;
 
 	public ShooterToggle(double setpoint) {
+		this.shooterSubsystem = shooterSubsystem;
 		addRequirements(shooterSubsystem);
 		this.setpoint = setpoint;
 	}

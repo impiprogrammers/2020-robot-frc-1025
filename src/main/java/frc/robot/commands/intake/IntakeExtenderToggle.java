@@ -16,6 +16,7 @@ public class IntakeExtenderToggle extends CommandBase {
 	IntakeSubsystem intakeSubsystem = RobotContainer.intakeSubsystem;
 	
 	public IntakeExtenderToggle() {
+		this.intakeSubsystem = intakeSubsystem;
 		addRequirements(intakeSubsystem);
 	}
 

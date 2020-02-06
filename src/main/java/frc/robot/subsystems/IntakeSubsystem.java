@@ -13,12 +13,13 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.Intake;
 import frc.robot.commands.intake.IntakeRollersRoll;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-	Solenoid intakeExtender = new Solenoid(Constants.INTAKE_EXTENDER_MODULE, Constants.INTAKE_EXTENDER_CHANNEL);
-	TalonSRX intakeRollers = new TalonSRX(Constants.INTAKE_ROLLERS_PORT);
+	Solenoid intakeExtender = new Solenoid(Constants.Intake.INTAKE_EXTENDER_MODULE, Constants.PCM.INTAKE_EXTENDER_CHANNEL);
+	TalonSRX intakeRollers = new TalonSRX(Constants.Intake.INTAKE_ROLLERS_PORT);
 
 	public IntakeSubsystem() {
 		setDefaultCommand(new IntakeRollersRoll());

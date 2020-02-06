@@ -21,6 +21,7 @@ public class ConveyorJoystick extends CommandBase {
 	XboxController buttonsController = RobotContainer.buttonsController;
 
 	public ConveyorJoystick() {
+		this.conveyorSubsystem = conveyorSubsystem;
 		addRequirements(conveyorSubsystem);
 	}
 
