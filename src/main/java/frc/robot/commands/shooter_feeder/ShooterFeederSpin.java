@@ -1,19 +1,16 @@
 package frc.robot.commands.shooter_feeder;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 
 public class ShooterFeederSpin extends CommandBase {
 
-    ShooterFeederSubsystem shooterFeeder;
+    ShooterFeederSubsystem shooterFeederSubsystem;
 
-    public ShooterFeederSpin(ShooterFeederSubsystem shooterFeeder) {
-        this.shooterFeeder = shooterFeeder;
-        addRequirements(shooterFeeder);
+    public ShooterFeederSpin(ShooterFeederSubsystem shooterFeederSubsystem) {
+        this.shooterFeederSubsystem = shooterFeederSubsystem;
+        addRequirements(shooterFeederSubsystem);
     }
 
     @Override
@@ -30,11 +27,4 @@ public class ShooterFeederSpin extends CommandBase {
     public boolean isFinished() {
         return false;
     }
-
-
-
-
-
-
-
 }

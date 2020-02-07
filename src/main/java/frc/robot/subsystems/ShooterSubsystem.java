@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
@@ -16,25 +9,22 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends PIDSubsystem {
+	private final CANSparkMax shooterLeft = new CANSparkMax(Constants.CAN.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
+	private final CANSparkMax shooterRight = new CANSparkMax(Constants.CAN.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
+	private final CANEncoder shooterEncoder = shooterLeft.getEncoder();
 
-	// Motor Controllers
-	private CANSparkMax shooterLeft = new CANSparkMax(Constants.SHOOTER_LEFT_PORT, MotorType.kBrushless);
-	private CANSparkMax shooterRight = new CANSparkMax(Constants.SHOOTER_RIGHT_PORT, MotorType.kBrushless);
-
-	// Encoders
-	private CANEncoder shooterEncoder = shooterLeft.getEncoder();
-	// private CANEncoder rightEncoder = shooterRight.getEncoder();
-
-	// Booleans
 	private boolean shooterEnabled = false;
 
 	public ShooterSubsystem() {
 		super(new PIDController(5e-5, 1e-6, 0));
+
+		shooterRight.setInverted(true);
 	}
 
 	@Override
 	public void useOutput(double output, double setpoint) {
 		shooterLeft.set(output);
+		shooterRight.set(output);
 	}
 
 	@Override

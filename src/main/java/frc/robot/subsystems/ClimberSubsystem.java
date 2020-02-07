@@ -1,61 +1,84 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.commands.climber.ClimberLoop;
 
 public class ClimberSubsystem extends SubsystemBase {
 	
-	Solenoid climberArm = new Solenoid(Constants.CLIMBER_EXTENDER_MODULE, Constants.CLIMBER_EXTENDER_CHANNEL);
-	Solenoid climberLock = new Solenoid(Constants.CLIMBER_LOCK_MODULE, Constants.CLIMBER_LOCK_CHANNEL);
-	TalonSRX climberWinch = new TalonSRX(Constants.CLIMBER_WINCH_PORT);
-	TalonSRX climberShimmy = new TalonSRX(Constants.CLMBER_climberShimmy_PORT);
+	private final DoubleSolenoid climberArm = new DoubleSolenoid(Constants.PCM.CLIMBER_ARM_EXTEND, Constants.PCM.CLIMBER_ARM_RETRACT);
+	private final Solenoid climberLock = new Solenoid(Constants.PCM.CLIMBER_LOCK);
+	private final TalonSRX climberWinch = new TalonSRX(Constants.CAN.CLIMBER_WINCH_MOTOR);
+
+	private boolean climberExtended = false;
 
 	public ClimberSubsystem() {
-		setDefaultCommand(new ClimberLoop());
+		setBrakeMode();
 	}
 
-	public void extenderExtend() {
-		climberArm.set(true);
-		RobotContainer.climberMode = true;
+	public void extendClimberArm() {
+		climberArm.set(DoubleSolenoid.Value.kForward);
+		climberExtended = true;
 	}
 	
-	public void extenderRetract() {
-		climberArm.set(false);
-		RobotContainer.climberMode = false;
+	public void retractClimberArm() {
+		climberArm.set(DoubleSolenoid.Value.kReverse);
+		climberExtended = false;
 	}
 
-	public void lockToggle() {
-		if (RobotContainer.climberMode) {
-			if (climberLock.get()) {
-				climberLock.set(false);
-			} else {
-				climberLock.set(true);
-			}
+	public void toggleClimberArm() {
+		if (isClimberArmExtended()) {
+			retractClimberArm();
+		} else {
+			extendClimberArm();
 		}
 	}
 
-	public void winchMove(double speed) {
-		if (RobotContainer.climberMode) {
+	public boolean isClimberArmExtended() {
+		return climberExtended;
+	}
+
+	public void lockClimber() {
+		climberLock.set(false);
+	}
+
+	public void unlockClimber() {
+		if (isClimberArmExtended()) {
+			climberLock.set(true);
+		}
+	}
+
+	public boolean isClimberLocked() {
+		return climberLock.get();
+	}
+
+	public void toggleClimberLock() {
+		if (isClimberLocked()) {
+			unlockClimber();
+		} else {
+			lockClimber();
+		}
+	}
+
+	public void winch(double speed) {
+		if (isClimberArmExtended() && !isClimberLocked()) {
 			climberWinch.set(ControlMode.PercentOutput, speed);
 		}
 	}
 
-	public void climberShimmyMove(double speed) {
-		if (RobotContainer.climberMode) {
-			climberShimmy.set(ControlMode.PercentOutput, speed);
-		}
-	}
-
 	public void stop() {
-		climberWinch.set(ControlMode.PercentOutput, 0);
-		climberShimmy.set(ControlMode.PercentOutput, 0);
+		climberWinch.set(ControlMode.PercentOutput, 0.);
 	}
 
-	// todo: discuss whether or not stop() method should also disable the joysticks and/or disable climber mode + lock the lock
+	public void setBrakeMode() {
+		climberWinch.setNeutralMode(NeutralMode.Brake);
+	}
+
+	public void setCoastMode() {
+		climberWinch.setNeutralMode(NeutralMode.Coast);
+	}
 }

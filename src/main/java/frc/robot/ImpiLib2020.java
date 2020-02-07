@@ -23,4 +23,7 @@ public class ImpiLib2020 {
         return value;
     }
 
+    public static double clampedDeadzone(double value, double deadzone, double min, double max) {
+        return clamp(deadzone(value, deadzone), min, max);
+    }
 }

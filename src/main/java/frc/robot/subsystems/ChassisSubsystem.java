@@ -15,33 +15,22 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.chassis.ChassisDrive;
 
 public class ChassisSubsystem extends SubsystemBase {
 
+	private final CANSparkMax driveMotorLeftFront =  new CANSparkMax(Constants.CAN.CHASSIS_DRIVE_MOTOR_LEFT_FRONT,  MotorType.kBrushless);
+	private final CANSparkMax driveMotorLeftRear =   new CANSparkMax(Constants.CAN.CHASSIS_DRIVE_MOTOR_LEFT_REAR,   MotorType.kBrushless);
+	private final CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CAN.CHASSIS_DRIVE_MOTOR_RIGHT_FRONT, MotorType.kBrushless);
+	private final CANSparkMax driveMotorRightRear =  new CANSparkMax(Constants.CAN.CHASSIS_DRIVE_MOTOR_RIGHT_REAR,  MotorType.kBrushless);
 
-	public CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
-	public CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CHASSIS_RIGHT_FRONT_PORT, MotorType.kBrushless);
-	public CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
-	public CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
+	private final SpeedControllerGroup driveMotorGroupLeft =  new SpeedControllerGroup(driveMotorLeftFront,  driveMotorLeftRear);
+	private final SpeedControllerGroup driveMotorGroupRight = new SpeedControllerGroup(driveMotorRightFront, driveMotorRightRear);
 
-	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftFront, driveMotorLeftRear);
-	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRightFront, driveMotorRightRear);
-
-	public DifferentialDrive drive = new DifferentialDrive(driveMotorLeftFront, driveMotorRightFront);
+	private final DifferentialDrive drive = new DifferentialDrive(driveMotorGroupLeft, driveMotorGroupRight);
 
 	public ChassisSubsystem() {
-		setDefaultCommand(new ChassisDrive());
-
-		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
-		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
-		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
-		driveMotorRightRear.setIdleMode(IdleMode.kCoast);
-
-		driveMotorLeftFront.setSmartCurrentLimit(20);
-		driveMotorRightFront.setSmartCurrentLimit(20);
-		driveMotorLeftRear.setSmartCurrentLimit(20);
-		driveMotorRightRear.setSmartCurrentLimit(20);
+		setCoastMode();
+		setSmartCurrentLimit(Constants.Chassis.CURRENT_LIMIT);
 	}
 	
 	public void arcadeDrive(double move, double turn) {
@@ -50,5 +39,30 @@ public class ChassisSubsystem extends SubsystemBase {
 
 	public void tankDrive(double left, double right) {
 		drive.tankDrive(left, right);
+	}
+
+	public void setBrakeMode() {
+		driveMotorLeftFront.setIdleMode(IdleMode.kBrake);
+		driveMotorLeftRear.setIdleMode(IdleMode.kBrake);
+		driveMotorRightFront.setIdleMode(IdleMode.kBrake);
+		driveMotorRightRear.setIdleMode(IdleMode.kBrake);
+	}
+
+	public void setCoastMode() {
+		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
+		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
+		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
+		driveMotorRightRear.setIdleMode(IdleMode.kCoast);
+	}
+
+	public void setSmartCurrentLimit(int currentLimit) {
+		driveMotorLeftFront.setSmartCurrentLimit(currentLimit);
+		driveMotorRightFront.setSmartCurrentLimit(currentLimit);
+		driveMotorLeftRear.setSmartCurrentLimit(currentLimit);
+		driveMotorRightRear.setSmartCurrentLimit(currentLimit);
+	}
+
+	public void stop() {
+		drive.arcadeDrive(0., 0.);
 	}
 }
