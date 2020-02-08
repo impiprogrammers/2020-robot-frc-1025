@@ -14,10 +14,9 @@ import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberShimmyMove extends CommandBase {
 	
-	private final ClimberSubsystem climberSubsystem;
+	ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
 
-	public ClimberShimmyMove(ClimberSubsystem climberSubsystem) {
-		this.climberSubsystem = climberSubsystem;
+	public ClimberShimmyMove() {
 		addRequirements(climberSubsystem);
 	}
 

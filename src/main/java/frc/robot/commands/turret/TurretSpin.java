@@ -16,40 +16,37 @@ import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretSpin extends CommandBase {
 
-  TurretSubsystem turretSubsystem = new TurretSubsystem();
+	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
 
-  /**
-   * Creates a new TurretRotate.
-   */
-  public TurretSpin() {
-    addRequirements(turretSubsystem);
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+	public TurretSpin() {
+		addRequirements(turretSubsystem);
+		// Use addRequirements() here to declare subsystem dependencies.
+	}
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
 
-    XboxController buttonsController = RobotContainer.buttonsController;
-    TurretSubsystem.TurretSpin(Math.pow(ImpiLib2020.deadzone(buttonsController.getX(Hand.kLeft), 0.05), 2));
-    if(buttonsController.getXButton()) {
-      TurretSubsystem.ToggleLimelightLock();
-    }
-  }
+		XboxController buttonsController = RobotContainer.buttonsController;
+		TurretSubsystem.TurretSpin(Math.pow(ImpiLib2020.deadzone(buttonsController.getX(Hand.kLeft), 0.05), 2));
+		if(buttonsController.getXButton()) {
+			TurretSubsystem.ToggleLimelightLock();
+		}
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 }

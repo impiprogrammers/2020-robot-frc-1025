@@ -10,10 +10,10 @@ import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyorRoll extends CommandBase {
 
-	ConveyorSubsystem conveyorSubsystem;
+	ConveyorSubsystem conveyorSubsystem = RobotContainer.conveyorSubsystem;
+	XboxController buttonsController = RobotContainer.buttonsController;
 
-	public ConveyorRoll(ConveyorSubsystem conveyorSubsystem) {
-		this.conveyorSubsystem = conveyorSubsystem;
+	public ConveyorRoll() {
 		addRequirements(conveyorSubsystem);
 	}
 
@@ -24,7 +24,6 @@ public class ConveyorRoll extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		XboxController buttonsController = RobotContainer.buttonsController;
 		conveyorSubsystem.conveyorRoll(Math.pow(ImpiLib2020.deadzone(buttonsController.getTriggerAxis(Hand.kRight), 0.05), 2));
 	}
 

@@ -6,54 +6,49 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands.turret;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ImpiLib2020;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.TurretSubsystem;
-import frc.robot.commands.turret.*;
 
 public class ToggleLimelightLock extends CommandBase {
-  //  * Creates a new ToggleLimelightLock.
-  TurretSubsystem turretSubsystem = new TurretSubsystem();
 
-  public ToggleLimelightLock() {
-    addRequirements(turretSubsystem);
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
+	XboxController buttonsController = RobotContainer.buttonsController;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+	public ToggleLimelightLock() {
+		addRequirements(turretSubsystem);
+		// Use addRequirements() here to declare subsystem dependencies.
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    
-    XboxController buttonsController = RobotContainer.buttonsController;
-    TurretSubsystem.ToggleLimelightLock();
-  }
-  
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+		TurretSubsystem.ToggleLimelightLock();
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+	}
 
-    XboxController buttonsController = RobotContainer.buttonsController;
-    if(buttonsController.getXButton()) {
-      return true;
-    }
-		if(Math.abs(buttonsController.getX(Hand.kLeft)) >= 0.05) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		if (buttonsController.getXButton()) {
+			return true;
+		}
+		if (Math.abs(buttonsController.getX(Hand.kLeft)) >= 0.05) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

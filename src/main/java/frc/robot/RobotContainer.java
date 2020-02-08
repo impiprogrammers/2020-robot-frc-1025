@@ -31,21 +31,18 @@ import frc.robot.commands.shooter_feeder.*;
 public class RobotContainer {
 
 	// Subsystems
-	private final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
-	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-	
-	ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
-
-	ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-
+	public static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	public static final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
 
-	private final IntakeExtenderToggle intakeExtenderToggle = new IntakeExtenderToggle();
+	private final IntakeArmToggle intakeExtenderToggle = new IntakeArmToggle();
 	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
 
 	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
@@ -54,14 +51,14 @@ public class RobotContainer {
 
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll();
 
-	private ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
-	private ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
+	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
+	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
 	
-	private final climberArmExtend climberArmExtend = new climberArmExtend();
-	private final climberArmRetract climberArmRetract = new climberArmRetract();
+	private final ClimberArmExtend climberArmExtend = new ClimberArmExtend();
+	private final ClimberArmRetract climberArmRetract = new ClimberArmRetract();
 	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle();
 	private final ClimberWinchMove climberWinchMove = new ClimberWinchMove();
-	private final ClimberclimberShimmyMove climberclimberShimmyMove = new ClimberclimberShimmyMove();
+	private final ClimberShimmyMove climberShimmyMove = new ClimberShimmyMove();
 
 	private final TurretSpin turretSpin = new TurretSpin();
 	private final ToggleLimelightLock toggleLimelightLock = new ToggleLimelightLock();

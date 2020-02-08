@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class ChassisDrive extends CommandBase {
 	
-	private final ChassisSubsystem chassisSubsystem;
+	ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
+	XboxController driverController = RobotContainer.driverController;
 
-	public ChassisDrive(ChassisSubsystem chassisSubsystem) {
-		this.chassisSubsystem = chassisSubsystem;
+	public ChassisDrive() {
 		addRequirements(chassisSubsystem);
 	}
 
@@ -30,8 +30,7 @@ public class ChassisDrive extends CommandBase {
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
-	public void execute() {		
-		XboxController driverController = RobotContainer.driverController;
+	public void execute() {
 		double move = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(driverController.getY(Hand.kLeft),  0.05), -1, 1));
 		double turn = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(driverController.getX(Hand.kRight), 0.05), -1, 1));
 		chassisSubsystem.arcadeDrive(move, turn);

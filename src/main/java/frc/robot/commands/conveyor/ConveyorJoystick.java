@@ -16,11 +16,10 @@ import frc.robot.ImpiLib2020;
 
 public class ConveyorJoystick extends CommandBase {
 
-	private final ConveyorSubsystem conveyorJoystick;
+	ConveyorSubsystem conveyorSubsystem = RobotContainer.conveyorSubsystem;
 
-	public ConveyorJoystick(ConveyorSubsystem conveyorJoystick) {
-		this.conveyorJoystick = conveyorJoystick;
-		addRequirements(conveyorJoystick);
+	public ConveyorJoystick() {
+		addRequirements(conveyorSubsystem);
 	}
 
 	// Called when the command is initially scheduled.
@@ -31,7 +30,7 @@ public class ConveyorJoystick extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		conveyorJoystick.conveyorRoll(Math.pow(ImpiLib2020.deadzone(RobotContainer.buttonsController.getY(Hand.kRight), 0.05), 2));
+		conveyorSubsystem.conveyorRoll(Math.pow(ImpiLib2020.deadzone(RobotContainer.buttonsController.getY(Hand.kRight), 0.05), 2));
 
 	}
 

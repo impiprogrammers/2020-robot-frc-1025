@@ -16,10 +16,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeRollersRoll extends CommandBase {
 
-	IntakeSubsystem intakeSubsystem;
+	IntakeSubsystem intakeSubsystem = RobotContainer.intakeSubsystem;
+	XboxController buttonsController = RobotContainer.buttonsController;
 
-	public IntakeRollersRoll(IntakeSubsystem intakeSubsystem) {
-		this.intakeSubsystem = intakeSubsystem;
+	public IntakeRollersRoll() {
 		addRequirements(intakeSubsystem);
 	}
 
@@ -31,7 +31,6 @@ public class IntakeRollersRoll extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		XboxController buttonsController = RobotContainer.buttonsController;
 		intakeSubsystem.rollersRoll(Math.pow(ImpiLib2020.deadzone(buttonsController.getTriggerAxis(Hand.kLeft), 0.05), 2));
 	}
 

@@ -8,14 +8,14 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberLockToggle extends CommandBase {
 	
-	private final ClimberSubsystem climberSubsystem;
+	private final ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
 
-	public ClimberLockToggle(ClimberSubsystem climberSubsystem) {
-		this.climberSubsystem = climberSubsystem;
+	public ClimberLockToggle() {
 		addRequirements(climberSubsystem);
 	}
 
