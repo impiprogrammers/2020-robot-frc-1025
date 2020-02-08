@@ -13,11 +13,14 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.ChassisSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 public class ChassisDrive extends CommandBase {
 	
 	ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
 	XboxController driverController = RobotContainer.driverController;
+
+	DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(0.58);
 
 	public ChassisDrive() {
 		addRequirements(chassisSubsystem);
