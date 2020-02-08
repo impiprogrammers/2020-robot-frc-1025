@@ -16,7 +16,7 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants { //hi
+public final class Constants {
     // OI
     public static final int XBOX_CONTROLLER_DRIVER = 0;
     public static final int XBOX_CONTROLLER_BUTTONS = 1;
