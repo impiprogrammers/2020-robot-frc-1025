@@ -45,7 +45,9 @@ public class RobotContainer {
 	private final IntakeArmToggle intakeExtenderToggle = new IntakeArmToggle();
 	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
 
-	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
+	private final ShooterShoot shooterShoot1 = new ShooterShoot(100);
+	private final ShooterShoot shooterShoot2 = new ShooterShoot(5000);
+	private final ShooterShoot shooterShoot3 = new ShooterShoot(5700);
 	private final ShooterStop shooterStop = new ShooterStop();
 	private final ShooterToggle shooterToggle = new ShooterToggle(5700);
 
