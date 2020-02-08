@@ -59,8 +59,7 @@ public class RobotContainer {
 	private final ClimberArmExtend climberArmExtend = new ClimberArmExtend();
 	private final ClimberArmRetract climberArmRetract = new ClimberArmRetract();
 	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle();
-	private final ClimberWinchMove climberWinchMove = new ClimberWinchMove();
-	private final ClimberShimmyMove climberShimmyMove = new ClimberShimmyMove();
+	private final ClimberLoop climberLoop = new ClimberLoop();
 
 	private final TurretSpin turretSpin = new TurretSpin();
 	private final ToggleLimelightLock toggleLimelightLock = new ToggleLimelightLock();
@@ -85,8 +84,11 @@ public class RobotContainer {
 	public static boolean climberMode = false;
 
  	public RobotContainer() {
-
+		chassisSubsystem.setDefaultCommand(chassisDrive);
+		climberSubsystem.setDefaultCommand(climberLoop);
 		turretSubsystem.setDefaultCommand(turretSpin);
+		conveyorSubsystem.setDefaultCommand(conveyorRoll);
+		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 
 		configureButtonBindings();
  	}

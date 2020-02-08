@@ -15,7 +15,7 @@ public class ConveyorSubsystem extends SubsystemBase {
 		conveyorRollers.set(ControlMode.PercentOutput, 0);
 		conveyorRollers.configFactoryDefault();
 		conveyorRollers.setNeutralMode(NeutralMode.Brake);
-		setDefaultCommand(new ConveyorRoll());
+
 	}
 
 	public void conveyorRoll(double speed) {

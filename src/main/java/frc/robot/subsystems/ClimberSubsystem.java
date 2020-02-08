@@ -11,13 +11,12 @@ import frc.robot.commands.climber.ClimberLoop;
 
 public class ClimberSubsystem extends SubsystemBase {
 	
-	Solenoid climberArm = new Solenoid(Constants.CLIMBER_EXTENDER_MODULE, Constants.CLIMBER_EXTENDER_CHANNEL);
-	Solenoid climberLock = new Solenoid(Constants.CLIMBER_LOCK_MODULE, Constants.CLIMBER_LOCK_CHANNEL);
+	Solenoid climberArm = new Solenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_EXTENDER_CHANNEL);
+	Solenoid climberLock = new Solenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_LOCK_CHANNEL);
 	TalonSRX climberWinch = new TalonSRX(Constants.CLIMBER_WINCH_PORT);
-	TalonSRX climberShimmy = new TalonSRX(Constants.CLMBER_climberShimmy_PORT);
+	TalonSRX climberShimmy = new TalonSRX(Constants.CLMBER_SHIMMY_PORT);
 
 	public ClimberSubsystem() {
-		setDefaultCommand(new ClimberLoop());
 	}
 
 	public void extenderExtend() {

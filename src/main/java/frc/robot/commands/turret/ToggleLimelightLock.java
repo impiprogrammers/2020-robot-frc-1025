@@ -31,7 +31,7 @@ public class ToggleLimelightLock extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		TurretSubsystem.ToggleLimelightLock();
+		turretSubsystem.toggleLimelightLock();
 	}
 
 	// Called once the command ends or is interrupted.

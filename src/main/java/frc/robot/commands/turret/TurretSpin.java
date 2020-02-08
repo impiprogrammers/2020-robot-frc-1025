@@ -17,6 +17,7 @@ import frc.robot.subsystems.TurretSubsystem;
 public class TurretSpin extends CommandBase {
 
 	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
+	XboxController buttonsController = RobotContainer.buttonsController;
 
 	public TurretSpin() {
 		addRequirements(turretSubsystem);
@@ -31,11 +32,9 @@ public class TurretSpin extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-
-		XboxController buttonsController = RobotContainer.buttonsController;
-		TurretSubsystem.TurretSpin(Math.pow(ImpiLib2020.deadzone(buttonsController.getX(Hand.kLeft), 0.05), 2));
+		turretSubsystem.turretSpin(Math.pow(ImpiLib2020.deadzone(buttonsController.getX(Hand.kLeft), 0.05), 2));
 		if(buttonsController.getXButton()) {
-			TurretSubsystem.ToggleLimelightLock();
+			turretSubsystem.toggleLimelightLock();
 		}
 	}
 

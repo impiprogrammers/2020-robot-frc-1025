@@ -31,8 +31,6 @@ public class ChassisSubsystem extends SubsystemBase {
 	public DifferentialDrive drive = new DifferentialDrive(driveMotorLeftFront, driveMotorRightFront);
 
 	public ChassisSubsystem() {
-		setDefaultCommand(new ChassisDrive());
-
 		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
 		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
 		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
