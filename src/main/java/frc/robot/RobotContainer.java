@@ -7,10 +7,25 @@
 
 package frc.robot;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.commands.chassis.*;
@@ -28,6 +43,8 @@ import frc.robot.commands.shooter_feeder.*;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+	SendableChooser<String> autoChooser = new SendableChooser<>();
 
 	// Subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
@@ -52,7 +69,7 @@ public class RobotContainer {
 
 	private ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
 	private ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
-	
+
 	private final ClimberExtenderExtend climberExtenderExtend = new ClimberExtenderExtend();
 	private final ClimberExtenderRetract climberExtenderRetract = new ClimberExtenderRetract();
 	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle();
@@ -81,6 +98,11 @@ public class RobotContainer {
 	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
 		configureButtonBindings();
+
+		// Configure Auto Chooser
+		autoChooser.setDefaultOption("Straight Line", "");
+
+		SmartDashboard.putData("Autonomous Path", autoChooser);
 	}
 
 	/**
@@ -105,8 +127,25 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		// An ExampleCommand will run in autonomous
-		return null;
+		SimpleMotorFeedforward ff = new SimpleMotorFeedforward(Constants.CHASSIS_AUTO_FFS, Constants.CHASSIS_AUTO_FFV,
+				Constants.CHASSIS_AUTO_FFA);
 
+		String trajectoryJSON = autoChooser.getSelected();
+		try {
+			Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+			Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+
+			RamseteCommand ramseteCommand = new RamseteCommand(trajectory, chassisSubsystem::getPose,
+					new RamseteController(Constants.CHASSIS_AUTO_RAMSETE_B, Constants.CHASSIS_AUTO_RAMSETE_ZETA), ff,
+					chassisSubsystem.driveKinematics, chassisSubsystem::getWheelSpeeds,
+					new PIDController(Constants.CHASSIS_AUTO_P, 0, 0),
+					new PIDController(Constants.CHASSIS_AUTO_P, 0, 0), chassisSubsystem::voltageTankDrive,
+					chassisSubsystem);
+
+			return ramseteCommand.andThen(() -> chassisSubsystem.voltageTankDrive(0, 0));
+		} catch (IOException ex) {
+			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+			return null;
+		}
 	}
 }
