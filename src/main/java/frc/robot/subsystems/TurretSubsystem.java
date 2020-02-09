@@ -83,13 +83,13 @@ public class TurretSubsystem extends SubsystemBase {
 
 		if (targetVisibility) {
 			if (targetCentered >= -1 && targetCentered <= 1) {
-				if (RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+				if (true) {
 					setLEDsSolidGreen();
 				} else {
 					setLEDsFlashGreen();
 				}
 			} else {
-				if (RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+				if (true) {
 					// SetLEDsSolidBlueLeft() || SetLEDsSolidBlueRight();
 				} else {
 					// SetLEDsFlashBlueleft() || SetLEDsFlashBlueRight();
@@ -98,7 +98,7 @@ public class TurretSubsystem extends SubsystemBase {
 		} else {
 			if (targetCentered >= -1 && targetCentered <= 1) {
 			} else {
-				if (RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+				if (true) {
 					setLEDsSolidOrange();
 				} else {
 					setLEDsOff();
@@ -131,13 +131,13 @@ public class TurretSubsystem extends SubsystemBase {
 
 		if (targetVisibility) {
 			if (targetCentered >= -1 && targetCentered <= 1) {
-				if (RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+				if (true) {
 					setLEDsSolidGreen();
 				} else {
 					setLEDsFlashGreen();
 				}
 			} else {
-				if (RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+				if (true) {
 					// SetLEDsSolidBlueLeft() || SetLEDsSolidBlueRight();
 				} else {
 					// SetLEDsFlashBlueleft() || SetLEDsFlashBlueRight();
@@ -146,7 +146,7 @@ public class TurretSubsystem extends SubsystemBase {
 		} else {
 			if (targetCentered >= -1 && targetCentered <= 1) {
 			} else {
-				if (RobotContainer.shooterSubsystem.getController().atSetpoint()) {
+				if (true) {
 					setLEDsSolidOrange();
 				} else {
 					setLEDsOff();
