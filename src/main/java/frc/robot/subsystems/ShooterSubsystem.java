@@ -80,4 +80,8 @@ public class ShooterSubsystem extends SubsystemBase {
 			shoot(setpoint);
 		}
 	}
+
+	public boolean atSetpoint() {
+		return (Math.abs(5700 - shooterEncoder.getVelocity()) <= 250); 
+	}
 }

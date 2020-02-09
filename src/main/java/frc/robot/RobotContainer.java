@@ -17,10 +17,9 @@ import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter_feeder.*;
-import frc.robot.commands.turret.ToggleLimelightLock;
 import frc.robot.commands.turret.TurretSpin;
+import frc.robot.commands.turret.TurretToggleManualMode;
 import frc.robot.commands.shooter.*;
-import frc.robot.commands.shooter_feeder.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -60,7 +59,7 @@ public class RobotContainer {
 	private final ClimberLoop climberLoop = new ClimberLoop();
 
 	private final TurretSpin turretSpin = new TurretSpin();
-	private final ToggleLimelightLock toggleLimelightLock = new ToggleLimelightLock();
+	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode();
 	
 	
  	// OI
@@ -74,6 +73,7 @@ public class RobotContainer {
 	private final JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
 	private final JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
 
+	private final JoystickButton buttonsX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
 	private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
 	private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
 	
@@ -88,8 +88,6 @@ public class RobotContainer {
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
-		
-		
 
 		configureButtonBindings();
  	}
@@ -105,6 +103,7 @@ public class RobotContainer {
 		driverSelect.whenPressed(climberArmExtend);
 		driverStart.whenPressed(climberArmRetract);
 
+		buttonsX.whenPressed(turretToggleManualMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
 	}

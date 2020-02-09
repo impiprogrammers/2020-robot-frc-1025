@@ -7,19 +7,13 @@
 
 package frc.robot.commands.turret;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.TurretSubsystem;
 
-public class ToggleLimelightLock extends CommandBase {
-
-	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
-	XboxController buttonsController = RobotContainer.buttonsController;
-
-	public ToggleLimelightLock() {
-		addRequirements(turretSubsystem);
+public class TurretCenter extends CommandBase {
+	/**
+	 * Creates a new TurretCenter.
+	 */
+	public TurretCenter() {
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
@@ -31,7 +25,6 @@ public class ToggleLimelightLock extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		turretSubsystem.toggleLimelightLock();
 	}
 
 	// Called once the command ends or is interrupted.
@@ -42,13 +35,6 @@ public class ToggleLimelightLock extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if (buttonsController.getXButton()) {
-			return true;
-		}
-		if (Math.abs(buttonsController.getX(Hand.kLeft)) >= 0.05) {
-			return true;
-		} else {
-			return false;
-		}
+		return false;
 	}
 }

@@ -10,16 +10,15 @@ package frc.robot.commands.turret;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ImpiLib2020;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.TurretSubsystem;
 
-public class TurretSpin extends CommandBase {
+public class TurretToggleManualMode extends CommandBase {
 
 	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
 	XboxController buttonsController = RobotContainer.buttonsController;
 
-	public TurretSpin() {
+	public TurretToggleManualMode() {
 		addRequirements(turretSubsystem);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
@@ -32,7 +31,7 @@ public class TurretSpin extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		turretSubsystem.turretSpin(ImpiLib2020.signedSquare(ImpiLib2020.deadzone(buttonsController.getX(Hand.kLeft), 0.05)));
+		turretSubsystem.toggleManualMode();
 	}
 
 	// Called once the command ends or is interrupted.
@@ -43,6 +42,6 @@ public class TurretSpin extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return true;
 	}
 }
