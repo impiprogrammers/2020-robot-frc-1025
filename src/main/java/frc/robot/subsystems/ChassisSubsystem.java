@@ -28,7 +28,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftFront, driveMotorLeftRear);
 	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRightFront, driveMotorRightRear);
 
-	public DifferentialDrive drive = new DifferentialDrive(driveMotorLeftFront, driveMotorRightFront);
+	public DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
 	public ChassisSubsystem() {
 		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);

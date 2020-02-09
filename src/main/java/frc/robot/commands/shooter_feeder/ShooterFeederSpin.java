@@ -9,6 +9,7 @@ import frc.robot.subsystems.ShooterFeederSubsystem;
 
 public class ShooterFeederSpin extends CommandBase {
 
+    XboxController buttonsController = RobotContainer.buttonsController;
     ShooterFeederSubsystem shooterFeederSubsystem = RobotContainer.shooterFeederSubsystem;
 
     public ShooterFeederSpin() {
@@ -21,7 +22,6 @@ public class ShooterFeederSpin extends CommandBase {
 
     @Override
     public void execute() {
-        XboxController buttonsController = RobotContainer.buttonsController;
         shooterFeederSubsystem.spin(Math.pow(ImpiLib2020.deadzone(buttonsController.getTriggerAxis(Hand.kRight), 0.05), 2));
     }
 

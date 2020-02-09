@@ -36,8 +36,8 @@ public class ClimberLoop extends CommandBase {
 		double rightTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kRight), 0.05);
 		if (rightTriggerAxis > 0) {
 			climberSubsystem.winchMove(Math.pow(rightTriggerAxis, 2));
-		} else if (leftTriggerAxis > 0) {
-			climberSubsystem.winchMove(-Math.pow(rightTriggerAxis, 2));
+		} else {
+			climberSubsystem.winchMove(-Math.pow(leftTriggerAxis, 2));
 		}
 
 		// Shimmy
@@ -45,6 +45,8 @@ public class ClimberLoop extends CommandBase {
 			climberSubsystem.climberShimmyMove(0.5);
 		} else if (driverController.getPOV() == 270) {
 			climberSubsystem.climberShimmyMove(-0.5);
+		} else {
+			climberSubsystem.climberShimmyMove(0);
 		}
 	}
 

@@ -3,15 +3,16 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.climber.ClimberLoop;
 
 public class ClimberSubsystem extends SubsystemBase {
 	
-	Solenoid climberArm = new Solenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_EXTENDER_CHANNEL);
+	DoubleSolenoid climberArm = new DoubleSolenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_EXTENDER_FORWARD_CHANNEL, Constants.CLIMBER_EXTENDER_REVERSE_CHANNEL);
 	Solenoid climberLock = new Solenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_LOCK_CHANNEL);
 	TalonSRX climberWinch = new TalonSRX(Constants.CLIMBER_WINCH_PORT);
 	TalonSRX climberShimmy = new TalonSRX(Constants.CLMBER_SHIMMY_PORT);
@@ -20,12 +21,12 @@ public class ClimberSubsystem extends SubsystemBase {
 	}
 
 	public void extenderExtend() {
-		climberArm.set(true);
+		climberArm.set(Value.kReverse);
 		RobotContainer.climberMode = true;
 	}
 	
 	public void extenderRetract() {
-		climberArm.set(false);
+		climberArm.set(Value.kForward);
 		RobotContainer.climberMode = false;
 	}
 
