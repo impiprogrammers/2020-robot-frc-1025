@@ -35,12 +35,9 @@ public class ConveyorRoll extends CommandBase {
 		double rollTriggerValue = RobotContainer.buttonsController.getY(Hand.kRight);
 		double rollJoystickValue = buttonsController.getTriggerAxis(Hand.kRight);
 		double rollValue;
-		if (Math.abs(rollJoystickValue) > Math.abs(rollTriggerValue)) {
-			rollValue = rollJoystickValue;
-		} else {
-			rollValue = rollTriggerValue;
-		}
-		conveyorSubsystem.conveyorRoll(Math.pow(ImpiLib2020.deadzone(rollValue, 0.05), 2));
+		rollValue = rollTriggerValue;
+
+		conveyorSubsystem.conveyorRoll(ImpiLib2020.deadzone(rollValue, 0.05));
 	}
 
 	// Called once the command ends or is interrupted.

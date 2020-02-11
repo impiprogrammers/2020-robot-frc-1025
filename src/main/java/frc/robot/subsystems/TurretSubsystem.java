@@ -53,7 +53,7 @@ public class TurretSubsystem extends SubsystemBase {
 
 	private static int rainbowFirstPixelHue;
 	private AddressableLED led = new AddressableLED(0);
-	private static AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(60);
+	private static AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(150);
 	private static int timer = 0;
 
 	public TurretSubsystem() {
@@ -87,7 +87,12 @@ public class TurretSubsystem extends SubsystemBase {
 		NetworkTableEntry tx = table.getEntry("tx");
 		double errorValue = tx.getDouble(0);
 		NetworkTableEntry tv = table.getEntry("tv");
-		boolean targetVisibility = tv.getBoolean(false);
+		int targetVisibility = 0;
+		if (errorValue > -0.01 && errorValue < 0.01) {
+			targetVisibility = 0;
+		} else {
+			targetVisibility = 1;
+		}
 		double targetCentered = tx.getDouble(0);
 		double kp = 0.1;
 		double min_speed = 0.05;
@@ -97,11 +102,12 @@ public class TurretSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("tx", tx.getDouble(0));
 		SmartDashboard.putNumber("Negative Error Value", negativeErrorValue);
 		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
+		SmartDashboard.putNumber("targetVisibility", targetVisibility);
 		if (manualMode) {
 			setTurretMotor(speed);
 			// set LEDs
 
-			if (targetVisibility) {
+			if (targetVisibility == 1) {
 				if (targetCentered >= -2.5 && targetCentered <= 2.5) {
 					if (shooterSubsystem.atSetpoint()) {
 						setLEDsSolidGreen();
@@ -145,16 +151,16 @@ public class TurretSubsystem extends SubsystemBase {
 			if (negativeErrorValue > 2.5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(-steeringAdjustment);
-			}
-
-			else if (negativeErrorValue < -2.5) {
+			} else if (negativeErrorValue < -2.5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) - min_speed;
 				setTurretMotor(steeringAdjustment);
 
+			} else {
+				setTurretMotor(0);
 			}
 
-			if (targetVisibility) {
-				if (targetCentered >= -1 && targetCentered <= 1) {
+			if (targetVisibility == 1) {
+				if (targetCentered >= -2.5 && targetCentered <= 2.5) {
 					if (shooterSubsystem.atSetpoint()) {
 						setLEDsSolidGreen();
 						led.setData(ledBuffer);
@@ -232,7 +238,7 @@ public class TurretSubsystem extends SubsystemBase {
 		if (timer > 25) {
 			for (var i = 0; i < (ledBuffer.getLength()); i++) {
 				// ledBuffer.setHSV(i, 0, 0, 0);
-				if (i < (ledBuffer.getLength() / 2) + 30) {
+				if (i > (ledBuffer.getLength() / 2)) {
 					ledBuffer.setHSV(i, 225 / 2, 255, 255);
 				} else {
 					ledBuffer.setHSV(i, 0 / 2, 0, 0);
@@ -262,7 +268,7 @@ public class TurretSubsystem extends SubsystemBase {
 	public void setLEDsSolidBlueLeft() {
 		for (var i = 0; i < ledBuffer.getLength(); i++) {
 			// ledBuffer.setHSV(i, 0, 0, 0);
-			if (i < ledBuffer.getLength() / 2 + 30) {
+			if (i > ledBuffer.getLength() / 2) {
 				ledBuffer.setHSV(i, 225 / 2, 255, 255);
 			} else {
 				ledBuffer.setHSV(i, 0, 0, 0);
