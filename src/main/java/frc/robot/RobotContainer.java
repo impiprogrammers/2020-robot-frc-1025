@@ -17,9 +17,9 @@ import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter_feeder.*;
-import frc.robot.commands.turret.TurretSpin;
-import frc.robot.commands.turret.TurretToggleManualMode;
+import frc.robot.commands.turret.*;
 import frc.robot.commands.shooter.*;
+import frc.robot.commands.control_panel.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -37,6 +37,7 @@ public class RobotContainer {
 	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	public static final TurretSubsystem turretSubsystem = new TurretSubsystem();
+	public static final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
@@ -60,6 +61,11 @@ public class RobotContainer {
 
 	private final TurretSpin turretSpin = new TurretSpin();
 	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode();
+
+	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend();
+	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract();
+	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor();
+	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour();
 	
 	
  	// OI
