@@ -31,7 +31,7 @@ public class IntakeRollersRoll extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		intakeSubsystem.rollersRoll(ImpiLib2020.deadzone(buttonsController.getY(Hand.kLeft), 0.05));
+		intakeSubsystem.rollersRoll(ImpiLib2020.parseTrigger(buttonsController.getTriggerAxis(Hand.kLeft)));
 	}
 
 	// Called once the command ends or is interrupted.

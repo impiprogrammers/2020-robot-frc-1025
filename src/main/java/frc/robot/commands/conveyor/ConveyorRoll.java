@@ -7,7 +7,6 @@
 
 package frc.robot.commands.conveyor;
 
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -32,12 +31,14 @@ public class ConveyorRoll extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		double rollTriggerValue = RobotContainer.buttonsController.getY(Hand.kRight);
-		double rollJoystickValue = buttonsController.getTriggerAxis(Hand.kRight);
-		double rollValue;
-		rollValue = rollTriggerValue;
+		double rollJoystickValue = RobotContainer.buttonsController.getY(Hand.kRight);
+		double rollTriggerValue = buttonsController.getTriggerAxis(Hand.kRight);
 
-		conveyorSubsystem.conveyorRoll(ImpiLib2020.deadzone(rollValue, 0.05));
+		if (Math.abs(rollJoystickValue) > Math.abs(rollTriggerValue)) {
+			conveyorSubsystem.conveyorRoll(ImpiLib2020.parseJoystick(rollJoystickValue));
+		} else {
+			conveyorSubsystem.conveyorRoll(ImpiLib2020.parseTrigger(rollTriggerValue));
+		}
 	}
 
 	// Called once the command ends or is interrupted.
