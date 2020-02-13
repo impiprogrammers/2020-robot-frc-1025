@@ -81,7 +81,6 @@ public class RobotContainer {
 	private final JoystickButton driverB =           new JoystickButton(driverController, XboxController.Button.kB.value);
 	private final JoystickButton driverX =           new JoystickButton(driverController, XboxController.Button.kX.value);
 	private final JoystickButton driverY =           new JoystickButton(driverController, XboxController.Button.kY.value);
-	private final JoystickButton driverDpadUp =      new JoystickButton(driverController, XboxController.Button.);
 	private final JoystickButton driverSelect =      new JoystickButton(driverController, XboxController.Button.kBack.value);
 	private final JoystickButton driverStart =       new JoystickButton(driverController, XboxController.Button.kStart.value);
 	private final JoystickButton driverLeftBumper =  new JoystickButton(driverController, XboxController.Button.kBumperLeft.value);

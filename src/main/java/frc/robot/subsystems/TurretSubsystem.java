@@ -84,12 +84,6 @@ public class TurretSubsystem extends SubsystemBase {
 		}
 	}
 
-	@Override
-	public void periodic() {
-		updateLights();
-		SmartDashboard.putNumber("Turret Angle", turretEncoder.getPosition());
-	}
-
 	public void stop() {
 		turretMotor.set(0.);
 	}
@@ -103,5 +97,11 @@ public class TurretSubsystem extends SubsystemBase {
 			speed = 0.;
 		}
 		turretMotor.set(speed);
+	}
+
+	@Override
+	public void periodic() {
+		updateLights();
+		SmartDashboard.putNumber("Turret Angle", turretEncoder.getPosition());
 	}
 }
