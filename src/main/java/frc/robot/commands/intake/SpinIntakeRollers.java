@@ -1,18 +1,16 @@
 package frc.robot.commands.intake;
 
-import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ImpiLib2020;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeRollersJoystickAxis extends CommandBase {
+public class SpinIntakeRollers extends CommandBase {
 
 	IntakeSubsystem intakeSubsystem;
-	DoubleSupplier joystickAxis;
+	double speed;
 
-	public IntakeRollersJoystickAxis(IntakeSubsystem intakeSubsystem, DoubleSupplier joystickAxis) {
+	public SpinIntakeRollers(IntakeSubsystem intakeSubsystem, double speed) {
 		this.intakeSubsystem = intakeSubsystem;
-		this.joystickAxis = joystickAxis;
+		this.speed = speed;
 		addRequirements(intakeSubsystem);
 	}
 
@@ -22,12 +20,12 @@ public class IntakeRollersJoystickAxis extends CommandBase {
 
 	@Override
 	public void execute() {
-		double value = ImpiLib2020.clampedDeadzone(joystickAxis.getAsDouble(), 0.05, -1., 1.);
-		intakeSubsystem.spin(value);
+		intakeSubsystem.spin(speed);
 	}
 
 	@Override
 	public void end(boolean interrupted) {
+		intakeSubsystem.stop();
 	}
 
 	@Override

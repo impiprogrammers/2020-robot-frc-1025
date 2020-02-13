@@ -25,8 +25,8 @@ public class ChassisJoystickArcade extends CommandBase {
 
 	@Override
 	public void execute() {		
-		double forward = ImpiLib2020.clampedDeadzone(forwardAxis.getAsDouble(), Constants.Chassis.JOYSTICK_DEADZONE, -1., 1.);
-		double turn = ImpiLib2020.clampedDeadzone(turnAxis.getAsDouble(), Constants.Chassis.JOYSTICK_DEADZONE, -1., 1.);
+		double forward = ImpiLib2020.clampedDeadzone(forwardAxis.getAsDouble(), Constants.OI.JOYSTICK_DEADZONE, -1., 1.);
+		double turn = ImpiLib2020.clampedDeadzone(turnAxis.getAsDouble(), Constants.OI.JOYSTICK_DEADZONE, -1., 1.);
 		chassisSubsystem.arcadeDrive(forward, turn);
 	}
 

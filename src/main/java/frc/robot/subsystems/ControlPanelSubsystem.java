@@ -9,6 +9,7 @@ import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
@@ -32,12 +33,16 @@ public class ControlPanelSubsystem extends SubsystemBase {
 		controlPanelArm.set(true);
 	}
 
-	public void retractControlPanelArm(){
+	public void retractControlPanelArm() {
 		controlPanelArm.set(false);
 	}
 
-	public void toggleControlPanelArm(){
+	public void toggleControlPanelArm() {
 		controlPanelArm.set(!controlPanelArm.get());
+	}
+
+	public boolean isControlPanelArmExtended() {
+		return controlPanelArm.get();
 	}
 
 	public void controlPanelWheelSpinFour(){
@@ -61,5 +66,11 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
 	public void setCoastMode() {
 		controlPanelWheel.setNeutralMode(NeutralMode.Coast);
+	}
+
+	@Override
+	public void periodic() {
+		SmartDashboard.putBoolean("Control Panel Arm Extended", isControlPanelArmExtended());
+		SmartDashboard.putNumber("Control Panel Wheel Speed", controlPanelWheel.getMotorOutputPercent());
 	}
 }

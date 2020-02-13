@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterFeederSubsystem extends SubsystemBase {
 
@@ -29,5 +30,10 @@ public class ShooterFeederSubsystem extends SubsystemBase {
 
 	public void setCoastMode() {
 		shooterFeederRoller.setNeutralMode(NeutralMode.Coast);
+	}
+
+	@Override
+	public void periodic() {
+		SmartDashboard.putNumber("Shooter Feeder Speed", shooterFeederRoller.getMotorOutputPercent());
 	}
 }

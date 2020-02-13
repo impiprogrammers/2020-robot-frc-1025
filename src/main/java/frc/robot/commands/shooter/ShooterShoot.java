@@ -5,37 +5,32 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterShoot extends CommandBase {
 
-	ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-	double setpoint;
+	private final ShooterSubsystem shooterSubsystem;
+	private double speed;
 
-	public ShooterShoot(double setpoint) {
+	public ShooterShoot(ShooterSubsystem shooterSubsystem, double speed) {
+		this.shooterSubsystem = shooterSubsystem;
+		this.speed = speed;
+
 		addRequirements(shooterSubsystem);
-		this.setpoint = setpoint;
 	}
 
-	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		
-		
+		shooterSubsystem.shoot(speed);
 	}
 
-	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		
-		shooterSubsystem.shoot(setpoint);
 	}
 
-	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-	
+		shooterSubsystem.stop();
 	}
 
-	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return true;
+		return false;
 	}
 }

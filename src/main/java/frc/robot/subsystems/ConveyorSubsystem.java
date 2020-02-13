@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
 
@@ -30,5 +31,10 @@ public class ConveyorSubsystem extends SubsystemBase {
 
 	public void setCoastMode() {
 		conveyorRollers.setNeutralMode(NeutralMode.Coast);
+	}
+
+	@Override
+	public void periodic() {
+		SmartDashboard.putNumber("Conveyor Speed", conveyorRollers.getMotorOutputPercent());
 	}
 }

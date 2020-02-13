@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -17,6 +18,7 @@ public class ClimberSubsystem extends SubsystemBase {
 	private boolean climberExtended = false;
 
 	public ClimberSubsystem() {
+		climberWinch.configFactoryDefault();
 		setBrakeMode();
 	}
 
@@ -64,7 +66,7 @@ public class ClimberSubsystem extends SubsystemBase {
 		}
 	}
 
-	public void winch(double speed) {
+	public void spin(double speed) {
 		if (isClimberArmExtended() && !isClimberLocked()) {
 			climberWinch.set(ControlMode.PercentOutput, speed);
 		}
@@ -80,5 +82,12 @@ public class ClimberSubsystem extends SubsystemBase {
 
 	public void setCoastMode() {
 		climberWinch.setNeutralMode(NeutralMode.Coast);
+	}
+
+	@Override
+	public void periodic() {
+		SmartDashboard.putBoolean("Climber Extended", isClimberArmExtended());
+		SmartDashboard.putBoolean("Climber Locked", isClimberLocked());
+		SmartDashboard.putNumber("Climber Winch Speed", climberWinch.getMotorOutputPercent());
 	}
 }

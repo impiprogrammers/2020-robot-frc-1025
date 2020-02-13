@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -38,11 +38,21 @@ public class IntakeSubsystem extends SubsystemBase {
 		intakeArm.set(!intakeArm.get());
 	}
 
+	public boolean isIntakeArmExtended() {
+		return intakeArm.get();
+	}
+
 	public void extendIntakeArm() {
 		intakeArm.set(true);
 	}
 
 	public void retractIntakeArm() {
 		intakeArm.set(false);
+	}
+
+	@Override
+	public void periodic() {
+		SmartDashboard.putBoolean("Intake Arm Extended", isIntakeArmExtended());
+		SmartDashboard.putNumber("Intake Speed", intakeRollers.getMotorOutputPercent());
 	}
 }
