@@ -25,10 +25,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
-	// Motor Controller
+
+	// Motor Controllers
 	TalonSRX controlPanelWheel = new TalonSRX(Constants.CONTROL_PANEL_WHEEL_PORT);
 
-	// Solenoid
+	// Solenoids
 	Solenoid controlPanelArm = new Solenoid(Constants.PCM_MODULE_PORT, Constants.CONTROL_PANEL_PISTON_CHANNEL);
 
 	// i2c Port
