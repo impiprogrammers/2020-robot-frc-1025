@@ -44,7 +44,7 @@ import frc.robot.commands.shooter_feeder.*;
  */
 public class RobotContainer {
 
-	SendableChooser<String> autoChooser = new SendableChooser<>();
+	SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 	// Subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
@@ -100,7 +100,7 @@ public class RobotContainer {
 		configureButtonBindings();
 
 		// Configure Auto Chooser
-		autoChooser.setDefaultOption("Straight Line", "");
+		autoChooser.setDefaultOption("Straight Line", chassisAutoTurn); // replace with real/correct auto command later
 
 		SmartDashboard.putData("Autonomous Path", autoChooser);
 	}
@@ -127,25 +127,6 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		SimpleMotorFeedforward ff = new SimpleMotorFeedforward(Constants.CHASSIS_AUTO_FFS, Constants.CHASSIS_AUTO_FFV,
-				Constants.CHASSIS_AUTO_FFA);
-
-		String trajectoryJSON = autoChooser.getSelected();
-		try {
-			Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-			Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-
-			RamseteCommand ramseteCommand = new RamseteCommand(trajectory, chassisSubsystem::getPose,
-					new RamseteController(Constants.CHASSIS_AUTO_RAMSETE_B, Constants.CHASSIS_AUTO_RAMSETE_ZETA), ff,
-					chassisSubsystem.driveKinematics, chassisSubsystem::getWheelSpeeds,
-					new PIDController(Constants.CHASSIS_AUTO_P, 0, 0),
-					new PIDController(Constants.CHASSIS_AUTO_P, 0, 0), chassisSubsystem::voltageTankDrive,
-					chassisSubsystem);
-
-			return ramseteCommand.andThen(() -> chassisSubsystem.voltageTankDrive(0, 0));
-		} catch (IOException ex) {
-			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-			return null;
-		}
+		return autoChooser.getSelected();
 	}
 }
