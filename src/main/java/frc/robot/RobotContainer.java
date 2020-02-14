@@ -12,6 +12,7 @@ import frc.robot.commands.climber.*;
 import frc.robot.commands.control_panel.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
+import frc.robot.commands.led.UpdateLights;
 import frc.robot.commands.shimmy.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.shooter_feeder.*;
@@ -30,8 +31,8 @@ public class RobotContainer {
 	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	private final ShimmySubsystem shimmySubsystem = new ShimmySubsystem();
 	private final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
-	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(ledSubsystem);
-	private final TurretSubsystem turretSubsystem = new TurretSubsystem(ledSubsystem);
+	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	
 	// Autonomous Commands
 
@@ -72,6 +73,8 @@ public class RobotContainer {
 	private StopShooterFeeder shooterFeederStop = new StopShooterFeeder(shooterFeederSubsystem);
 
 	// Turret Commands
+	private SetManualTurretMode setManualTurretMode = new SetManualTurretMode(turretSubsystem);
+	private SetAutoTurretMode setAutoTurretMode = new SetAutoTurretMode(turretSubsystem);
 	
  	// OI
 	private final XboxController driverController = new XboxController(Constants.OI.DRIVER_JOYSTICK);
@@ -126,6 +129,9 @@ public class RobotContainer {
 		turretSubsystem.setDefaultCommand(
 				new TurretJoystick(turretSubsystem,
 					()->buttonsController.getX(GenericHID.Hand.kLeft)));
+
+		ledSubsystem.setDefaultCommand(
+				new UpdateLights(ledSubsystem, shooterSubsystem, turretSubsystem));
 	}
 	 
  	private void configureButtonBindings() { 

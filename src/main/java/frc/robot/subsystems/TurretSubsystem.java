@@ -17,9 +17,7 @@ public class TurretSubsystem extends SubsystemBase {
 	private final CANPIDController pidController = turretMotor.getPIDController();
 	private final CANEncoder turretEncoder = turretMotor.getEncoder();
 
-	private final LEDSubsystem ledSubsystem;
-
-	private boolean manualMode = true;
+ 	private boolean manualMode = true;
 
 	private double limelightCanSeeTarget; // tv
 	private double limelightHorizontalOffset; // tx
@@ -27,12 +25,19 @@ public class TurretSubsystem extends SubsystemBase {
 	private double limelightTargetArea; // ta
 	private double limelightSkew; // ts
 
-	public TurretSubsystem(LEDSubsystem ledSubsystem) {
-		this.ledSubsystem = ledSubsystem;
+	public TurretSubsystem() {
 		turretEncoder.setPositionConversionFactor(Constants.Turret.CONVERSION_FACTOR);
 		resetEncoder();
 		setBrakeMode();
 		setSmartCurrentLimit(Constants.Turret.CURRENT_LIMIT);
+	}
+
+	public void setManualMode() {
+		manualMode = true;
+	}
+
+	public void setAutoMode() {
+		manualMode = false;
 	}
 
 	public void resetEncoder() {
@@ -64,28 +69,20 @@ public class TurretSubsystem extends SubsystemBase {
 		limelightSkew = limelightTable.getEntry("ts").getDouble(0.);
 	}
 
-	public void updateLights() {
-		if (manualMode) {
-			if (limelightCanSeeTarget > 0.5) {
-				if (limelightHorizontalOffset > Constants.Turret.MAX_ANGLE_ERROR) {
-					ledSubsystem.setRGB(0, 0, 255); // blue
-					ledSubsystem.turnOn(false, true);
-				} else if (limelightHorizontalOffset < -Constants.Turret.MAX_ANGLE_ERROR) {
-					ledSubsystem.setRGB(0, 0, 255); // blue
-					ledSubsystem.turnOn(true, false);
-				} else {
-					ledSubsystem.setRGB(0, 255, 0); // green
-					ledSubsystem.turnOn();
-				}
-			} else {
-				ledSubsystem.setRGB(255, 165, 0); // orange
-				ledSubsystem.turnOn();
-			}
-		}
-	}
-
 	public void stop() {
 		turretMotor.set(0.);
+	}
+
+	public boolean isManualMode() {
+		return manualMode;
+	}
+
+	public boolean canLimelightSeeTarget() {
+		return (limelightCanSeeTarget > 0.5); 
+	}
+
+	public double getLimelightHorizontalOffset() {
+		return limelightHorizontalOffset;
 	}
 
 	public void spin(double speed) {
@@ -101,7 +98,6 @@ public class TurretSubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		updateLights();
 		SmartDashboard.putNumber("Turret Angle", turretEncoder.getPosition());
 	}
 }

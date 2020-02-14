@@ -39,6 +39,15 @@ public final class Constants {
 
     public final class Chassis {
         public static final int CURRENT_LIMIT = 20;
+        public static final double TRACK_WIDTH = 0.67; // 26.375 inches in meters
+        public static final double WHEEL_DIAMETER = 0.1524; // 6 inches in meters
+        public static final double STAGE_1_PINION_TEETH = 12.;
+        public static final double STAGE_1_GEAR_TEETH = 50.;
+        public static final double STAGE_2_PINION_TEETH = 24.;
+        public static final double STAGE_2_GEAR_TEETH = 50.;
+        public static final double K_P = 1.;
+        public static final double K_I = 1.;
+        public static final double K_D = 1.;
     }
 
     public final class Climber {

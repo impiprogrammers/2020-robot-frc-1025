@@ -25,11 +25,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	private double shooterSetSpeed = 0.;
 	private Timer timer = new Timer();
 
-	private final LEDSubsystem ledSubsystem;
-
-	public ShooterSubsystem(LEDSubsystem ledSubsystem) {
-		this.ledSubsystem = ledSubsystem;
-
+	public ShooterSubsystem() {
 		shooterRight.follow(shooterLeft, true);
 
 		pidController.setP(Constants.Shooter.K_P);
@@ -69,6 +65,10 @@ public class ShooterSubsystem extends SubsystemBase {
 		return shooterReady;
 	}
 
+	public boolean isShooterEnabled() {
+		return shooterEnabled;
+	}
+
 	public void setBrakeMode() {
 		shooterLeft.setIdleMode(IdleMode.kBrake);
 		shooterRight.setIdleMode(IdleMode.kBrake);
@@ -84,9 +84,7 @@ public class ShooterSubsystem extends SubsystemBase {
 		shooterRight.setSmartCurrentLimit(currentLimit);
 	}
 
-	@Override
-	public void periodic() {
-		// Determine if the shooter is ready to shoot at the given setpoint
+	public void updateShooterReady() {
 		double shooterSpeed = shooterEncoder.getVelocity();
 		if (shooterEnabled) {
 			if (Math.abs(shooterSpeed - shooterSetSpeed) > Constants.Shooter.ALLOWABLE_SHOOTER_ERROR) {
@@ -99,16 +97,16 @@ public class ShooterSubsystem extends SubsystemBase {
 					shooterReady = false;
 				}
 			}
-		}
-
-		// Change the LED to either blinking or solid
-		if (shooterEnabled && shooterReady) {
-			ledSubsystem.setSolid();
 		} else {
-			ledSubsystem.setBlinking();
+			shooterReady = false;
 		}
+	}
 
-		SmartDashboard.putNumber("Shooter RPM", shooterSpeed);
+	@Override
+	public void periodic() {
+		updateShooterReady();
+
+		SmartDashboard.putNumber("Shooter RPM", shooterEncoder.getVelocity());
 		SmartDashboard.putNumber("Shooter Set RPM", shooterSetSpeed);
 		SmartDashboard.putBoolean("Shooter Ready", shooterReady);
 	}
