@@ -29,6 +29,18 @@ public final class Constants {
     public static final int CHASSIS_LEFT_REAR_PORT = 3;
     public static final int CHASSIS_RIGHT_FRONT_PORT = 4;
     public static final int CHASSIS_RIGHT_REAR_PORT = 5;
+
+    public static final double CHASSIS_AUTO_FFS = 0.243;
+    public static final double CHASSIS_AUTO_FFV = 3.86;
+    public static final double CHASSIS_AUTO_FFA = 1.18;
+    public static final double CHASSIS_AUTO_P = 23.3;
+    public static final double CHASSIS_AUTO_RAMSETE_B = 2;
+    public static final double CHASSIS_AUTO_RAMSETE_ZETA = 0.7;
+
+    public static final double CHASSIS_TRACK_WIDTH = 0.4166967348481668;
+    public static final double CHASSIS_WHEEL_DIAMETER = 0.125;
+    public static final double CHASSIS_GEAR_RATIO = 12;
+    public static final boolean CHASSIS_GYRO_REVERSED = false;
     
     // Intake
     public static final int INTAKE_ROLLERS_PORT = 6;

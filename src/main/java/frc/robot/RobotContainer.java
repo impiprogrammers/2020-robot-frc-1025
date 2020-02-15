@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
@@ -28,6 +30,8 @@ import frc.robot.commands.control_panel.*;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+	SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 	// Subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
@@ -94,9 +98,14 @@ public class RobotContainer {
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
-
+		
 		configureButtonBindings();
- 	}
+
+		// Configure Auto Chooser
+		// autoChooser.setDefaultOption("Straight Line", chassisAutoTurn); // replace with real/correct auto command later
+
+		SmartDashboard.putData("Autonomous Path", autoChooser);
+	}
 
   	/**
  	* Use this method to define your button->command mappings.  Buttons can be created by
@@ -114,13 +123,12 @@ public class RobotContainer {
 		buttonsRightBumper.whenPressed(shooterToggle);
 	}
 
- 	/**
-  	* Use this to pass the autonomous command to the main {@link Robot} class.
-  	*
-   	* @return the command to run in autonomous
-	  */
-  	public Command getAutonomousCommand() {
-		// An ExampleCommand will run in autonomous
-		return new ChassisDrive();
+	/**
+	 * Use this to pass the autonomous command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in autonomous
+	 */
+	public Command getAutonomousCommand() {
+		return autoChooser.getSelected();
 	}
 }
