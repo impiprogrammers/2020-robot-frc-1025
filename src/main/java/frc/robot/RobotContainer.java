@@ -83,9 +83,13 @@ public class RobotContainer {
 	private final JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
 	private final JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
 
+	private final JoystickButton buttonsA = new JoystickButton(buttonsController, XboxController.Button.kA.value);
+	private final JoystickButton buttonsB = new JoystickButton(buttonsController, XboxController.Button.kB.value);
 	private final JoystickButton buttonsX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
 	private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
 	private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
+	private final JoystickButton buttonsSelect = new JoystickButton(buttonsController, XboxController.Button.kBack.value);
+	private final JoystickButton buttonsStart = new JoystickButton(buttonsController, XboxController.Button.kStart.value);
 	
 
 	// Global Variables
@@ -121,6 +125,10 @@ public class RobotContainer {
 		buttonsX.whenPressed(turretToggleManualMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
+		buttonsA.whenPressed(controlPanelWheelSpinFour);
+		buttonsB.whenPressed(controlPanelWheelColor);
+		buttonsSelect.whenPressed(controlPanelArmExtend);
+		buttonsStart.whenPressed(controlPanelArmRetract);
 	}
 
 	/**
