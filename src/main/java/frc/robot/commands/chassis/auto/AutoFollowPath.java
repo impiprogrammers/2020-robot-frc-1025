@@ -19,11 +19,11 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ChassisSubsystem;
 
-public class ImpiAutoCommand extends RamseteCommand {
+public class AutoFollowPath extends RamseteCommand {
 
     static ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
 
-	public ImpiAutoCommand(String trajectoryJSON) throws IOException {
+	public AutoFollowPath(String trajectoryJSON) throws IOException {
         super(
             TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON)),
             chassisSubsystem::getPose,
