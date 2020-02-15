@@ -66,12 +66,10 @@ public final class Constants {
 	public static final int CONTROL_PANEL_WHEEL_PORT = 14;
 
     // PCM
-    public static final int INTAKE_EXTENDER_CHANNEL = 1;
-
+    public static final int INTAKE_EXTENDER_CHANNEL = 0;
+    public static final int CONTROL_PANEL_PISTON_CHANNEL = 1;
+    public static final int CLIMBER_LOCK_CHANNEL = 2;
     public static final int CLIMBER_EXTENDER_FORWARD_CHANNEL = 3;
     public static final int CLIMBER_EXTENDER_REVERSE_CHANNEL = 4;
-    public static final int CLIMBER_LOCK_CHANNEL = 0;
-
-    public static final int CONTROL_PANEL_PISTON_CHANNEL = 2;
 }
 
