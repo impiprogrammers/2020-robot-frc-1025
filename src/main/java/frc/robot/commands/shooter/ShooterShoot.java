@@ -1,9 +1,5 @@
 package frc.robot.commands.shooter;
 
-import org.opencv.features2d.FlannBasedMatcher;
-
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -11,7 +7,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShooterShoot extends CommandBase {
 
 	ShooterSubsystem shooterSubsystem = RobotContainer.shooterSubsystem;
-	XboxController buttonsController = RobotContainer.buttonsController;
 	double setpoint;
 
 	public ShooterShoot(double setpoint) {

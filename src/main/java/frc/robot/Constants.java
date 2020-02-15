@@ -71,5 +71,8 @@ public final class Constants {
     public static final int CLIMBER_LOCK_CHANNEL = 2;
     public static final int CLIMBER_EXTENDER_FORWARD_CHANNEL = 3;
     public static final int CLIMBER_EXTENDER_REVERSE_CHANNEL = 4;
+
+    // Auto Settings
+    public static final double AUTO_SHOOT_DURATION = 5;
 }
 

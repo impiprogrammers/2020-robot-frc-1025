@@ -35,7 +35,11 @@ public class AutoFollowPath extends RamseteCommand {
             new PIDController(Constants.CHASSIS_AUTO_P, 0, 0),
             chassisSubsystem::voltageTankDrive,
             chassisSubsystem
-        );
+		);
+		
+		if (!Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON).toFile().isFile()) {
+			throw new IOException();
+		}
 	}
 
 	// Called when the command is initially scheduled.

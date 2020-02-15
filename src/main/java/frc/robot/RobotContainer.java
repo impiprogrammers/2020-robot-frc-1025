@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import java.io.IOException;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -15,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.commands.chassis.*;
+import frc.robot.commands.chassis.auto.AutoFollowPath;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
@@ -106,9 +110,15 @@ public class RobotContainer {
 		configureButtonBindings();
 
 		// Configure Auto Chooser
-		// autoChooser.setDefaultOption("Straight Line", chassisAutoTurn); // replace with real/correct auto command later
+		try {
+			autoChooser.setDefaultOption("Left 3", new AutoFollowPath("output/left3-1.wpilib.json"));
+			autoChooser.setDefaultOption("Center 3", new AutoFollowPath("output/center3-1.wpilib.json"));
+			autoChooser.setDefaultOption("Right 0", new AutoFollowPath("output/right0-1.wpilib.json"));
+		} catch(IOException exception) {
+			DriverStation.reportError("Autonomous Path JSON Not Found", true);
+		}
 
-		SmartDashboard.putData("Autonomous Path", autoChooser);
+		SmartDashboard.putData("Autonomous Path (Station, Ball Count)", autoChooser);
 	}
 
   	/**
