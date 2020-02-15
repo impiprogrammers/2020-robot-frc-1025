@@ -13,7 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.I2C;
 
 import com.revrobotics.ColorSensorV3;
-
+import com.revrobotics.ColorSensorV3.RawColor;
 import com.revrobotics.ColorMatchResult;
 
 import com.revrobotics.ColorMatch;
@@ -46,6 +46,7 @@ public class ControlPanelSubsystem extends SubsystemBase {
     int colorTracker = 0;
     boolean currentlyRed;
     Color detectedColor;
+    RawColor rawColor;
     ColorMatchResult match;
     String colorString;
     double turn;
@@ -58,8 +59,10 @@ public class ControlPanelSubsystem extends SubsystemBase {
     public void periodic() {
         colorString = DriverStation.getInstance().getGameSpecificMessage();
         detectedColor = colorSensor.getColor();
+        rawColor = colorSensor.getRawColor();
         match = colorMatcher.matchClosestColor(detectedColor);
         SmartDashboard.putString("Color Sensor Detected Color", detectedColor.red + ", " + detectedColor.green + ", " + detectedColor.blue);
+        SmartDashboard.putString("Color Sensor Raw Color", rawColor.red + ", " + rawColor.green + ", " + rawColor.blue);
     }
 
     public void controlPanelArmExtend() {
