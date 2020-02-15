@@ -46,7 +46,6 @@ public class ControlPanelSubsystem extends SubsystemBase {
     int colorTracker = 0;
     boolean currentlyRed;
     Color detectedColor;
-    RawColor rawColor;
     ColorMatchResult match;
     String colorString;
     double turn;
@@ -59,10 +58,9 @@ public class ControlPanelSubsystem extends SubsystemBase {
     public void periodic() {
         colorString = DriverStation.getInstance().getGameSpecificMessage();
         detectedColor = colorSensor.getColor();
-        rawColor = colorSensor.getRawColor();
         match = colorMatcher.matchClosestColor(detectedColor);
-        SmartDashboard.putString("Color Sensor Detected Color", detectedColor.red + ", " + detectedColor.green + ", " + detectedColor.blue);
-        SmartDashboard.putString("Color Sensor Raw Color", rawColor.red + ", " + rawColor.green + ", " + rawColor.blue);
+        SmartDashboard.putString("Color Sensor Detected Color (0-255)",
+                detectedColor.red * 255 + ", " + detectedColor.green * 255 + ", " + detectedColor.blue * 255);
     }
 
     public void controlPanelArmExtend() {
