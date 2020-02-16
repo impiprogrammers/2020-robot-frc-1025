@@ -7,19 +7,25 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ChassisSubsystem extends SubsystemBase {
 
-	public CANSparkMax driveMotorRight = new CANSparkMax(Constants.CHASSIS_RIGHT_PORT, MotorType.kBrushless);
-	public CANSparkMax driveMotorLeft = new CANSparkMax(Constants.CHASSIS_LEFT_PORT, MotorType.kBrushless);
+	public VictorSP driveMotorRight = new VictorSP(Constants.CHASSIS_RIGHT_PORT);
+	public VictorSP driveMotorLeft = new VictorSP(Constants.CHASSIS_LEFT_PORT);
+
+	//public CANSparkMax driveMotorRight = new CANSparkMax(Constants.CHASSIS_RIGHT_PORT, MotorType.kBrushless);
+	//public CANSparkMax driveMotorLeft = new CANSparkMax(Constants.CHASSIS_LEFT_PORT, MotorType.kBrushless);
 
 	SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeft);
 	SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRight);
@@ -27,11 +33,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	public DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
 	public ChassisSubsystem() {
-		driveMotorRight.setIdleMode(IdleMode.kCoast);
-		driveMotorLeft.setIdleMode(IdleMode.kCoast);
-
-		driveMotorRight.setSmartCurrentLimit(40);
-		driveMotorLeft.setSmartCurrentLimit(40);
+		
 	}
 
 	public void arcadeDrive(double move, double turn) {

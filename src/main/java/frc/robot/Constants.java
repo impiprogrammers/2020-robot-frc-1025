@@ -21,8 +21,8 @@ public final class Constants {
     public static final int XBOX_CONTROLLER_BUTTONS = 1;
 
     // Chassis
-	public static final int CHASSIS_RIGHT_PORT = 1;
-	public static final int CHASSIS_LEFT_PORT = 2;
+	public static final int CHASSIS_RIGHT_PORT = 0;
+	public static final int CHASSIS_LEFT_PORT = 1;
 
     // Elevator
     public static final int ELEVATOR_MOTOR_PORT = 5;

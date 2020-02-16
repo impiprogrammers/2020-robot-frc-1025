@@ -17,8 +17,8 @@ import frc.robot.Constants;
 public class ElevatorSubsystem extends SubsystemBase {
 
 	// Motor Controllers
-	TalonSRX elevatorMotor = new TalonSRX(Constants.ELEVATOR_MOTOR_PORT);
-	TalonSRX elevatorMotor2 = new TalonSRX(Constants.ELEVATOR_MOTOR_PORT_2);
+	// TalonSRX elevatorMotor = new TalonSRX(Constants.ELEVATOR_MOTOR_PORT);
+	// TalonSRX elevatorMotor2 = new TalonSRX(Constants.ELEVATOR_MOTOR_PORT_2);
 
 	// Limit Switches
 	DigitalInput bottomLimitSwitch = new DigitalInput(Constants.ELEVATOR_BOTTOM_LIMIT_SWITCH_CHANNEL);
@@ -29,9 +29,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 	public void elevatorMove(double speed) {
 		if (!bottomLimitSwitch.get() && speed > 0) {
-			elevatorMotor.set(ControlMode.PercentOutput, 0);
+		//	elevatorMotor.set(ControlMode.PercentOutput, 0);
 		} else {
-			elevatorMotor.set(ControlMode.PercentOutput, speed);
+		//	elevatorMotor.set(ControlMode.PercentOutput, speed);
 		}
 	}
 }
