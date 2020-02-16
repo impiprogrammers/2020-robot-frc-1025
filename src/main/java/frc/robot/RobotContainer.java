@@ -19,6 +19,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.commands.chassis.*;
 import frc.robot.commands.chassis.auto.AutoFollowPath;
+import frc.robot.commands.chassis.auto.paths.AutoCenter3;
+import frc.robot.commands.chassis.auto.paths.AutoLeft3;
+import frc.robot.commands.chassis.auto.paths.AutoRight0;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
@@ -111,9 +114,14 @@ public class RobotContainer {
 
 		// Configure Auto Chooser
 		try {
-			autoChooser.setDefaultOption("Left 3", new AutoFollowPath("output/left3-1.wpilib.json"));
-			autoChooser.setDefaultOption("Center 3", new AutoFollowPath("output/center3-1.wpilib.json"));
-			autoChooser.setDefaultOption("Right 0", new AutoFollowPath("output/right0-1.wpilib.json"));
+			autoChooser.setDefaultOption("Left 3", new AutoLeft3());
+			autoChooser.addOption("Center 3", new AutoCenter3());
+			autoChooser.addOption("Right 0", new AutoRight0());
+			/*autoChooser.addOption("Right 3", new AutoRight3());
+			autoChooser.addOption("Left 8", new AutoLeft8());
+			autoChooser.addOption("Center 8", new AutoCenter8());
+			autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10());
+			autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10());*/
 		} catch(IOException exception) {
 			DriverStation.reportError("Autonomous Path JSON Not Found", true);
 		}

@@ -74,5 +74,7 @@ public final class Constants {
 
     // Auto Settings
     public static final double AUTO_SHOOT_DURATION = 5;
+    public static final double AUTO_SHOOT_SETPOINT = 4000;
+    public static final double AUTO_INTAKE_MIN_DURATION = 2;
 }
 
