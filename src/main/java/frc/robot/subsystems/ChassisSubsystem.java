@@ -35,14 +35,13 @@ public class ChassisSubsystem extends SubsystemBase {
 	private final PIDController rightPIDController = new PIDController(Constants.Chassis.K_P, Constants.Chassis.K_I, Constants.Chassis.K_D);
 
 	private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.Chassis.TRACK_WIDTH);
-	private final DifferentialDriveOdometry odometry;
+	private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(new Rotation2d(0.));
 
 	private Pose2d startingPose = new Pose2d();
 
 	public ChassisSubsystem() {
 		// Setup the NavX
 		resetGyro();
-		odometry = new DifferentialDriveOdometry(getAngle());
 
 		// Setup the motor controllers
 		restoreMotorFactoryDefaults();
@@ -63,6 +62,20 @@ public class ChassisSubsystem extends SubsystemBase {
 		driveMotorLeftRear.restoreFactoryDefaults();
 		driveMotorRightFront.restoreFactoryDefaults();
 		driveMotorRightRear.restoreFactoryDefaults();
+	}
+	
+	public void setBrakeMode() {
+		driveMotorLeftFront.setIdleMode(IdleMode.kBrake);
+		driveMotorLeftRear.setIdleMode(IdleMode.kBrake);
+		driveMotorRightFront.setIdleMode(IdleMode.kBrake);
+		driveMotorRightRear.setIdleMode(IdleMode.kBrake);
+	}
+
+	public void setCoastMode() {
+		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
+		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
+		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
+		driveMotorRightRear.setIdleMode(IdleMode.kCoast);
 	}
 
 	public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
@@ -98,20 +111,6 @@ public class ChassisSubsystem extends SubsystemBase {
 		navX.reset();
 	}
 
-	public void setBrakeMode() {
-		driveMotorLeftFront.setIdleMode(IdleMode.kBrake);
-		driveMotorLeftRear.setIdleMode(IdleMode.kBrake);
-		driveMotorRightFront.setIdleMode(IdleMode.kBrake);
-		driveMotorRightRear.setIdleMode(IdleMode.kBrake);
-	}
-
-	public void setCoastMode() {
-		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
-		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
-		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
-		driveMotorRightRear.setIdleMode(IdleMode.kCoast);
-	}
-
 	public void setSmartCurrentLimit(int currentLimit) {
 		driveMotorLeftFront.setSmartCurrentLimit(currentLimit);
 		driveMotorRightFront.setSmartCurrentLimit(currentLimit);
@@ -123,11 +122,6 @@ public class ChassisSubsystem extends SubsystemBase {
 		drive.arcadeDrive(0., 0.);
 	}
 
-	public void updateOdometry() {
-		odometry.update(getAngle(), leftEncoder.getPosition(), rightEncoder.getPosition());
-		odometry.getPoseMeters();
-	}
-
 	public double getLeftEncoderPosition() {
 		return leftEncoder.getPosition();
 	}
@@ -136,12 +130,10 @@ public class ChassisSubsystem extends SubsystemBase {
 		return rightEncoder.getPosition();
 	}
 
-	public void resetOdometry(Pose2d position, Rotation2d angle) {
+	public void resetOdometry(Pose2d position) {
 		resetEncoders();
-		odometry.resetPosition(position, angle);
-	}
-
-	public void resetRobotPose(Pose2d position) {
+		resetGyro();
+		odometry.resetPosition(position, getAngle());
 		startingPose = position;
 	}
 
@@ -162,6 +154,10 @@ public class ChassisSubsystem extends SubsystemBase {
 		Translation2d distanceToTarget = getDistanceToTarget();
 		Rotation2d angleToTargetFromPosition = new Rotation2d(distanceToTarget.getX(), distanceToTarget.getY());
 		return angleToTargetFromPosition.minus(getRobotPose().getRotation());
+	}
+
+	public void updateOdometry() {
+		odometry.update(getAngle(), leftEncoder.getPosition(), rightEncoder.getPosition());
 	}
 
 	@Override

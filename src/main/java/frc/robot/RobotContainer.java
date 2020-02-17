@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.commands.autonomous.*;
@@ -35,6 +36,7 @@ public class RobotContainer {
 	private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	
 	// Autonomous Commands
+	private final TestAutonomous testAutonomous = new TestAutonomous(chassisSubsystem);
 
 	// Chassis Commands
 	private final StopChassis stopChassis = new StopChassis(chassisSubsystem);
@@ -90,6 +92,10 @@ public class RobotContainer {
 	private final JoystickButton driverRightBumper = new JoystickButton(driverController, XboxController.Button.kBumperRight.value);
 	private final JoystickButton driverStickLeft =   new JoystickButton(driverController, XboxController.Button.kStickLeft.value);
 	private final JoystickButton driverStickRight =  new JoystickButton(driverController, XboxController.Button.kStickRight.value);
+	private final Button driverDpadUp =              new Button(()->driverController.getPOV() == 0);
+	private final Button driverDpadRight =           new Button(()->driverController.getPOV() == 90);
+	private final Button driverDpadDown =            new Button(()->driverController.getPOV() == 180);
+	private final Button driverDpadLeft =            new Button(()->driverController.getPOV() == 270);
 
 	private final JoystickButton buttonsA =           new JoystickButton(buttonsController, XboxController.Button.kA.value);
 	private final JoystickButton buttonsB =           new JoystickButton(buttonsController, XboxController.Button.kB.value);
@@ -101,7 +107,11 @@ public class RobotContainer {
 	private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
 	private final JoystickButton buttonsStickLeft =   new JoystickButton(buttonsController, XboxController.Button.kStickLeft.value);
 	private final JoystickButton buttonsStickRight =  new JoystickButton(buttonsController, XboxController.Button.kStickRight.value);
-	
+	private final Button buttonsDpadUp =              new Button(()->buttonsController.getPOV() == 0);
+	private final Button buttonsDpadRight =           new Button(()->buttonsController.getPOV() == 90);
+	private final Button buttonsDpadDown =            new Button(()->buttonsController.getPOV() == 180);
+	private final Button buttonsDpadLeft =            new Button(()->buttonsController.getPOV() == 270);
+
  	public RobotContainer() {
 		setDefaultCommands();
 		configureButtonBindings();
@@ -136,8 +146,8 @@ public class RobotContainer {
 	 
  	private void configureButtonBindings() { 
 		driverA.whenPressed(toggleClimberLock);
-		driverX.whenHeld(new SpinShimmy(shimmySubsystem, 1.));
-		driverY.whenHeld(new SpinShimmy(shimmySubsystem, -1.));
+		driverDpadUp.whenHeld(new SpinShimmy(shimmySubsystem, 1.));
+		driverDpadDown.whenHeld(new SpinShimmy(shimmySubsystem, -1.));
 		driverSelect.whenPressed(extendClimberArm);
 		driverStart.whenPressed(retractClimberArm);
 
@@ -148,6 +158,6 @@ public class RobotContainer {
 	}
 
   	public Command getAutonomousCommand() {
-		return null;
+		return testAutonomous;
 	}
 }
