@@ -37,26 +37,32 @@ public class ChassisSubsystem extends SubsystemBase {
 	private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.Chassis.TRACK_WIDTH);
 	private final DifferentialDriveOdometry odometry;
 
-	private Rotation2d startingRotation;
-	private Pose2d startingPose;
+	private Pose2d startingPose = new Pose2d();
 
 	public ChassisSubsystem() {
+		// Setup the NavX
+		resetGyro();
 		odometry = new DifferentialDriveOdometry(getAngle());
 
+		// Setup the motor controllers
+		restoreMotorFactoryDefaults();
 		setCoastMode();
 		setSmartCurrentLimit(Constants.Chassis.CURRENT_LIMIT);
-		resetGyro();
+		drive.setDeadband(Constants.OI.JOYSTICK_DEADBAND);
 
-		double conversionFactor = Math.PI * Constants.Chassis.WHEEL_DIAMETER
-				* (Constants.Chassis.STAGE_1_PINION_TEETH / Constants.Chassis.STAGE_1_GEAR_TEETH)
-				* (Constants.Chassis.STAGE_2_PINION_TEETH / Constants.Chassis.STAGE_2_GEAR_TEETH);
-		leftEncoder.setPositionConversionFactor(conversionFactor);
-		rightEncoder.setPositionConversionFactor(conversionFactor);
-
-		conversionFactor = conversionFactor / 60.;
-		leftEncoder.setVelocityConversionFactor(conversionFactor);
-		rightEncoder.setVelocityConversionFactor(conversionFactor);
+		// Setup the encoders
+		leftEncoder.setPositionConversionFactor(Constants.Chassis.POSITION_CONVERSION_FACTOR);
+		rightEncoder.setPositionConversionFactor(Constants.Chassis.POSITION_CONVERSION_FACTOR);
+		leftEncoder.setVelocityConversionFactor(Constants.Chassis.VELOCITY_CONVERSION_FACTOR);
+		rightEncoder.setVelocityConversionFactor(Constants.Chassis.VELOCITY_CONVERSION_FACTOR);
 		resetEncoders();
+	}
+
+	public void restoreMotorFactoryDefaults() {
+		driveMotorLeftFront.restoreFactoryDefaults();
+		driveMotorLeftRear.restoreFactoryDefaults();
+		driveMotorRightFront.restoreFactoryDefaults();
+		driveMotorRightRear.restoreFactoryDefaults();
 	}
 
 	public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
@@ -139,27 +145,33 @@ public class ChassisSubsystem extends SubsystemBase {
 		startingPose = position;
 	}
 
-	public void resetRobotAngle(Rotation2d rotation) {
-		startingRotation = rotation;
-	}
-
-	public Pose2d getRobotPosition() {
-		return startingPose.relativeTo(odometry.getPoseMeters());
-	}
-
-	public Rotation2d getRobotAngle() {
-		return startingRotation.plus(getAngle());
+	public Pose2d getRobotPose() {
+		return odometry.getPoseMeters().relativeTo(startingPose);
 	}
 
 	public void tankDriveVolts(double leftVolts, double rightVolts) {
 		driveMotorGroupLeft.setVoltage(leftVolts);
 		driveMotorGroupRight.setVoltage(-rightVolts);
 	}
-	
+
+	public Translation2d getDistanceToTarget() {
+		return getRobotPose().getTranslation().minus(Constants.FieldPositions.TARGET_LOCATION);
+	}
+
+	public Rotation2d getAngleToTarget() {
+		Translation2d distanceToTarget = getDistanceToTarget();
+		Rotation2d angleToTargetFromPosition = new Rotation2d(distanceToTarget.getX(), distanceToTarget.getY());
+		return angleToTargetFromPosition.minus(getRobotPose().getRotation());
+	}
+
 	@Override
 	public void periodic() {
 		updateOdometry();
 		SmartDashboard.putNumber("Left Motor Speeds", leftEncoder.getVelocity());
 		SmartDashboard.putNumber("Right Motor Speeds", rightEncoder.getVelocity());
+		SmartDashboard.putNumber("Robot Position X", getRobotPose().getTranslation().getX());
+		SmartDashboard.putNumber("Robot Position Y", getRobotPose().getTranslation().getY());
+		SmartDashboard.putNumber("Robot Angle", getRobotPose().getRotation().getDegrees());
+		SmartDashboard.putNumber("Angle To Target", getAngleToTarget().getDegrees());
 	}
 }

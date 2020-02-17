@@ -2,11 +2,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -14,7 +15,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class TurretSubsystem extends SubsystemBase {
 
 	private final CANSparkMax turretMotor = new CANSparkMax(Constants.CAN.TURRET_MOTOR, MotorType.kBrushless);
-	private final CANPIDController pidController = turretMotor.getPIDController();
+	private final PIDController pidController = new PIDController(Constants.Turret.K_P, Constants.Turret.K_I, Constants.Turret.K_D);
 	private final CANEncoder turretEncoder = turretMotor.getEncoder();
 
  	private boolean manualMode = true;
@@ -26,10 +27,19 @@ public class TurretSubsystem extends SubsystemBase {
 	private double limelightSkew; // ts
 
 	public TurretSubsystem() {
-		turretEncoder.setPositionConversionFactor(Constants.Turret.CONVERSION_FACTOR);
-		resetEncoder();
+		// Setup the Motor
+		turretMotor.restoreFactoryDefaults();
+		turretMotor.setSmartCurrentLimit(Constants.Turret.CURRENT_LIMIT);
 		setBrakeMode();
-		setSmartCurrentLimit(Constants.Turret.CURRENT_LIMIT);
+		turretMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.Turret.MIN_ANGLE);
+		turretMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.Turret.MAX_ANGLE);
+
+		// Setup the encoder
+		turretEncoder.setPositionConversionFactor(Constants.Turret.POSITION_CONVERSION_FACTOR);
+		resetEncoder();
+
+		// Setup the PID Controller
+		pidController.enableContinuousInput(Constants.Turret.MIN_ANGLE, Constants.Turret.MAX_ANGLE);
 	}
 
 	public void setManualMode() {
@@ -54,10 +64,6 @@ public class TurretSubsystem extends SubsystemBase {
 
 	public void setCoastMode() {
 		turretMotor.setIdleMode(IdleMode.kCoast);
-	}
-
-	public void setSmartCurrentLimit(int currentLimit) {
-		turretMotor.setSmartCurrentLimit(currentLimit);
 	}
 
 	public void updateLimelightTracking() {
@@ -85,6 +91,18 @@ public class TurretSubsystem extends SubsystemBase {
 		return limelightHorizontalOffset;
 	}
 
+	public double getLimelightVerticalOffset() {
+		return limelightVerticalOffset;
+	}
+
+	public double getLimelightTargetArea() {
+		return limelightTargetArea;
+	}
+
+	public double getLimelightSkew() {
+		return limelightSkew;
+	}
+
 	public void spin(double speed) {
 		double turretAngle = getTurretAngle();
 		if ((turretAngle > Constants.Turret.MAX_ANGLE) && (speed > 0.)) {
@@ -94,6 +112,15 @@ public class TurretSubsystem extends SubsystemBase {
 			speed = 0.;
 		}
 		turretMotor.set(speed);
+	}
+
+	public void spinToAngle(double angle) {
+		pidController.setSetpoint(angle);
+		turretMotor.set(pidController.calculate(getTurretAngle()));
+	}
+
+	public void resetController() {
+		pidController.reset();
 	}
 
 	@Override

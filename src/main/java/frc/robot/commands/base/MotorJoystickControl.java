@@ -1,9 +1,8 @@
 package frc.robot.commands.base;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpiutil.math.MathUtil;
 import java.util.function.DoubleSupplier;
-import frc.robot.Constants;
-import frc.robot.ImpiLib2020;
 
 public class MotorJoystickControl extends CommandBase {
 	
@@ -27,7 +26,7 @@ public class MotorJoystickControl extends CommandBase {
 		} else {
 			speed = rightTrigger.getAsDouble() - leftTrigger.getAsDouble();
 		}
-        speed = ImpiLib2020.clampedDeadzone(speed, Constants.OI.JOYSTICK_DEADZONE, -1., 1.);
+        speed = MathUtil.clamp(speed, -1., 1.);
         return speed;
 	}
 

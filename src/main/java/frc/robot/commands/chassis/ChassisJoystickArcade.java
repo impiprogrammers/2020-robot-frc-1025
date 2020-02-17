@@ -2,8 +2,7 @@ package frc.robot.commands.chassis;
 
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.ImpiLib2020;
+import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.subsystems.ChassisSubsystem;
 
 public class ChassisJoystickArcade extends CommandBase {
@@ -25,8 +24,8 @@ public class ChassisJoystickArcade extends CommandBase {
 
 	@Override
 	public void execute() {		
-		double forward = ImpiLib2020.clampedDeadzone(forwardAxis.getAsDouble(), Constants.OI.JOYSTICK_DEADZONE, -1., 1.);
-		double turn = ImpiLib2020.clampedDeadzone(turnAxis.getAsDouble(), Constants.OI.JOYSTICK_DEADZONE, -1., 1.);
+		double forward = MathUtil.clamp(forwardAxis.getAsDouble(), -1., 1.);
+		double turn = MathUtil.clamp(turnAxis.getAsDouble(), -1., 1.);
 		chassisSubsystem.arcadeDrive(forward, turn);
 	}
 
