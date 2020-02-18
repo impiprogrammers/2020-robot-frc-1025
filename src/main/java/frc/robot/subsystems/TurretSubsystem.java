@@ -152,7 +152,7 @@ public class TurretSubsystem extends SubsystemBase {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(-steeringAdjustment);
 			} else if (negativeErrorValue < -2.5) {
-				steeringAdjustment = kp * Math.abs(negativeErrorValue) - min_speed;
+				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(steeringAdjustment);
 
 			} else {
