@@ -102,10 +102,11 @@ public class RobotContainer {
  	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
 		climberSubsystem.setDefaultCommand(climberLoop);
-		turretSubsystem.setDefaultCommand(turretSpin);
+		/*turretSubsystem.setDefaultCommand(turretSpin);
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
+		*/
 		
 		configureButtonBindings();
 
