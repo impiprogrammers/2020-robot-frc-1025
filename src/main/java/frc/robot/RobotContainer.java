@@ -68,6 +68,7 @@ public class RobotContainer {
 	private final ClimberLoop climberLoop = new ClimberLoop();
 
 	private final TurretSpin turretSpin = new TurretSpin();
+	private final TurretCenter turretCenter = new TurretCenter();
 	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode();
 
 	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend();
@@ -90,6 +91,7 @@ public class RobotContainer {
 	private final JoystickButton buttonsA = new JoystickButton(buttonsController, XboxController.Button.kA.value);
 	private final JoystickButton buttonsB = new JoystickButton(buttonsController, XboxController.Button.kB.value);
 	private final JoystickButton buttonsX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
+	private final JoystickButton buttonsY = new JoystickButton(buttonsController, XboxController.Button.kY.value);
 	private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
 	private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
 	private final JoystickButton buttonsSelect = new JoystickButton(buttonsController, XboxController.Button.kBack.value);
@@ -139,6 +141,7 @@ public class RobotContainer {
 		driverStart.whenPressed(climberArmRetract);
 
 		buttonsX.whenPressed(turretToggleManualMode);
+		buttonsY.whenPressed(turretCenter);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
 		buttonsA.whenPressed(controlPanelWheelSpinFour);

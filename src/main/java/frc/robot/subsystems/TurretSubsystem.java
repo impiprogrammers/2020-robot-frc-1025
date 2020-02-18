@@ -103,6 +103,7 @@ public class TurretSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Negative Error Value", negativeErrorValue);
 		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
 		SmartDashboard.putNumber("targetVisibility", targetVisibility);
+
 		if (manualMode) {
 			setTurretMotor(speed);
 			// set LEDs
@@ -192,6 +193,17 @@ public class TurretSubsystem extends SubsystemBase {
 		}
 	}
 
+	public void turretCenter() {
+		if(turretEncoder.getPosition() < 2.5 && turretEncoder.getPosition() > -2.5) {
+			setTurretMotor(0);
+		} else if (turretEncoder.getPosition() < -2.5) {
+			setTurretMotor(1);
+		} else if (turretEncoder.getPosition() > 2.5) {
+			setTurretMotor(-1);
+		}
+}
+
+	
 	public void toggleManualMode() {
 		if (manualMode) {
 			manualMode = false;

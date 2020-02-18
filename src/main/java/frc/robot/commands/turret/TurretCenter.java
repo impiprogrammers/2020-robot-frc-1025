@@ -7,13 +7,17 @@
 
 package frc.robot.commands.turret;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretCenter extends CommandBase {
-	/**
-	 * Creates a new TurretCenter.
-	 */
+
+	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
+
 	public TurretCenter() {
+		addRequirements(turretSubsystem);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
@@ -25,6 +29,7 @@ public class TurretCenter extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		turretSubsystem.turretCenter();
 	}
 
 	// Called once the command ends or is interrupted.
