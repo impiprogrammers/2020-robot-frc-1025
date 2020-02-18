@@ -125,10 +125,15 @@ public class ControlPanelSubsystem extends SubsystemBase {
         }
 
     }
+     public void controlPanelManual(){
+      controlPanelWheel.set(ControlMode.PercentOutput, 0.5);
+     }
+    
 
-    // public void controlPanelToggle(){
+    public void ControlPanelStop() {
+      controlPanelWheel.set(ControlMode.PercentOutput, 0.0);
+    }
 
-    // public void ControlPanelStop() {
 
 }
 
