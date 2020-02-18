@@ -124,7 +124,50 @@ public class ControlPanelSubsystem extends SubsystemBase {
             controlPanelWheel.set(ControlMode.PercentOutput, 0.0);
         }
 
-    }
+	}
+	//  if wanted, middle four LEDs color wheel feeback
+/*if (controlPanelSubsystem.controlPanelPiston == [extended]) {
+	if(controlPanelSubsystem.kBlueTarget) {
+		for (var i = 0; i < ledBuffer.getLength(); i++) {
+		  // ledBuffer.setHSV(i, 0, 0, 0);
+		  if (i > ledBuffer.getLength() - 77 && i < ledBuffer.getLength() - 73) {
+			ledBuffer.setHSV(i, 225/2, 255, 255);
+		  } else {
+			ledBuffer.setHSV(i, 0, 0, 0);
+		  }
+		}
+	}
+	if(controlPanelSubsystem.kGreenTarget) {
+		for (var i = 0; i < ledBuffer.getLength(); i++) {
+		  // ledBuffer.setHSV(i, 0, 0, 0);
+		  if (i > ledBuffer.getLength() - 77 && i < ledBuffer.getLength() - 73) {
+			ledBuffer.setHSV(i, 115/2, 255, 255);
+		  } else {
+			ledBuffer.setHSV(i, 0, 0, 0);
+		  }                                                                                     
+		}
+	}
+	if(controlPanelSubsystem.kRedTarget) {
+		for (var i = 0; i < ledBuffer.getLength(); i++) {
+		  // ledBuffer.setHSV(i, 0, 0, 0);
+		  if (i > ledBuffer.getLength() - 77 && i < ledBuffer.getLength() - 73) {
+			ledBuffer.setHSV(i, 0/2, 255, 255);
+		  } else {
+			ledBuffer.setHSV(i, 0, 0, 0);
+		  }
+		}
+	}
+	if(controlPanelSubsystem.kYellowTarget) {
+		for (var i = 0; i < ledBuffer.getLength(); i++) {
+		  // ledBuffer.setHSV(i, 0, 0, 0);
+		  if (i > ledBuffer.getLength() - 77 && i < ledBuffer.getLength() - 73) {
+			ledBuffer.setHSV(i, 42/2, 255, 255);
+		  } else {
+			ledBuffer.setHSV(i, 0, 0, 0);
+		  }
+		}
+	}
+	}
 
     // public void controlPanelToggle(){
 
