@@ -94,7 +94,7 @@ public class TurretSubsystem extends SubsystemBase {
 			targetVisibility = 1;
 		}
 		double targetCentered = tx.getDouble(0);
-		double kp = 0.1;
+		double kp = 0.05;
 		double min_speed = 0.05;
 		double negativeErrorValue = -errorValue;
 		double steeringAdjustment = 0.0;
@@ -343,7 +343,7 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public void setTurretMotor(double speed) {
-		if (turretEncoder.getPosition() > 100 && speed > 0 || turretEncoder.getPosition() < -100 && speed < 0) {
+		if (turretEncoder.getPosition() > 15 && speed > 0 || turretEncoder.getPosition() < -15 && speed < 0) {
 			turretRotate.set(0);
 		} else {
 			turretRotate.set(speed);
