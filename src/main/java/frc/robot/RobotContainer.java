@@ -44,9 +44,29 @@ public class RobotContainer {
 	public static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-	public static final TurretSubsystem turretSubsystem = new TurretSubsystem();
+	private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	public static final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
-	
+		
+ 	// OI
+	 private final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
+	 private final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
+ 
+	 private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
+	 private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
+	 private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
+	 private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
+	 private final JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
+	 private final JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
+ 
+	 private final JoystickButton buttonsA = new JoystickButton(buttonsController, XboxController.Button.kA.value);
+	 private final JoystickButton buttonsB = new JoystickButton(buttonsController, XboxController.Button.kB.value);
+	 private final JoystickButton buttonsX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
+	 private final JoystickButton buttonsY = new JoystickButton(buttonsController, XboxController.Button.kY.value);
+	 private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
+	 private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
+	 private final JoystickButton buttonsSelect = new JoystickButton(buttonsController, XboxController.Button.kBack.value);
+	 private final JoystickButton buttonsStart = new JoystickButton(buttonsController, XboxController.Button.kStart.value);
+	  
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
 
@@ -67,37 +87,15 @@ public class RobotContainer {
 	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle();
 	private final ClimberLoop climberLoop = new ClimberLoop();
 
-	private final TurretSpin turretSpin = new TurretSpin();
-	private final TurretCenter turretCenter = new TurretCenter();
-	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode();
+	private final TurretSpin turretSpin = new TurretSpin(turretSubsystem, buttonsController);
+	private final TurretCenter turretCenter = new TurretCenter(turretSubsystem);
+	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode(turretSubsystem);
 
 	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend();
 	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract();
 	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor();
 	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour();
 	
-	
- 	// OI
-	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
-	public static final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
-
-	private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
-	private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
-	private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
-	private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
-	private final JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
-	private final JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
-
-	private final JoystickButton buttonsA = new JoystickButton(buttonsController, XboxController.Button.kA.value);
-	private final JoystickButton buttonsB = new JoystickButton(buttonsController, XboxController.Button.kB.value);
-	private final JoystickButton buttonsX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
-	private final JoystickButton buttonsY = new JoystickButton(buttonsController, XboxController.Button.kY.value);
-	private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
-	private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
-	private final JoystickButton buttonsSelect = new JoystickButton(buttonsController, XboxController.Button.kBack.value);
-	private final JoystickButton buttonsStart = new JoystickButton(buttonsController, XboxController.Button.kStart.value);
-	
-
 	// Global Variables
 	public static boolean climberMode = false;
 
