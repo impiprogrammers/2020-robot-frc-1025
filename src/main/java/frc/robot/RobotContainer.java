@@ -43,7 +43,7 @@ public class RobotContainer {
 	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	public static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
+	private final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	private final LEDSubsystem ledSubsystem = new LEDSubsystem();
@@ -84,8 +84,8 @@ public class RobotContainer {
 
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll();
 
-	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
-	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
+	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin(shooterFeederSubsystem, buttonsController);
+	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop(shooterFeederSubsystem);
 	
 	private final ClimberArmExtend climberArmExtend = new ClimberArmExtend();
 	private final ClimberArmRetract climberArmRetract = new ClimberArmRetract();
