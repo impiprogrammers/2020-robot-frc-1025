@@ -5,21 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.control_panel;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.ControlPanelSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class ControlPanelWheelSpinFour extends CommandBase {
-  ControlPanelSubsystem controlPanelSubsystem;
+public class IntakeArmExtended extends CommandBase {
 
+  private IntakeSubsystem intakeSubsystem;
 
-  public ControlPanelWheelSpinFour(ControlPanelSubsystem controlPanelSubystem) {
-   addRequirements(controlPanelSubsystem);
+  public IntakeArmExtended(IntakeSubsystem intakeSubsystem) {
+    this.intakeSubsystem = intakeSubsystem;
+    addRequirements(intakeSubsystem);
   }
 
- 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -27,7 +27,7 @@ public class ControlPanelWheelSpinFour extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    controlPanelSubsystem.controlPanelWheelSpinFour();
+  intakeSubsystem.intakeArmExtend();
   }
 
   // Called once the command ends or is interrupted.

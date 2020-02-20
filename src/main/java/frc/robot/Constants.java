@@ -47,6 +47,8 @@ public final class Constants {
 
     // Turret
     public static final int TURRET_ROTATE_PORT = 7;
+    public static final int LEFT_SOFT_STOP = -15;
+    public static final int RIGHT_SOFT_STOP = 15;
     
     // Shooter
     public static final int SHOOTER_LEFT_PORT = 8;
@@ -77,4 +79,3 @@ public final class Constants {
     public static final double AUTO_SHOOT_SETPOINT = 4000;
     public static final double AUTO_INTAKE_MIN_DURATION = 2;
 }
-

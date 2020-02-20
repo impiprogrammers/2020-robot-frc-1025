@@ -4,15 +4,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 
 public class ShooterFeederSpin extends CommandBase {
 
-    XboxController buttonsController = RobotContainer.buttonsController;
-    ShooterFeederSubsystem shooterFeederSubsystem = RobotContainer.shooterFeederSubsystem;
+    private final ShooterFeederSubsystem shooterFeederSubsystem;
+    private final XboxController buttonsController;
 
-    public ShooterFeederSpin() {
+    public ShooterFeederSpin(ShooterFeederSubsystem shooterFeederSubsystem, XboxController buttonsController) {
+        this.shooterFeederSubsystem = shooterFeederSubsystem;
+        this.buttonsController = buttonsController;
         addRequirements(shooterFeederSubsystem);
     }
 

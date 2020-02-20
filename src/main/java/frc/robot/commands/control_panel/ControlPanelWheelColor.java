@@ -12,9 +12,9 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
 public class ControlPanelWheelColor extends CommandBase {
-  private final ControlPanelSubsystem controlPanelSubsystem = RobotContainer.controlPanelSubsystem;
+  ControlPanelSubsystem controlPanelSubsystem;
    
-  public ControlPanelWheelColor() {
+  public ControlPanelWheelColor(ControlPanelSubsystem controlPanelSubsystem) {
     addRequirements(controlPanelSubsystem);
   }
 

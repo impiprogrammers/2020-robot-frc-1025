@@ -14,10 +14,11 @@ import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretCenter extends CommandBase {
 
-	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
+	private final TurretSubsystem turretSubsystem;
 
-	public TurretCenter() {
+	public TurretCenter(TurretSubsystem turretSubsystem) {
 		addRequirements(turretSubsystem);
+		this.turretSubsystem = turretSubsystem;
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 

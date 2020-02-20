@@ -13,9 +13,12 @@ import frc.robot.subsystems.ControlPanelSubsystem;
 
 
 public class ControlPanelManual extends CommandBase {
-  private final ControlPanelSubsystem controlPanelSubsystem = RobotContainer.controlPanelSubsystem;
+  ControlPanelSubsystem controlPanelSubsystem;
+  double speed;
 
-  public ControlPanelManual() {
+  public ControlPanelManual(ControlPanelSubsystem controlPanelSubsystem, double speed) {
+    this.controlPanelSubsystem = controlPanelSubsystem;
+    this.speed = speed;
     addRequirements(controlPanelSubsystem);
   }
 
@@ -27,7 +30,7 @@ public class ControlPanelManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    controlPanelSubsystem.controlPanelManual();
+    controlPanelSubsystem.controlPanelManual(speed);
   }
 
   // Called once the command ends or is interrupted.
