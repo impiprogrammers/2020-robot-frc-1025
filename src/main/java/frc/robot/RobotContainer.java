@@ -40,7 +40,7 @@ public class RobotContainer {
 
 	// Subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
-	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	private static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
@@ -72,8 +72,11 @@ public class RobotContainer {
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
 
-	private final IntakeArmToggle intakeExtenderToggle = new IntakeArmToggle();
-	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll();
+	private final IntakeArmToggle intakeExtenderToggle = new IntakeArmToggle(intakeSubsystem);
+	private final IntakeArmExtended intakeArmExtended = new IntakeArmExtended(intakeSubsystem);
+	private final IntakeArmRetract intakeArmRetract = new IntakeArmRetract(intakeSubsystem);
+	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll(intakeSubsystem, buttonsController);
+	private final IntakeRollersSetAuto intakeRollersSetAuto = new IntakeRollersSetAuto(intakeSubsystem, buttonsController, 0.5);
 
 	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
 	private final ShooterStop shooterStop = new ShooterStop();
