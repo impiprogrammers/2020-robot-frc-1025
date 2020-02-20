@@ -15,10 +15,10 @@ import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretToggleManualMode extends CommandBase {
 
-	private final TurretSubsystem turretSubsystem;
+	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
+	XboxController buttonsController = RobotContainer.buttonsController;
 
-	public TurretToggleManualMode(TurretSubsystem turretSubsystem) {
-		this.turretSubsystem = turretSubsystem;
+	public TurretToggleManualMode() {
 		addRequirements(turretSubsystem);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}

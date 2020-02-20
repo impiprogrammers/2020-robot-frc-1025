@@ -7,22 +7,35 @@
 
 package frc.robot.commands.control_panel;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ControlPanelStop extends InstantCommand {
-   public ControlPanelStop(ControlPanelSubsystem controlPanelSubsystem){
-     super(controlPanelSubsystem::controlPanelStop, controlPanelSubsystem);
-   }
+public class ControlPanelStop extends CommandBase {
+  private final ControlPanelSubsystem controlPanelSubsystem = RobotContainer.controlPanelSubsystem;
   public ControlPanelStop() {
-    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(controlPanelSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    controlPanelSubsystem.ControlPanelStop();
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+  }
+
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return false;
   }
 }

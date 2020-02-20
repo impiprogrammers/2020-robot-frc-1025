@@ -12,10 +12,10 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
 public class ControlPanelWheelSpinFour extends CommandBase {
-  ControlPanelSubsystem controlPanelSubsystem;
+  private final ControlPanelSubsystem controlPanelSubsystem = RobotContainer.controlPanelSubsystem;
 
 
-  public ControlPanelWheelSpinFour(ControlPanelSubsystem controlPanelSubystem) {
+  public ControlPanelWheelSpinFour() {
    addRequirements(controlPanelSubsystem);
   }
 

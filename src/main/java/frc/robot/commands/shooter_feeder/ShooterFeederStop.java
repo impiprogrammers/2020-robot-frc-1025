@@ -8,14 +8,14 @@
 package frc.robot.commands.shooter_feeder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 
 public class ShooterFeederStop extends CommandBase {
 
-	private final ShooterFeederSubsystem shooterFeederSubsystem;
+	ShooterFeederSubsystem shooterFeederSubsystem = RobotContainer.shooterFeederSubsystem;
 
-	public ShooterFeederStop(ShooterFeederSubsystem shooterFeederSubsystem) {
-		this.shooterFeederSubsystem = shooterFeederSubsystem;
+	public ShooterFeederStop() {
 		addRequirements(shooterFeederSubsystem);
 	}
 

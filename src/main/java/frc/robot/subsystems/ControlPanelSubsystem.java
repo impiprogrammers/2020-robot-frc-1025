@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.I2C;
@@ -52,8 +51,6 @@ public class ControlPanelSubsystem extends SubsystemBase {
     double turn;
 
     public ControlPanelSubsystem() {
-        controlPanelWheel.configFactoryDefault();
-        setBrakeMode();
         turn = 0.75;
     }
 
@@ -128,30 +125,12 @@ public class ControlPanelSubsystem extends SubsystemBase {
         }
 
     }
-     public void controlPanelManual(double speed){
-         controlPanelWheel.set(ControlMode.PercentOutput, speed);
-     }
-
-     public void controlPanelArmToggle(){
-        if (controlPanelArm.get()) {
-            
-			controlPanelArm.set(false);
-		} else {
-			controlPanelArm.set(true);
-		}
-     }
-     
-
-     public void setBrakeMode(){
-         controlPanelWheel.setNeutralMode(NeutralMode.Brake);
-     }
-
-     public void setCoastMode(){
-         controlPanelWheel.setNeutralMode(NeutralMode.Coast);
+     public void controlPanelManual(){
+      controlPanelWheel.set(ControlMode.PercentOutput, 0.5);
      }
     
 
-    public void controlPanelStop() {
+    public void ControlPanelStop() {
       controlPanelWheel.set(ControlMode.PercentOutput, 0.0);
     }
 
