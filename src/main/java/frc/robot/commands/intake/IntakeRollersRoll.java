@@ -11,16 +11,15 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeRollersRoll extends CommandBase {
 
-	private final IntakeSubsystem intakeSubsystem;
-	private final XboxController buttonsController;
+	IntakeSubsystem intakeSubsystem = RobotContainer.intakeSubsystem;
+	XboxController buttonsController = RobotContainer.buttonsController;
 
-	public IntakeRollersRoll(IntakeSubsystem intakeSubsystem, XboxController buttonsController) {
-		this.intakeSubsystem = intakeSubsystem;
-		this.buttonsController = buttonsController;
+	public IntakeRollersRoll() {
 		addRequirements(intakeSubsystem);
 	}
 

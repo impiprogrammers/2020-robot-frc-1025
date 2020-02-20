@@ -7,8 +7,6 @@
 
 package frc.robot.commands.turret;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -18,12 +16,10 @@ import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretSpin extends CommandBase {
 
-	private final TurretSubsystem turretSubsystem;
-	private final XboxController buttonsController;
+	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
+	XboxController buttonsController = RobotContainer.buttonsController;
 
-	public TurretSpin(TurretSubsystem turretSubsystem, XboxController buttonsController) {
-		this.turretSubsystem = turretSubsystem;
-		this.buttonsController = buttonsController;
+	public TurretSpin() {
 		addRequirements(turretSubsystem);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}

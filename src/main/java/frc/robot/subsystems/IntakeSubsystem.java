@@ -30,14 +30,6 @@ public class IntakeSubsystem extends SubsystemBase {
 		}
 	}
 
-	public void intakeArmExtend() {
-		intakeArm.set(true);
-	}
-
-	public void intakeArmRetract() {
-		intakeArm.set(false);
-	}
-
 	public void rollersRoll(double speed) {
 		intakeRollers.set(ControlMode.PercentOutput, speed);
 	}
