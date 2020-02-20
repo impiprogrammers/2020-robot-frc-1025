@@ -22,9 +22,9 @@ public class TurretSpin extends CommandBase {
 	private final XboxController buttonsController;
 
 	public TurretSpin(TurretSubsystem turretSubsystem, XboxController buttonsController) {
-		addRequirements(turretSubsystem);
-		this.turretSubsystem =  turretSubsystem;
+		this.turretSubsystem = turretSubsystem;
 		this.buttonsController = buttonsController;
+		addRequirements(turretSubsystem);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
 
