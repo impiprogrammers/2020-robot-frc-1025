@@ -191,3 +191,6 @@ public class LEDSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 }
+/*
+/give @p minecraft:netherite_sword {Enchantment:[{id:sharpness,lvl:32767}]}
+*/
