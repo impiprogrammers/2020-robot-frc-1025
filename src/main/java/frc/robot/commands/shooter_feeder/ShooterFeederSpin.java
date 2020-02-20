@@ -30,11 +30,4 @@ public class ShooterFeederSpin extends CommandBase {
     public boolean isFinished() {
         return false;
     }
-
-
-
-
-
-
-
 }
