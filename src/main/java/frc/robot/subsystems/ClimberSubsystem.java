@@ -15,7 +15,6 @@ public class ClimberSubsystem extends SubsystemBase {
 	DoubleSolenoid climberArm = new DoubleSolenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_EXTENDER_FORWARD_CHANNEL, Constants.CLIMBER_EXTENDER_REVERSE_CHANNEL);
 	Solenoid climberLock = new Solenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_LOCK_CHANNEL);
 	TalonSRX climberWinch = new TalonSRX(Constants.CLIMBER_WINCH_PORT);
-	TalonSRX climberShimmy = new TalonSRX(Constants.CLMBER_SHIMMY_PORT);
 
 	public ClimberSubsystem() {
 	}
@@ -46,15 +45,8 @@ public class ClimberSubsystem extends SubsystemBase {
 		}
 	}
 
-	public void climberShimmyMove(double speed) {
-		if (RobotContainer.climberMode) {
-			climberShimmy.set(ControlMode.PercentOutput, speed);
-		}
-	}
-
 	public void stop() {
 		climberWinch.set(ControlMode.PercentOutput, 0);
-		climberShimmy.set(ControlMode.PercentOutput, 0);
 	}
 
 	// todo: discuss whether or not stop() method should also disable the joysticks and/or disable climber mode + lock the lock

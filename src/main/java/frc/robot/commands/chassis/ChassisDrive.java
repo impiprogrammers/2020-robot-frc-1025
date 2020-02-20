@@ -9,18 +9,18 @@ package frc.robot.commands.chassis;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ChassisSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 public class ChassisDrive extends CommandBase {
 	
-	ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
-	XboxController driverController;
+	private final ChassisSubsystem chassisSubsystem;
+	private final XboxController driverController;
 
-	public ChassisDrive(ChassisSubsystem chassisSubsystem) {
+	public ChassisDrive(ChassisSubsystem chassisSubsystem, XboxController driverController) {
+		this.chassisSubsystem = chassisSubsystem;
+		this.driverController = driverController;
 		addRequirements(chassisSubsystem);
 	}
 

@@ -62,6 +62,8 @@ public final class Constants {
 
     // Climber
     public static final int CLIMBER_WINCH_PORT = 12;
+
+    // Shimmy
     public static final int CLMBER_SHIMMY_PORT = 13;
 
     // Control Panel

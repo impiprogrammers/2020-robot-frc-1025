@@ -8,14 +8,14 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberArmRetract extends CommandBase {
 	
-	private final ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
+	private final ClimberSubsystem climberSubsystem;
 
-	public ClimberArmRetract() {
+	public ClimberArmRetract(ClimberSubsystem climberSubsystem) {
+		this.climberSubsystem = climberSubsystem;
 		addRequirements(climberSubsystem);
 	}
 
