@@ -75,10 +75,8 @@ public class ChassisSubsystem extends SubsystemBase {
 
 		SmartDashboard.putNumber("Target Angle", 0);
 
-		leftEncoder
-				.setPositionConversionFactor(Constants.CHASSIS_WHEEL_DIAMETER * Math.PI / Constants.CHASSIS_GEAR_RATIO);
-		rightEncoder
-				.setPositionConversionFactor(Constants.CHASSIS_WHEEL_DIAMETER * Math.PI / Constants.CHASSIS_GEAR_RATIO);
+		leftEncoder.setPositionConversionFactor(Constants.CHASSIS_WHEEL_DIAMETER * Math.PI / Constants.CHASSIS_GEAR_RATIO);
+		rightEncoder.setPositionConversionFactor(Constants.CHASSIS_WHEEL_DIAMETER * Math.PI / Constants.CHASSIS_GEAR_RATIO);
 	}
 
 	@Override

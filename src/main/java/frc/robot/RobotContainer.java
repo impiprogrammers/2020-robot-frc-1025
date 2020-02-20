@@ -45,7 +45,7 @@ public class RobotContainer {
 	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	public static final TurretSubsystem turretSubsystem = new TurretSubsystem();
-	public static final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
+	private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 	
 	// Commands
 	private final ChassisDrive chassisDrive = new ChassisDrive();
@@ -71,11 +71,12 @@ public class RobotContainer {
 	private final TurretCenter turretCenter = new TurretCenter();
 	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode();
 
-	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend();
-	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract();
-	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor();
-	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour();
-	
+	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend(controlPanelSubsystem);
+	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract(controlPanelSubsystem);
+	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor(controlPanelSubsystem);
+	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour(controlPanelSubsystem);
+	private final ControlPanelManual controlPanelManual = new ControlPanelManual(controlPanelSubsystem, 0.5);
+	private final ControlPanelArmToggle controlPanelArmToggle = new ControlPanelArmToggle(controlPanelSubsystem);
 	
  	// OI
 	public static final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
@@ -137,6 +138,7 @@ public class RobotContainer {
   	*/
  	private void configureButtonBindings() { 
 		driverA.whenPressed(climberLockToggle);
+		driverB.whenPressed(new ControlPanelManual(controlPanelSubsystem, 1));
 		driverSelect.whenPressed(climberArmExtend);
 		driverStart.whenPressed(climberArmRetract);
 
