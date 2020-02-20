@@ -17,7 +17,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class IntakeRollersRoll extends CommandBase {
 
 	IntakeSubsystem intakeSubsystem = RobotContainer.intakeSubsystem;
-	XboxController buttonsController = RobotContainer.buttonsController;
+	XboxController buttonsController;
 
 	public IntakeRollersRoll() {
 		addRequirements(intakeSubsystem);

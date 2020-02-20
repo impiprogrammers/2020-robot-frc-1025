@@ -42,12 +42,12 @@ public class RobotContainer {
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-	public static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+	private static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	private final LEDSubsystem ledSubsystem = new LEDSubsystem();
-	public static final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
+	private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 		
  	// OI
 	 private final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
@@ -79,7 +79,8 @@ public class RobotContainer {
 	private final ShooterStop shooterStop = new ShooterStop();
 	private final ShooterToggle shooterToggle = new ShooterToggle(5700);
 
-	private final ConveyorRoll conveyorRoll = new ConveyorRoll();
+	private final ConveyorRoll conveyorRoll = new ConveyorRoll(conveyorSubsystem, 1);
+	private final ConveyorStop conveyorStop = new ConveyorStop(conveyorSubsystem);
 
 	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
 	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop();

@@ -9,7 +9,7 @@ import frc.robot.subsystems.ShooterFeederSubsystem;
 
 public class ShooterFeederSpin extends CommandBase {
 
-    XboxController buttonsController = RobotContainer.buttonsController;
+    XboxController buttonsController;
     ShooterFeederSubsystem shooterFeederSubsystem = RobotContainer.shooterFeederSubsystem;
 
     public ShooterFeederSpin() {

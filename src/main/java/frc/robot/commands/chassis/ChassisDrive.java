@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 public class ChassisDrive extends CommandBase {
 	
 	ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
-	XboxController driverController = RobotContainer.driverController;
+	XboxController driverController;
 
 	public ChassisDrive(ChassisSubsystem chassisSubsystem) {
 		addRequirements(chassisSubsystem);
