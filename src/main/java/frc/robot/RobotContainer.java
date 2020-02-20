@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
+import frc.robot.commands.LEDs.UpdateLights;
 import frc.robot.commands.chassis.*;
 import frc.robot.commands.chassis.auto.paths.*;
 import frc.robot.commands.climber.*;
@@ -45,6 +46,7 @@ public class RobotContainer {
 	public static final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	private final TurretSubsystem turretSubsystem = new TurretSubsystem();
+	private final LEDSubsystem ledSubsystem = new LEDSubsystem();
 	public static final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 		
  	// OI
@@ -91,6 +93,8 @@ public class RobotContainer {
 	private final TurretCenter turretCenter = new TurretCenter(turretSubsystem);
 	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode(turretSubsystem);
 
+	private final UpdateLights updateLights = new UpdateLights(ledSubsystem, shooterSubsystem, turretSubsystem);
+
 	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend();
 	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract();
 	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor();
@@ -102,10 +106,12 @@ public class RobotContainer {
  	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
 		climberSubsystem.setDefaultCommand(climberLoop);
-		/*turretSubsystem.setDefaultCommand(turretSpin);
+		/*
+		turretSubsystem.setDefaultCommand(turretSpin);
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
+		LEDSubsystem.setDefaultCommand(updateLights);
 		*/
 		
 		configureButtonBindings();
