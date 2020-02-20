@@ -43,6 +43,9 @@ public class ShooterSubsystem extends SubsystemBase {
 	private final double max = 1;
 
 	public ShooterSubsystem() {
+		shooterLeft.setSmartCurrentLimit(20);
+		shooterRight.setSmartCurrentLimit(20);
+
 		pidLeft.setP(p);
 		pidLeft.setI(i);
 		pidLeft.setD(d);
@@ -62,15 +65,15 @@ public class ShooterSubsystem extends SubsystemBase {
 
 	public void shoot(double setpoint) {
 		shooterEnabled = true;
-		pidLeft.setReference(setpoint, ControlType.kVelocity);
+		pidLeft.setReference(-setpoint, ControlType.kVelocity);
 		pidRight.setReference(setpoint, ControlType.kVelocity);
 
 	}
 
 	public void stop() {
 		shooterEnabled = false;
-		pidLeft.setReference(0, ControlType.kVelocity);
-		pidRight.setReference(0, ControlType.kVelocity);
+		pidLeft.setReference(0, ControlType.kCurrent);
+		pidRight.setReference(0, ControlType.kCurrent);
 	}
 
 	public void toggle(double setpoint) {

@@ -43,10 +43,12 @@ public final class Constants {
     public static final boolean CHASSIS_GYRO_REVERSED = false;
     
     // Intake
-    public static final int INTAKE_ROLLERS_PORT = 6;
+    public static final int INTAKE_ROLLERS_PORT = 11;
 
     // Turret
     public static final int TURRET_ROTATE_PORT = 7;
+    public static final double TURRET_LEFT_LIMIT = 0; // turret left, robot right
+    public static final double TURRET_RIGHT_LIMIT = 130; // turret right, robot left
     
     // Shooter
     public static final int SHOOTER_LEFT_PORT = 8;
@@ -56,7 +58,7 @@ public final class Constants {
     public static final int CONVEYOR_ROLLERS_PORT = 10;
 
     // Shooter Feeder
-    public static final int SHOOTER_FEEDER_PORT = 11;
+    public static final int SHOOTER_FEEDER_PORT = 6;
 
     // Climber
     public static final int CLIMBER_WINCH_PORT = 12;

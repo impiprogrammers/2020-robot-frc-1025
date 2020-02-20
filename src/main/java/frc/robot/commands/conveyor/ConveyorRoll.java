@@ -37,7 +37,7 @@ public class ConveyorRoll extends CommandBase {
 		if (Math.abs(rollJoystickValue) > Math.abs(rollTriggerValue)) {
 			conveyorSubsystem.conveyorRoll(ImpiLib2020.parseJoystick(rollJoystickValue));
 		} else {
-			conveyorSubsystem.conveyorRoll(ImpiLib2020.parseTrigger(rollTriggerValue));
+			conveyorSubsystem.conveyorRoll(-ImpiLib2020.parseTrigger(rollTriggerValue));
 		}
 	}
 

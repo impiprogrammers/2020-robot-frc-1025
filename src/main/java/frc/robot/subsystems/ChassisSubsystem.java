@@ -87,14 +87,14 @@ public class ChassisSubsystem extends SubsystemBase {
 	}
 	
 	public void arcadeDrive(double move, double turn) {
-		drive.arcadeDrive(move, turn);
+		drive.arcadeDrive(-move, turn);
 	}
 
 	public void tankDrive(double left, double right) {
-		drive.tankDrive(left, right);
+		drive.tankDrive(-left, right);
 	}
 
-	public void voltageTankDrive(double leftVoltage, double rightVoltage) {
+	public void voltageTankDrive(double leftVoltage, double rightVoltage) { // todo: double check direction (+/-)
 		leftMotorGroup.setVoltage(leftVoltage);
 		rightMotorGroup.setVoltage(-rightVoltage);
 		drive.feed();

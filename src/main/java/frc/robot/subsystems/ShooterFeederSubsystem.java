@@ -8,25 +8,25 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterFeederSubsystem extends SubsystemBase {
-	/**
-	 * Creates a new ExampleSubsystem.
-	 */
-	TalonSRX shooterFeederRoller = new TalonSRX(Constants.SHOOTER_FEEDER_PORT);
+    /**
+     * Creates a new ExampleSubsystem.
+     */
+    TalonSRX shooterFeederRoller = new TalonSRX(Constants.SHOOTER_FEEDER_PORT);
 
-	public ShooterFeederSubsystem() {
+    public ShooterFeederSubsystem() {
 
-		shooterFeederRoller.set(ControlMode.PercentOutput, 0);
+        shooterFeederRoller.set(ControlMode.PercentOutput, 0);
 
-		shooterFeederRoller.configFactoryDefault();
-		shooterFeederRoller.setNeutralMode(NeutralMode.Brake);
+        shooterFeederRoller.configFactoryDefault();
+        shooterFeederRoller.setNeutralMode(NeutralMode.Brake);
 
-	}
+    }
 
-	public void spin(double speed) {
-		shooterFeederRoller.set(ControlMode.PercentOutput, speed);
-	}
+    public void spin(double speed) {
+        shooterFeederRoller.set(ControlMode.PercentOutput, -speed);
+    }
 
-	public void stop() {
-		shooterFeederRoller.set(ControlMode.PercentOutput, 0.0);
-	}
+    public void stop() {
+        shooterFeederRoller.set(ControlMode.PercentOutput, 0.0);
+    }
 }

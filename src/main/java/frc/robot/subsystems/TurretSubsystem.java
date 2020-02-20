@@ -355,10 +355,10 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public void setTurretMotor(double speed) {
-		if (turretEncoder.getPosition() > 15 && speed > 0 || turretEncoder.getPosition() < -15 && speed < 0) {
+		if (turretEncoder.getPosition() < -Constants.TURRET_RIGHT_LIMIT && speed > 0 || turretEncoder.getPosition() > Constants.TURRET_LEFT_LIMIT && speed < 0) {
 			turretRotate.set(0);
 		} else {
-			turretRotate.set(speed);
+			turretRotate.set(-speed);
 		}
 	}
 }
