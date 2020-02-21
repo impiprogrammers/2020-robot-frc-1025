@@ -94,7 +94,7 @@ public class TurretSubsystem extends SubsystemBase {
 			targetVisibility = 1;
 		}
 		double targetCentered = tx.getDouble(0);
-		double kp = 0.05;
+		double kp = 0.02;
 		double min_speed = 0.05;
 		double negativeErrorValue = -errorValue;
 		double steeringAdjustment = 0.0;
@@ -149,10 +149,10 @@ public class TurretSubsystem extends SubsystemBase {
 				}
 			}
 		} else {
-			if (negativeErrorValue > 2.5) {
+			if (negativeErrorValue > 2.0) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(-steeringAdjustment);
-			} else if (negativeErrorValue < -2.5) {
+			} else if (negativeErrorValue < 1.0) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(steeringAdjustment);
 

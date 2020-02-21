@@ -55,7 +55,7 @@ public class RobotContainer {
 
 	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
 	private final ShooterStop shooterStop = new ShooterStop();
-	private final ShooterToggle shooterToggle = new ShooterToggle(5700);
+	private final ShooterToggle shooterToggle = new ShooterToggle(4500);
 
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll();
 
@@ -103,12 +103,12 @@ public class RobotContainer {
 
  	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
-		climberSubsystem.setDefaultCommand(climberLoop);
-		/*turretSubsystem.setDefaultCommand(turretSpin);
+		//climberSubsystem.setDefaultCommand(climberLoop);
+		turretSubsystem.setDefaultCommand(turretSpin);
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
-		*/
+		
 		
 		configureButtonBindings();
 
@@ -136,12 +136,12 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() { 
-		driverA.whenPressed(climberLockToggle);
-		driverSelect.whenPressed(climberArmExtend);
-		driverStart.whenPressed(climberArmRetract);
+		//driverA.whenPressed(climberLockToggle);
+		//driverSelect.whenPressed(climberArmExtend);
+		//driverStart.whenPressed(climberArmRetract);
 
 		buttonsX.whenPressed(turretToggleManualMode);
-		buttonsY.whenPressed(turretCenter);
+		// buttonsY.whenPressed(turretCenter);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
 		buttonsA.whenPressed(controlPanelWheelSpinFour);

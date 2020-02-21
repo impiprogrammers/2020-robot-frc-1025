@@ -18,6 +18,7 @@ public class ClimberSubsystem extends SubsystemBase {
 	TalonSRX climberShimmy = new TalonSRX(Constants.CLMBER_SHIMMY_PORT);
 
 	public ClimberSubsystem() {
+		climberArm.set(Value.kForward);
 	}
 
 	public void extenderExtend() {

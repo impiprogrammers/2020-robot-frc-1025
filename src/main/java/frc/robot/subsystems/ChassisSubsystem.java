@@ -16,6 +16,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -25,6 +27,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class ChassisSubsystem extends SubsystemBase {
 
@@ -45,10 +48,9 @@ public class ChassisSubsystem extends SubsystemBase {
 
 	// Drivetrain
 	private DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
-
+	boolean quickTurn;
 	// Gyroscope
 	private AHRS ahrs;
-
 	// Odometry
 	DifferentialDriveOdometry odometry;
 
@@ -88,6 +90,8 @@ public class ChassisSubsystem extends SubsystemBase {
 	
 	public void arcadeDrive(double move, double turn) {
 		drive.arcadeDrive(-move, turn);
+		// quickTurn = RobotContainer.driverController.getBumper(Hand.kRight);
+		// drive.curvatureDrive(-move, turn, quickTurn);
 	}
 
 	public void tankDrive(double left, double right) {
