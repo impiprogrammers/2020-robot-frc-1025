@@ -11,15 +11,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberLoop extends CommandBase {
 	
-	ClimberSubsystem climberSubsystem = RobotContainer.climberSubsystem;
-	XboxController driverController = RobotContainer.driverController;
+	private final ClimberSubsystem climberSubsystem;
+	private final XboxController driverController;
 
-	public ClimberLoop() {
+	public ClimberLoop(ClimberSubsystem climberSubsystem, XboxController driverController) {
+		this.climberSubsystem = climberSubsystem;
+		this. driverController = driverController;
 		addRequirements(climberSubsystem);
 	}
 
@@ -38,15 +39,6 @@ public class ClimberLoop extends CommandBase {
 			climberSubsystem.winchMove(Math.pow(rightTriggerAxis, 2));
 		} else {
 			climberSubsystem.winchMove(-Math.pow(leftTriggerAxis, 2));
-		}
-
-		// Shimmy
-		if (driverController.getPOV() == 90) {
-			climberSubsystem.climberShimmyMove(0.5);
-		} else if (driverController.getPOV() == 270) {
-			climberSubsystem.climberShimmyMove(-0.5);
-		} else {
-			climberSubsystem.climberShimmyMove(0);
 		}
 	}
 

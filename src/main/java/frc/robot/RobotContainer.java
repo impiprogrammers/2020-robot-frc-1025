@@ -23,6 +23,8 @@ import frc.robot.commands.chassis.auto.paths.*;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
+import frc.robot.commands.shimmy.ShimmyMove;
+import frc.robot.commands.shimmy.ShimmyStop;
 import frc.robot.commands.shooter_feeder.*;
 import frc.robot.commands.turret.*;
 import frc.robot.commands.shooter.*;
@@ -39,12 +41,13 @@ public class RobotContainer {
 	SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 	// Subsystems
-	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+	private final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	public static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	private final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
-	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+	private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+	private final ShimmySubsystem shimmySubsystem = new ShimmySubsystem();
 	private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	private final LEDSubsystem ledSubsystem = new LEDSubsystem();
 	private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
@@ -70,7 +73,7 @@ public class RobotContainer {
 	 private final JoystickButton buttonsStart = new JoystickButton(buttonsController, XboxController.Button.kStart.value);
 	  
 	// Commands
-	private final ChassisDrive chassisDrive = new ChassisDrive();
+	private final ChassisDrive chassisDrive = new ChassisDrive(chassisSubsystem, driverController);
 
 	private final IntakeArmToggle intakeExtenderToggle = new IntakeArmToggle(intakeSubsystem);
 	private final IntakeArmExtended intakeArmExtended = new IntakeArmExtended(intakeSubsystem);
@@ -88,10 +91,13 @@ public class RobotContainer {
 	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin(shooterFeederSubsystem, buttonsController);
 	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop(shooterFeederSubsystem);
 	
-	private final ClimberArmExtend climberArmExtend = new ClimberArmExtend();
-	private final ClimberArmRetract climberArmRetract = new ClimberArmRetract();
-	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle();
-	private final ClimberLoop climberLoop = new ClimberLoop();
+	private final ClimberArmExtend climberArmExtend = new ClimberArmExtend(climberSubsystem);
+	private final ClimberArmRetract climberArmRetract = new ClimberArmRetract(climberSubsystem);
+	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle(climberSubsystem);
+	private final ClimberLoop climberLoop = new ClimberLoop(climberSubsystem, driverController);
+
+	private final ShimmyMove shimmyMove = new ShimmyMove(shimmySubsystem, driverController);
+	private final ShimmyStop shimmyStop = new ShimmyStop(shimmySubsystem);
 
 	private final TurretSpin turretSpin = new TurretSpin(turretSubsystem, buttonsController);
 	private final TurretCenter turretCenter = new TurretCenter(turretSubsystem);

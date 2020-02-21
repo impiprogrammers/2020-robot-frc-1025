@@ -16,12 +16,11 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ChassisSubsystem;
 
 public class AutoFollowPath extends RamseteCommand {
 
-    static ChassisSubsystem chassisSubsystem = RobotContainer.chassisSubsystem;
+    static ChassisSubsystem chassisSubsystem;
 
 	public AutoFollowPath(String trajectoryJSON) throws IOException {
         super(
