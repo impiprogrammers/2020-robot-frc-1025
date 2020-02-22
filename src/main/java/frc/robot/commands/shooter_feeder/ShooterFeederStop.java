@@ -7,10 +7,10 @@
 
 package frc.robot.commands.shooter_feeder;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 
-public class ShooterFeederStop extends CommandBase {
+public class ShooterFeederStop extends InstantCommand {
 
 	private final ShooterFeederSubsystem shooterFeederSubsystem;
 
@@ -21,19 +21,6 @@ public class ShooterFeederStop extends CommandBase {
 
 	@Override
 	public void initialize() {
-	}
-
-	@Override
-	public void execute() {
 		shooterFeederSubsystem.stop();
-	}
-
-	@Override
-	public void end(boolean interrupted) {
-	}
-
-	@Override
-	public boolean isFinished() {
-		return false;
 	}
 }

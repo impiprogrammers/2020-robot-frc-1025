@@ -19,11 +19,11 @@ public class ShimmySubsystem extends SubsystemBase {
   public ShimmySubsystem() {
   }
 
-  public void ShimmyMove(double speed) {
+  public void shimmyMove(double speed) {
     climberShimmy.set(ControlMode.PercentOutput, speed);
   }
 
-  public void ShimmyStop() {
+  public void shimmyStop() {
     climberShimmy.set(ControlMode.PercentOutput, 0);
   }
 

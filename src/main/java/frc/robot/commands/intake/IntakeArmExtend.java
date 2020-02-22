@@ -5,23 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climber;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class ClimberArmRetract extends InstantCommand {
-	
-	private final ClimberSubsystem climberSubsystem;
+public class IntakeArmExtend extends InstantCommand {
 
-	public ClimberArmRetract(ClimberSubsystem climberSubsystem) {
-		this.climberSubsystem = climberSubsystem;
-		addRequirements(climberSubsystem);
+	private final IntakeSubsystem intakeSubsystem;
+
+	public IntakeArmExtend(IntakeSubsystem intakeSubsystem) {
+		this.intakeSubsystem = intakeSubsystem;
+		addRequirements(intakeSubsystem);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		climberSubsystem.extenderRetract();
+		intakeSubsystem.intakeArmExtend();
 	}
 }

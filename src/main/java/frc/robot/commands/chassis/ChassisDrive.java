@@ -10,17 +10,18 @@ package frc.robot.commands.chassis;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
 import frc.robot.subsystems.ChassisSubsystem;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import java.util.function.DoubleSupplier;
 
 public class ChassisDrive extends CommandBase {
 	
 	private final ChassisSubsystem chassisSubsystem;
-	private final XboxController driverController;
+	private final DoubleSupplier move;
+	private final DoubleSupplier turn;
 
-	public ChassisDrive(ChassisSubsystem chassisSubsystem, XboxController driverController) {
+	public ChassisDrive(ChassisSubsystem chassisSubsystem, DoubleSupplier move, DoubleSupplier turn) {
 		this.chassisSubsystem = chassisSubsystem;
-		this.driverController = driverController;
+		this.move = move;
+		this.turn = turn;
 		addRequirements(chassisSubsystem);
 	}
 
@@ -32,9 +33,7 @@ public class ChassisDrive extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		double move = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(driverController.getY(Hand.kLeft),  0.05), -1, 1));
-		double turn = ImpiLib2020.signedSquare(ImpiLib2020.clamp(ImpiLib2020.deadzone(driverController.getX(Hand.kRight), 0.05), -1, 1));
-		chassisSubsystem.arcadeDrive(move, turn);
+		chassisSubsystem.arcadeDrive(ImpiLib2020.parseJoystick(move), ImpiLib2020.parseJoystick(turn));
 	}
 
 	// Called once the command ends or is interrupted.

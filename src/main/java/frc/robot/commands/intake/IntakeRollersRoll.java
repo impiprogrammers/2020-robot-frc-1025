@@ -7,8 +7,8 @@
 
 package frc.robot.commands.intake;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -16,11 +16,13 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class IntakeRollersRoll extends CommandBase {
 
 	private final IntakeSubsystem intakeSubsystem;
-	private final XboxController buttonsController;
+	private final DoubleSupplier leftSpeed;
+	private final DoubleSupplier rightSpeed;
 
-	public IntakeRollersRoll(IntakeSubsystem intakeSubsystem, XboxController buttonsController) {
+	public IntakeRollersRoll(IntakeSubsystem intakeSubsystem, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
 		this.intakeSubsystem = intakeSubsystem;
-		this.buttonsController = buttonsController;
+		this.leftSpeed = leftSpeed;
+		this.rightSpeed = rightSpeed;
 		addRequirements(intakeSubsystem);
 	}
 
@@ -32,7 +34,7 @@ public class IntakeRollersRoll extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		intakeSubsystem.rollersRoll(ImpiLib2020.parseTrigger(buttonsController.getTriggerAxis(Hand.kLeft)));
+		intakeSubsystem.rollersRoll(ImpiLib2020.parseJoystick(rightSpeed.getAsDouble() - leftSpeed.getAsDouble()));
 	}
 
 	// Called once the command ends or is interrupted.

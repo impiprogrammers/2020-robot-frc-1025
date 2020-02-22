@@ -12,12 +12,12 @@ import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretSetManualMode extends InstantCommand {
 
-	TurretSubsystem turretSubsystem;
-	boolean state;
+	private final TurretSubsystem turretSubsystem;
+	private final boolean state;
 
-	public TurretSetManualMode(TurretSubsystem subsystem, boolean state) {
-		addRequirements(subsystem);
-		turretSubsystem = subsystem;
+	public TurretSetManualMode(TurretSubsystem turretSubsystem, boolean state) {
+		addRequirements(turretSubsystem);
+		this.turretSubsystem = turretSubsystem;
 		this.state = state;
 	}
 

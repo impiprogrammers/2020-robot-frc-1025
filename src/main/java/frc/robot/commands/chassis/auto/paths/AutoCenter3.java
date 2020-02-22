@@ -7,15 +7,17 @@ import frc.robot.Constants;
 import frc.robot.commands.chassis.auto.AutoFollowPath;
 import frc.robot.commands.shooter.ShooterShoot;
 import frc.robot.commands.shooter.ShooterStop;
+import frc.robot.subsystems.ChassisSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class AutoCenter3 extends SequentialCommandGroup {
 
-	public AutoCenter3() throws IOException {
+	public AutoCenter3(ChassisSubsystem chassisSubsystem, ShooterSubsystem shooterSubsystem) throws IOException {
 		super(
-			new AutoFollowPath("output/center3-1.wpilib.json"),
-			new ShooterShoot(Constants.AUTO_SHOOT_SETPOINT),
+			new AutoFollowPath(chassisSubsystem, "output/center3-1.wpilib.json"),
+			new ShooterShoot(shooterSubsystem, Constants.AUTO_SHOOT_SETPOINT),
 			new WaitCommand(Constants.AUTO_SHOOT_DURATION),
-			new ShooterStop()
+			new ShooterStop(shooterSubsystem)
 		);
 	}
 }
