@@ -8,14 +8,14 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretRezero extends CommandBase {
 
-	TurretSubsystem turretSubsystem = RobotContainer.turretSubsystem;
+	TurretSubsystem turretSubsystem;
 
-	public TurretRezero() {
+	public TurretRezero(TurretSubsystem subsystem) {
+		turretSubsystem = subsystem;
 		addRequirements(turretSubsystem);
 		// Use addRequirements() here to declare subsystem dependencies.
 	}
