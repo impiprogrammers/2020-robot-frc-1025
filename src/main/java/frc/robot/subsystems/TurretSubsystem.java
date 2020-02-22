@@ -19,8 +19,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurretSubsystem extends SubsystemBase {
@@ -53,23 +51,12 @@ public class TurretSubsystem extends SubsystemBase {
 	private double area = ta.getDouble(0);
 	private double v = tv.getDouble(0);
 
-	private static int rainbowFirstPixelHue;
-	private AddressableLED led = new AddressableLED(0);
-	private static AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(150);
-	private static int timer = 0;
-
 	public TurretSubsystem() {
 		turretRotate.setIdleMode(IdleMode.kBrake);
 
 		turretRotate.setSmartCurrentLimit(20);
 
 		turretEncoder.setPosition(0);
-
-		led.setLength(ledBuffer.getLength());
-
-		led.setData(ledBuffer);
-		led.start();
-
 	}
 
 	@Override
@@ -103,7 +90,6 @@ public class TurretSubsystem extends SubsystemBase {
 		} else {
 			targetVisibility = 1;
 		}
-		double targetCentered = tx.getDouble(0);
 		double kp = 0.02;
 		double min_speed = 0.05;
 		double negativeErrorValue = -errorValue;
@@ -121,96 +107,13 @@ public class TurretSubsystem extends SubsystemBase {
 			} else if (negativeErrorValue < 1.0) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(steeringAdjustment);
-
 			} else {
 				setTurretMotor(0);
-			}
-
-			if (targetVisibility == 1) {
-				if (targetCentered >= -2.5 && targetCentered <= 2.5) {
-					if (shooterSubsystem.atSetpoint()) {
-						setLEDsSolidGreen();
-						led.setData(ledBuffer);
-					} else {
-						setLEDsFlashGreen();
-						led.setData(ledBuffer);
-					}
-				} else {
-					if (shooterSubsystem.atSetpoint()) {
-						setLEDsSolidYellow();
-						led.setData(ledBuffer);
-					} else {
-						setLEDsFlashYellow();
-						led.setData(ledBuffer);
-					}
-				}
-			} else {
-				if (targetCentered >= -1 && targetCentered <= 1) {
-				} else {
-					if (shooterSubsystem.atSetpoint()) {
-						setLEDsSolidRed();
-						led.setData(ledBuffer);
-					} else {
-						setLEDsFlashRed();
-						led.setData(ledBuffer);
-					}
-				}
-			}
-		} else {
-			setTurretMotor(speed);
-			// set LEDs
-
-			if (targetVisibility == 1) {
-				if (targetCentered >= -2.5 && targetCentered <= 2.5) {
-					if (shooterSubsystem.atSetpoint()) {
-						setLEDsSolidGreen();
-						led.setData(ledBuffer);
-					} else {
-						setLEDsFlashGreen();
-						led.setData(ledBuffer);
-					}
-				} else {
-					if (shooterSubsystem.atSetpoint()) {
-						if (targetCentered < -2.5) {
-							setLEDsSolidBlueRight();
-							led.setData(ledBuffer);
-						} else if (targetCentered > 2.5) {
-							setLEDsSolidBlueLeft();
-							led.setData(ledBuffer);
-						}
-					} else {
-						if (targetCentered < -2.5) {
-							setLEDsFlashBlueRight();
-							led.setData(ledBuffer);
-						} else if (targetCentered > 2.5) {
-							setLEDsFlashBlueleft();
-							led.setData(ledBuffer);
-						}
-					}
-				}
-			} else {
-				if (targetCentered >= -2.5 && targetCentered <= 2.5) {
-				} else {
-					if (shooterSubsystem.atSetpoint()) {
-						setLEDsSolidOrange();
-						led.setData(ledBuffer);
-					} else {
-						setLEDsOff();
-						led.setData(ledBuffer);
-					}
-				}
 			}
 		}
 	}
 
 	public void turretRezero() {
-		/*
-		 * if(turretEncoder.getPosition() < 2.5 && turretEncoder.getPosition() > -2.5) {
-		 * setTurretMotor(0); } else if (turretEncoder.getPosition() < -2.5) {
-		 * setTurretMotor(1); } else if (turretEncoder.getPosition() > 2.5) {
-		 * setTurretMotor(-1); }
-		 */
-
 		turretEncoder.setPosition(0);
 	}
 
@@ -226,146 +129,20 @@ public class TurretSubsystem extends SubsystemBase {
 		manualMode = state;
 	}
 
-	public void setLEDsOff() {
-		for (var i = 0; i < ledBuffer.getLength(); i++) {
-			ledBuffer.setHSV(i, 0, 0, 0);
+	public boolean TurretAtRightSoftStop() {
+		if(turretEncoder.getPosition() < -Constants.TURRET_RIGHT_LIMIT) {
+			return true;
 		}
+	
+		return false;
 	}
-
-	public void setLEDsSolidOrange() {
-		for (var i = 0; i < ledBuffer.getLength(); i++) {
-			ledBuffer.setHSV(i, 30 / 2, 255, 255);
+	
+	public boolean TurretAtLeftSoftStop() {
+		if(turretEncoder.getPosition() > Constants.TURRET_LEFT_LIMIT) {
+			return true;
 		}
-	}
-
-	public void setLEDsFlashBlueRight() {
-		timer++;
-		if (timer > 25) {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				// ledBuffer.setHSV(i, 0, 0, 0);
-				if (i < ledBuffer.getLength() / 2) {
-					ledBuffer.setHSV(i, 225 / 2, 255, 255);
-				} else {
-					ledBuffer.setHSV(i, 0 / 2, 0, 0);
-				}
-			}
-		} else {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				ledBuffer.setHSV(i, 0 / 2, 0, 0);
-			}
-		}
-		if (timer >= 50) {
-			timer = 0;
-		}
-	}
-
-	public void setLEDsFlashBlueleft() {
-		timer++;
-		if (timer > 25) {
-			for (var i = 0; i < (ledBuffer.getLength()); i++) {
-				// ledBuffer.setHSV(i, 0, 0, 0);
-				if (i > (ledBuffer.getLength() / 2)) {
-					ledBuffer.setHSV(i, 225 / 2, 255, 255);
-				} else {
-					ledBuffer.setHSV(i, 0 / 2, 0, 0);
-				}
-			}
-		} else {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				ledBuffer.setHSV(i, 0 / 2, 0, 0);
-			}
-		}
-		if (timer >= 50) {
-			timer = 0;
-		}
-	}
-
-	public void setLEDsSolidBlueRight() {
-		for (var i = 0; i < ledBuffer.getLength(); i++) {
-			// ledBuffer.setHSV(i, 0, 0, 0);
-			if (i < ledBuffer.getLength() / 2) {
-				ledBuffer.setHSV(i, 225 / 2, 255, 255);
-			} else {
-				ledBuffer.setHSV(i, 0, 0, 0);
-			}
-		}
-	}
-
-	public void setLEDsSolidBlueLeft() {
-		for (var i = 0; i < ledBuffer.getLength(); i++) {
-			// ledBuffer.setHSV(i, 0, 0, 0);
-			if (i > ledBuffer.getLength() / 2) {
-				ledBuffer.setHSV(i, 225 / 2, 255, 255);
-			} else {
-				ledBuffer.setHSV(i, 0, 0, 0);
-			}
-		}
-	}
-
-	public void setLEDsFlashGreen() {
-		timer++;
-		if (timer > 25) {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				ledBuffer.setHSV(i, 0, 0, 0);
-			}
-		} else {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				ledBuffer.setHSV(i, 115 / 2, 255, 255);
-			}
-		}
-		if (timer >= 50) {
-			timer = 0;
-		}
-	}
-
-	public void setLEDsSolidGreen() {
-		for (var i = 0; i < ledBuffer.getLength(); i++) {
-			ledBuffer.setHSV(i, 115 / 2, 255, 255);
-		}
-	}
-
-	public void setLEDsFlashRed() {
-		timer++;
-		if (timer > 25) {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				ledBuffer.setHSV(i, 0, 0, 0);
-			}
-		} else {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				ledBuffer.setHSV(i, 0 / 2, 255, 255);
-			}
-		}
-		if (timer >= 50) {
-			timer = 0;
-		}
-	}
-
-	public void setLEDsSolidRed() {
-		for (var i = 0; i < ledBuffer.getLength(); i++) {
-			ledBuffer.setHSV(i, 0 / 2, 255, 255);
-		}
-	}
-
-	public void setLEDsFlashYellow() {
-		timer++;
-		if (timer > 25) {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				ledBuffer.setHSV(i, 0, 0, 0);
-			}
-		} else {
-			for (var i = 0; i < ledBuffer.getLength(); i++) {
-				ledBuffer.setHSV(i, 42 / 2, 255, 255);
-			}
-		}
-		if (timer >= 50) {
-			timer = 0;
-		}
-	}
-
-	public void setLEDsSolidYellow() {
-		for (var i = 0; i < ledBuffer.getLength(); i++) {
-			ledBuffer.setHSV(i, 42 / 2, 255, 255);
-		}
+	
+		return false;
 	}
 
 	public void setTurretMotor(double speed) {

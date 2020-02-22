@@ -76,6 +76,10 @@ public class ShooterSubsystem extends SubsystemBase {
 		// pidLeft.setFF(ff);
 	}
 
+	public double getShooterVelocity() {
+		return shooterEncoder.getVelocity();
+	}
+
 	public void shoot(double setpoint) {
 		shooterEnabled = true;
 		pidLeft.setReference(-setpoint, ControlType.kVelocity);
