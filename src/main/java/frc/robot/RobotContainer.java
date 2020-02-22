@@ -79,7 +79,6 @@ public class RobotContainer {
 	private final IntakeArmExtended intakeArmExtended = new IntakeArmExtended(intakeSubsystem);
 	private final IntakeArmRetract intakeArmRetract = new IntakeArmRetract(intakeSubsystem);
 	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll(intakeSubsystem, buttonsController);
-	private final IntakeRollersSetAuto intakeRollersSetAuto = new IntakeRollersSetAuto(intakeSubsystem, buttonsController, 0.5);
 
 	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
 	private final ShooterStop shooterStop = new ShooterStop();
@@ -134,10 +133,10 @@ public class RobotContainer {
 			autoChooser.addOption("Center 3", new AutoCenter3());
 			autoChooser.addOption("Right 0", new AutoRight0());
 			autoChooser.addOption("Right 3", new AutoRight3());
-			autoChooser.addOption("Left 8", new AutoLeft8());
-			autoChooser.addOption("Center 8", new AutoCenter8());
-			autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10());
-			autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10());
+			autoChooser.addOption("Left 8", new AutoLeft8(intakeSubsystem));
+			autoChooser.addOption("Center 8", new AutoCenter8(intakeSubsystem));
+			autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10(intakeSubsystem));
+			autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10(intakeSubsystem));
 		} catch(IOException exception) {
 			DriverStation.reportError("Autonomous Path JSON Not Found", true);
 		}

@@ -7,21 +7,18 @@
 
 package frc.robot.commands.intake;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeRollersSetAuto extends CommandBase {
 
 	private final IntakeSubsystem intakeSubsystem;
-	private final XboxController buttonsController;
 
 	double speed;
 
-	public IntakeRollersSetAuto(IntakeSubsystem intakeSubsystem, XboxController buttonsController, double speed) {
+	public IntakeRollersSetAuto(IntakeSubsystem intakeSubsystem, double speed) {
 		this.speed = speed;
 		this.intakeSubsystem = intakeSubsystem;
-		this.buttonsController = buttonsController;
 		addRequirements(intakeSubsystem);
 	}
 
