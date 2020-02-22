@@ -42,14 +42,16 @@ public class TurretSubsystem extends SubsystemBase {
 	NetworkTableEntry tx = table.getEntry("tx");
 	NetworkTableEntry ty = table.getEntry("ty");
 	NetworkTableEntry ta = table.getEntry("ta");
+	NetworkTableEntry tv = table.getEntry("tv");
 
 	// Subsystems
 	ShooterSubsystem shooterSubsystem = RobotContainer.shooterSubsystem;
 
 	// read values periodically
-	double x = tx.getDouble(0.0);
-	double y = ty.getDouble(0.0);
-	double area = ta.getDouble(0.0);
+	private double x = tx.getDouble(0);
+	private double y = ty.getDouble(0);
+	private double area = ta.getDouble(0);
+	private double v = tv.getDouble(0);
 
 	private static int rainbowFirstPixelHue;
 	private AddressableLED led = new AddressableLED(0);
@@ -76,10 +78,18 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public void updateLimelightTracking() {
-		double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-		double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-		double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+		x = tx.getDouble(0);
+		y = ty.getDouble(0);
+		area = ta.getDouble(0);
+		v = tv.getDouble(0);
 
+	}
+
+	public boolean isTargetFound() {
+		if (v == 1 && y >= Constants.TURRET_MIN_TRACKING_HEIGHT) {
+			return true;
+		}
+		return false;
 	}
 
 	public void turretSpin(double speed) {
@@ -94,7 +104,7 @@ public class TurretSubsystem extends SubsystemBase {
 			targetVisibility = 1;
 		}
 		double targetCentered = tx.getDouble(0);
-		double kp = 0.05;
+		double kp = 0.02;
 		double min_speed = 0.05;
 		double negativeErrorValue = -errorValue;
 		double steeringAdjustment = 0.0;
@@ -104,7 +114,49 @@ public class TurretSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
 		SmartDashboard.putNumber("targetVisibility", targetVisibility);
 
-		if (manualMode) {
+		if (!manualMode && isTargetFound()) {
+			if (negativeErrorValue > 2.0) {
+				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
+				setTurretMotor(-steeringAdjustment);
+			} else if (negativeErrorValue < 1.0) {
+				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
+				setTurretMotor(steeringAdjustment);
+
+			} else {
+				setTurretMotor(0);
+			}
+
+			if (targetVisibility == 1) {
+				if (targetCentered >= -2.5 && targetCentered <= 2.5) {
+					if (shooterSubsystem.atSetpoint()) {
+						setLEDsSolidGreen();
+						led.setData(ledBuffer);
+					} else {
+						setLEDsFlashGreen();
+						led.setData(ledBuffer);
+					}
+				} else {
+					if (shooterSubsystem.atSetpoint()) {
+						setLEDsSolidYellow();
+						led.setData(ledBuffer);
+					} else {
+						setLEDsFlashYellow();
+						led.setData(ledBuffer);
+					}
+				}
+			} else {
+				if (targetCentered >= -1 && targetCentered <= 1) {
+				} else {
+					if (shooterSubsystem.atSetpoint()) {
+						setLEDsSolidRed();
+						led.setData(ledBuffer);
+					} else {
+						setLEDsFlashRed();
+						led.setData(ledBuffer);
+					}
+				}
+			}
+		} else {
 			setTurretMotor(speed);
 			// set LEDs
 
@@ -148,68 +200,30 @@ public class TurretSubsystem extends SubsystemBase {
 					}
 				}
 			}
-		} else {
-			if (negativeErrorValue > 2.5) {
-				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
-				setTurretMotor(-steeringAdjustment);
-			} else if (negativeErrorValue < -2.5) {
-				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
-				setTurretMotor(steeringAdjustment);
-
-			} else {
-				setTurretMotor(0);
-			}
-
-			if (targetVisibility == 1) {
-				if (targetCentered >= -2.5 && targetCentered <= 2.5) {
-					if (shooterSubsystem.atSetpoint()) {
-						setLEDsSolidGreen();
-						led.setData(ledBuffer);
-					} else {
-						setLEDsFlashGreen();
-						led.setData(ledBuffer);
-					}
-				} else {
-					if (shooterSubsystem.atSetpoint()) {
-						setLEDsSolidYellow();
-						led.setData(ledBuffer);
-					} else {
-						setLEDsFlashYellow();
-						led.setData(ledBuffer);
-					}
-				}
-			} else {
-				if (targetCentered >= -1 && targetCentered <= 1) {
-				} else {
-					if (shooterSubsystem.atSetpoint()) {
-						setLEDsSolidRed();
-						led.setData(ledBuffer);
-					} else {
-						setLEDsFlashRed();
-						led.setData(ledBuffer);
-					}
-				}
-			}
 		}
 	}
 
-	public void turretCenter() {
-		if(turretEncoder.getPosition() < 2.5 && turretEncoder.getPosition() > -2.5) {
-			setTurretMotor(0);
-		} else if (turretEncoder.getPosition() < -2.5) {
-			setTurretMotor(1);
-		} else if (turretEncoder.getPosition() > 2.5) {
-			setTurretMotor(-1);
-		}
-}
+	public void turretRezero() {
+		/*
+		 * if(turretEncoder.getPosition() < 2.5 && turretEncoder.getPosition() > -2.5) {
+		 * setTurretMotor(0); } else if (turretEncoder.getPosition() < -2.5) {
+		 * setTurretMotor(1); } else if (turretEncoder.getPosition() > 2.5) {
+		 * setTurretMotor(-1); }
+		 */
 
-	
+		turretEncoder.setPosition(0);
+	}
+
 	public void toggleManualMode() {
 		if (manualMode) {
 			manualMode = false;
 		} else {
 			manualMode = true;
 		}
+	}
+
+	public void setManualMode(boolean state) {
+		manualMode = state;
 	}
 
 	public void setLEDsOff() {
@@ -355,10 +369,11 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public void setTurretMotor(double speed) {
-		if (turretEncoder.getPosition() > 15 && speed > 0 || turretEncoder.getPosition() < -15 && speed < 0) {
+		if (turretEncoder.getPosition() < -Constants.TURRET_RIGHT_LIMIT && speed > 0
+				|| turretEncoder.getPosition() > Constants.TURRET_LEFT_LIMIT && speed < 0) {
 			turretRotate.set(0);
 		} else {
-			turretRotate.set(speed);
+			turretRotate.set(-speed);
 		}
 	}
 }

@@ -25,7 +25,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
 	// PID Controllers
 	private CANPIDController pidLeft = shooterLeft.getPIDController();
-	private CANPIDController pidRight = shooterRight.getPIDController();
+	
 
 	// Encoders
 	private CANEncoder shooterEncoder = shooterLeft.getEncoder();
@@ -35,42 +35,58 @@ public class ShooterSubsystem extends SubsystemBase {
 	private boolean shooterEnabled = false;
 
 	// PID Values
-	private final double p = 6e-5;
-	private final double i = 1e-6;
-	private final double d = 1e-6;
-	private final double ff = 0.000015;
+	private double p = 0.0001;
+	private double i = 0.0000001;
+	private double d = 0;
+	private double ff = 0.000105;
 	private final double min = -1;
 	private final double max = 1;
 
-	public ShooterSubsystem() {
+	public ShooterSubsystem(){
+
+		shooterLeft.setSmartCurrentLimit(40);
+		shooterRight.setSmartCurrentLimit(40);
+
+		shooterRight.follow(shooterLeft,true);
+
 		pidLeft.setP(p);
 		pidLeft.setI(i);
 		pidLeft.setD(d);
 		pidLeft.setFF(ff);
 		pidLeft.setOutputRange(min, max);
-		pidRight.setP(p);
-		pidRight.setI(i);
-		pidRight.setD(d);
-		pidRight.setOutputRange(min, max);
-		pidRight.setFF(ff);
 	}
 
 	@Override
 	public void periodic() {
 		SmartDashboard.putNumber("PID Output", shooterEncoder.getVelocity());
+/*
+		SmartDashboard.putNumber("P", p);
+		SmartDashboard.putNumber("i", i);
+		SmartDashboard.putNumber("d", d);
+*/
+
+		// p = SmartDashboard.getNumber("P", 0);
+		// i = SmartDashboard.getNumber("i", 0);
+		// d = SmartDashboard.getNumber("d", 0);
+		// ff = SmartDashboard.getNumber("ff", 0);
+
+		// pidLeft.setP(p);
+		// pidLeft.setI(i);
+		// pidLeft.setD(d);
+		// pidLeft.setFF(ff);
 	}
 
 	public void shoot(double setpoint) {
 		shooterEnabled = true;
-		pidLeft.setReference(setpoint, ControlType.kVelocity);
-		pidRight.setReference(setpoint, ControlType.kVelocity);
+		pidLeft.setReference(-setpoint, ControlType.kVelocity);
+	//	pidRight.setReference(setpoint, ControlType.kVelocity);
 
 	}
 
 	public void stop() {
 		shooterEnabled = false;
-		pidLeft.setReference(0, ControlType.kVelocity);
-		pidRight.setReference(0, ControlType.kVelocity);
+		pidLeft.setReference(0, ControlType.kCurrent);
+	//	pidRight.setReference(0, ControlType.kCurrent);
 	}
 
 	public void toggle(double setpoint) {

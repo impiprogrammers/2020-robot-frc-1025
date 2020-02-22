@@ -17,6 +17,7 @@ public class ClimberSubsystem extends SubsystemBase {
 	TalonSRX climberWinch = new TalonSRX(Constants.CLIMBER_WINCH_PORT);
 
 	public ClimberSubsystem() {
+		climberArm.set(Value.kForward);
 	}
 
 	public void extenderExtend() {

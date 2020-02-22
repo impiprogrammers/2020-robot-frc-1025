@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
-import frc.robot.commands.LEDs.UpdateLights;
 import frc.robot.commands.chassis.*;
 import frc.robot.commands.chassis.auto.paths.*;
 import frc.robot.commands.climber.*;
@@ -82,13 +81,13 @@ public class RobotContainer {
 
 	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
 	private final ShooterStop shooterStop = new ShooterStop();
-	private final ShooterToggle shooterToggle = new ShooterToggle(5700);
+	private final ShooterToggle shooterToggle = new ShooterToggle(4500);
 
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll(conveyorSubsystem, 1);
 	private final ConveyorStop conveyorStop = new ConveyorStop(conveyorSubsystem);
 
-	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin(shooterFeederSubsystem, buttonsController);
-	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop(shooterFeederSubsystem);
+	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
+	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
 	
 	private final ClimberArmExtend climberArmExtend = new ClimberArmExtend(climberSubsystem);
 	private final ClimberArmRetract climberArmRetract = new ClimberArmRetract(climberSubsystem);
@@ -98,32 +97,28 @@ public class RobotContainer {
 	private final ShimmyMove shimmyMove = new ShimmyMove(shimmySubsystem, driverController);
 	private final ShimmyStop shimmyStop = new ShimmyStop(shimmySubsystem);
 
-	private final TurretSpin turretSpin = new TurretSpin(turretSubsystem, buttonsController);
-	private final TurretCenter turretCenter = new TurretCenter(turretSubsystem);
-	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode(turretSubsystem);
+	private final TurretSpin turretSpin = new TurretSpin();
+	private final TurretRezero turretRezero = new TurretRezero();
+	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode();
+	private final TurretSetManualMode turretSetManualMode = new TurretSetManualMode(turretSubsystem, true);
+	private final TurretSetManualMode turretSetAutoMode = new TurretSetManualMode(turretSubsystem, false);
 
-	private final UpdateLights updateLights = new UpdateLights(ledSubsystem, shooterSubsystem, turretSubsystem);
+	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend();
+	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract();
+	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor();
+	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour();
 
-	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend(controlPanelSubsystem);
-	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract(controlPanelSubsystem);
-	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor(controlPanelSubsystem);
-	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour(controlPanelSubsystem);
-	private final ControlPanelManual controlPanelManual = new ControlPanelManual(controlPanelSubsystem, 0.5);
-	private final ControlPanelArmToggle controlPanelArmToggle = new ControlPanelArmToggle(controlPanelSubsystem);
-	
 	// Global Variables
 	public static boolean climberMode = false;
 
  	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
-		climberSubsystem.setDefaultCommand(climberLoop);
-		/*
+		//climberSubsystem.setDefaultCommand(climberLoop);
 		turretSubsystem.setDefaultCommand(turretSpin);
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
-		LEDSubsystem.setDefaultCommand(updateLights);
-		*/
+		
 		
 		configureButtonBindings();
 
@@ -142,6 +137,9 @@ public class RobotContainer {
 		}
 
 		SmartDashboard.putData("Autonomous Path (Station, Ball Count)", autoChooser);
+
+		// Add Buttons to SmartDashboard
+		SmartDashboard.putData("Rezero Turret", turretRezero);
 	}
 
   	/**
@@ -151,13 +149,12 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() { 
-		driverA.whenPressed(climberLockToggle);
-		driverB.whenPressed(new ControlPanelManual(controlPanelSubsystem, 1));
-		driverSelect.whenPressed(climberArmExtend);
-		driverStart.whenPressed(climberArmRetract);
+		//driverA.whenPressed(climberLockToggle);
+		//driverSelect.whenPressed(climberArmExtend);
+		//driverStart.whenPressed(climberArmRetract);
 
-		buttonsX.whenPressed(turretToggleManualMode);
-		buttonsY.whenPressed(turretCenter);
+		buttonsX.whenPressed(turretSetManualMode);
+		buttonsY.whenPressed(turretSetAutoMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
 		buttonsA.whenPressed(controlPanelWheelSpinFour);

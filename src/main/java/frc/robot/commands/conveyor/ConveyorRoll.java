@@ -27,7 +27,7 @@ public class ConveyorRoll extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    conveyorSubsystem.conveyorRoll(speed);
+    conveyorSubsystem.conveyorRoll(speed); // todo: readd support for both joystick and trigger
   }
 
   // Called once the command ends or is interrupted.
