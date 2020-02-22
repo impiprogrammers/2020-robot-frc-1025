@@ -49,6 +49,7 @@ public final class Constants {
     public static final int TURRET_ROTATE_PORT = 7;
     public static final double TURRET_LEFT_LIMIT = 0; // turret left, robot right
     public static final double TURRET_RIGHT_LIMIT = 130; // turret right, robot left
+    public static final double TURRET_MIN_TRACKING_HEIGHT = 0; // tbd
     
     // Shooter
     public static final int SHOOTER_LEFT_PORT = 8;

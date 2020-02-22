@@ -68,8 +68,10 @@ public class RobotContainer {
 	private final ClimberLoop climberLoop = new ClimberLoop();
 
 	private final TurretSpin turretSpin = new TurretSpin();
-	private final TurretCenter turretCenter = new TurretCenter();
+	private final TurretRezero turretRezero = new TurretRezero();
 	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode();
+	private final TurretSetManualMode turretSetManualMode = new TurretSetManualMode(turretSubsystem, true);
+	private final TurretSetManualMode turretSetAutoMode = new TurretSetManualMode(turretSubsystem, false);
 
 	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend();
 	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract();
@@ -127,6 +129,9 @@ public class RobotContainer {
 		}
 
 		SmartDashboard.putData("Autonomous Path (Station, Ball Count)", autoChooser);
+
+		// Add Buttons to SmartDashboard
+		SmartDashboard.putData("Rezero Turret", turretRezero);
 	}
 
   	/**
@@ -140,8 +145,8 @@ public class RobotContainer {
 		//driverSelect.whenPressed(climberArmExtend);
 		//driverStart.whenPressed(climberArmRetract);
 
-		buttonsX.whenPressed(turretToggleManualMode);
-		// buttonsY.whenPressed(turretCenter);
+		buttonsX.whenPressed(turretSetManualMode);
+		buttonsY.whenPressed(turretSetAutoMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
 		buttonsA.whenPressed(controlPanelWheelSpinFour);
