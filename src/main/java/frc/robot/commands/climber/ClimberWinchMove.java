@@ -7,20 +7,21 @@
 
 package frc.robot.commands.climber;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ImpiLib2020;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class ClimberLoop extends CommandBase {
+public class ClimberWinchMove extends CommandBase {
 	
 	private final ClimberSubsystem climberSubsystem;
-	private final XboxController driverController;
+	private final DoubleSupplier leftSpeed;
+	private final DoubleSupplier rightSpeed;
 
-	public ClimberLoop(ClimberSubsystem climberSubsystem, XboxController driverController) {
+	public ClimberWinchMove(ClimberSubsystem climberSubsystem, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
 		this.climberSubsystem = climberSubsystem;
-		this. driverController = driverController;
+		this.leftSpeed = leftSpeed;
+		this.rightSpeed = rightSpeed;
 		addRequirements(climberSubsystem);
 	}
 
@@ -32,14 +33,7 @@ public class ClimberLoop extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		// Winch
-		double leftTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kLeft), 0.05);
-		double rightTriggerAxis = ImpiLib2020.deadzone(driverController.getTriggerAxis(Hand.kRight), 0.05);
-		if (rightTriggerAxis > 0) {
-			climberSubsystem.winchMove(Math.pow(rightTriggerAxis, 2));
-		} else {
-			climberSubsystem.winchMove(-Math.pow(leftTriggerAxis, 2));
-		}
+		climberSubsystem.winchMove(ImpiLib2020.parseJoystick(rightSpeed.getAsDouble() - leftSpeed.getAsDouble()));
 	}
 
 	// Called once the command ends or is interrupted.

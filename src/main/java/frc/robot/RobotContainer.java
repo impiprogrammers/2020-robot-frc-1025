@@ -8,10 +8,13 @@
 package frc.robot;
 
 import java.io.IOException;
+import java.util.function.DoubleSupplier;
+import java.util.function.IntSupplier;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -52,61 +55,77 @@ public class RobotContainer {
 	private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 		
  	// OI
-	 private final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
-	 private final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
+	private final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
+	private final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
  
-	 private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
-	 private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
-	 private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
-	 private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
-	 private final JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
-	 private final JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
+	private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
+	private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
+	private final JoystickButton driverX = new JoystickButton(driverController, XboxController.Button.kX.value);
+	private final JoystickButton driverY = new JoystickButton(driverController, XboxController.Button.kY.value);
+	private final JoystickButton driverSelect = new JoystickButton(driverController, XboxController.Button.kBack.value);
+	private final JoystickButton driverStart = new JoystickButton(driverController, XboxController.Button.kStart.value);
+
+	private final DoubleSupplier driverLeftJoystickX = () -> driverController.getX(Hand.kLeft);
+	private final DoubleSupplier driverLeftJoystickY = () -> driverController.getY(Hand.kLeft);
+	private final DoubleSupplier driverLeftTrigger = () -> driverController.getTriggerAxis(Hand.kLeft);
+	private final DoubleSupplier driverRightJoystickX = () -> driverController.getX(Hand.kRight);
+	private final DoubleSupplier driverRightJoystickY = () -> driverController.getY(Hand.kRight);
+	private final DoubleSupplier driverRightTrigger = () -> driverController.getTriggerAxis(Hand.kRight);
+	private final IntSupplier driverDpad = () -> driverController.getPOV();
  
-	 private final JoystickButton buttonsA = new JoystickButton(buttonsController, XboxController.Button.kA.value);
-	 private final JoystickButton buttonsB = new JoystickButton(buttonsController, XboxController.Button.kB.value);
-	 private final JoystickButton buttonsX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
-	 private final JoystickButton buttonsY = new JoystickButton(buttonsController, XboxController.Button.kY.value);
-	 private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
-	 private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
-	 private final JoystickButton buttonsSelect = new JoystickButton(buttonsController, XboxController.Button.kBack.value);
-	 private final JoystickButton buttonsStart = new JoystickButton(buttonsController, XboxController.Button.kStart.value);
-	  
+	private final JoystickButton buttonsA = new JoystickButton(buttonsController, XboxController.Button.kA.value);
+	private final JoystickButton buttonsB = new JoystickButton(buttonsController, XboxController.Button.kB.value);
+	private final JoystickButton buttonsX = new JoystickButton(buttonsController, XboxController.Button.kX.value);
+	private final JoystickButton buttonsY = new JoystickButton(buttonsController, XboxController.Button.kY.value);
+	private final JoystickButton buttonsLeftBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperLeft.value);
+	private final JoystickButton buttonsRightBumper = new JoystickButton(buttonsController, XboxController.Button.kBumperRight.value);
+	private final JoystickButton buttonsSelect = new JoystickButton(buttonsController, XboxController.Button.kBack.value);
+	private final JoystickButton buttonsStart = new JoystickButton(buttonsController, XboxController.Button.kStart.value);
+
+	private final DoubleSupplier buttonsLeftJoystickX = () -> buttonsController.getX(Hand.kLeft);
+	private final DoubleSupplier buttonsLeftJoystickY = () -> buttonsController.getY(Hand.kLeft);
+	private final DoubleSupplier buttonsLeftTrigger = () -> buttonsController.getTriggerAxis(Hand.kLeft);
+	private final DoubleSupplier buttonsRightJoystickX = () -> buttonsController.getX(Hand.kRight);
+	private final DoubleSupplier buttonsRightJoystickY = () -> buttonsController.getY(Hand.kRight);
+	private final DoubleSupplier buttonsRightTrigger = () -> buttonsController.getTriggerAxis(Hand.kRight);
+	private final IntSupplier buttonsDpad = () -> buttonsController.getPOV();
+	
 	// Commands
-	private final ChassisDrive chassisDrive = new ChassisDrive(chassisSubsystem, driverController);
+	private final ChassisDrive chassisDrive = new ChassisDrive(chassisSubsystem, driverLeftJoystickY, driverRightJoystickX);
 
 	private final IntakeArmToggle intakeExtenderToggle = new IntakeArmToggle(intakeSubsystem);
-	private final IntakeArmExtended intakeArmExtended = new IntakeArmExtended(intakeSubsystem);
+	private final IntakeArmExtend intakeArmExtend = new IntakeArmExtend(intakeSubsystem);
 	private final IntakeArmRetract intakeArmRetract = new IntakeArmRetract(intakeSubsystem);
-	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll(intakeSubsystem, buttonsController);
+	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll(intakeSubsystem, buttonsRightTrigger, buttonsLeftTrigger);
 
-	private final ShooterShoot shooterShoot = new ShooterShoot(5700);
-	private final ShooterStop shooterStop = new ShooterStop();
-	private final ShooterToggle shooterToggle = new ShooterToggle(4500);
+	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, 5700);
+	private final ShooterStop shooterStop = new ShooterStop(shooterSubsystem);
+	private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4500);
 
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll(conveyorSubsystem, 1);
 	private final ConveyorStop conveyorStop = new ConveyorStop(conveyorSubsystem);
 
-	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin();
-	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop();
+	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin(shooterFeederSubsystem, buttonsDpad);
+	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop(shooterFeederSubsystem);
 	
 	private final ClimberArmExtend climberArmExtend = new ClimberArmExtend(climberSubsystem);
 	private final ClimberArmRetract climberArmRetract = new ClimberArmRetract(climberSubsystem);
 	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle(climberSubsystem);
-	private final ClimberLoop climberLoop = new ClimberLoop(climberSubsystem, driverController);
+	private final ClimberWinchMove climberWinchMove = new ClimberWinchMove(climberSubsystem, driverRightTrigger, driverLeftTrigger);
 
-	private final ShimmyMove shimmyMove = new ShimmyMove(shimmySubsystem, driverController);
+	private final ShimmyMove shimmyMove = new ShimmyMove(shimmySubsystem, driverDpad);
 	private final ShimmyStop shimmyStop = new ShimmyStop(shimmySubsystem);
 
-	private final TurretSpin turretSpin = new TurretSpin();
-	private final TurretRezero turretRezero = new TurretRezero();
-	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode();
+	private final TurretSpin turretSpin = new TurretSpin(turretSubsystem, buttonsLeftJoystickX);
+	private final TurretRezero turretRezero = new TurretRezero(turretSubsystem);
+	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode(turretSubsystem);
 	private final TurretSetManualMode turretSetManualMode = new TurretSetManualMode(turretSubsystem, true);
 	private final TurretSetManualMode turretSetAutoMode = new TurretSetManualMode(turretSubsystem, false);
 
-	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend();
-	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract();
-	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor();
-	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour();
+	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend(controlPanelSubsystem);
+	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract(controlPanelSubsystem);
+	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor(controlPanelSubsystem);
+	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour(controlPanelSubsystem);
 
 	// Global Variables
 	public static boolean climberMode = false;
@@ -124,14 +143,14 @@ public class RobotContainer {
 
 		// Configure Auto Chooser
 		try {
-			autoChooser.setDefaultOption("Left 3", new AutoLeft3());
-			autoChooser.addOption("Center 3", new AutoCenter3());
-			autoChooser.addOption("Right 0", new AutoRight0());
-			autoChooser.addOption("Right 3", new AutoRight3());
-			autoChooser.addOption("Left 8", new AutoLeft8(intakeSubsystem));
-			autoChooser.addOption("Center 8", new AutoCenter8(intakeSubsystem));
-			autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10(intakeSubsystem));
-			autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10(intakeSubsystem));
+			autoChooser.setDefaultOption("Left 3", new AutoLeft3(chassisSubsystem, shooterSubsystem));
+			autoChooser.addOption("Center 3", new AutoCenter3(chassisSubsystem, shooterSubsystem));
+			autoChooser.addOption("Right 0", new AutoRight0(chassisSubsystem));
+			autoChooser.addOption("Right 3", new AutoRight3(chassisSubsystem, shooterSubsystem));
+			autoChooser.addOption("Left 8", new AutoLeft8(chassisSubsystem, intakeSubsystem, shooterSubsystem));
+			autoChooser.addOption("Center 8", new AutoCenter8(chassisSubsystem, intakeSubsystem, shooterSubsystem));
+			autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10(chassisSubsystem, intakeSubsystem, shooterSubsystem));
+			autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10(chassisSubsystem, intakeSubsystem, shooterSubsystem));
 		} catch(IOException exception) {
 			DriverStation.reportError("Autonomous Path JSON Not Found", true);
 		}

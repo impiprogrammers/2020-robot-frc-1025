@@ -10,19 +10,19 @@ package frc.robot.commands.control_panel;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class ControlPanelStop extends InstantCommand {
-   public ControlPanelStop(ControlPanelSubsystem controlPanelSubsystem){
-     super(controlPanelSubsystem::controlPanelStop, controlPanelSubsystem);
-   }
-  public ControlPanelStop() {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+	private final ControlPanelSubsystem controlPanelSubsystem;
+
+	public ControlPanelStop(ControlPanelSubsystem controlPanelSubsystem) {
+		this.controlPanelSubsystem = controlPanelSubsystem;
+		addRequirements(controlPanelSubsystem);
+	}
+
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		controlPanelSubsystem.controlPanelStop();
+	}
+	
 }

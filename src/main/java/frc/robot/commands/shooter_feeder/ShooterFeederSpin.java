@@ -1,19 +1,17 @@
 package frc.robot.commands.shooter_feeder;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import java.util.function.IntSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ImpiLib2020;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 
 public class ShooterFeederSpin extends CommandBase {
 
     private final ShooterFeederSubsystem shooterFeederSubsystem;
-    private final XboxController buttonsController;
+    private final IntSupplier povAngle;
 
-    public ShooterFeederSpin(ShooterFeederSubsystem shooterFeederSubsystem, XboxController buttonsController) {
+    public ShooterFeederSpin(ShooterFeederSubsystem shooterFeederSubsystem, IntSupplier povAngle) {
         this.shooterFeederSubsystem = shooterFeederSubsystem;
-        this.buttonsController = buttonsController;
+        this.povAngle = povAngle;
         addRequirements(shooterFeederSubsystem);
     }
 
@@ -23,7 +21,13 @@ public class ShooterFeederSpin extends CommandBase {
 
     @Override
     public void execute() {
-        shooterFeederSubsystem.spin(Math.pow(ImpiLib2020.deadzone(buttonsController.getTriggerAxis(Hand.kRight), 0.05), 2));
+        if (povAngle.getAsInt() == 0) {
+            shooterFeederSubsystem.spin(1);
+        } else if (povAngle.getAsInt() == 180) {
+            shooterFeederSubsystem.spin(-1);
+        } else {
+            shooterFeederSubsystem.stop();
+        }
     }
 
     @Override

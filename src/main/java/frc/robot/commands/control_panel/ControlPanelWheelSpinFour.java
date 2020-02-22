@@ -7,37 +7,21 @@
 
 package frc.robot.commands.control_panel;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
-public class ControlPanelWheelSpinFour extends CommandBase {
-  ControlPanelSubsystem controlPanelSubsystem;
+public class ControlPanelWheelSpinFour extends InstantCommand {
 
+	private final ControlPanelSubsystem controlPanelSubsystem;
 
-  public ControlPanelWheelSpinFour(ControlPanelSubsystem controlPanelSubystem) {
-   addRequirements(controlPanelSubsystem);
-  }
+	public ControlPanelWheelSpinFour(ControlPanelSubsystem controlPanelSubsystem) {
+		this.controlPanelSubsystem = controlPanelSubsystem;
+		addRequirements(controlPanelSubsystem);
+	}
 
- 
-  @Override
-  public void initialize() {
-  }
+	@Override
+	public void initialize() {
+		controlPanelSubsystem.controlPanelWheelSpinFour();
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    controlPanelSubsystem.controlPanelWheelSpinFour();
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
 }

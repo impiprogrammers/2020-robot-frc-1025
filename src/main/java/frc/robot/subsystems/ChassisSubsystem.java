@@ -78,8 +78,8 @@ public class ChassisSubsystem extends SubsystemBase {
 		double conversionFactor = Constants.CHASSIS_WHEEL_DIAMETER * Math.PI / Constants.CHASSIS_GEAR_RATIO;
 		leftEncoder.setPositionConversionFactor(conversionFactor);
 		leftEncoder.setVelocityConversionFactor(conversionFactor); // should the conversion factor be the same as for postion?
-		rightEncoder.setPositionConversionFactor(conversionFactor);
-		rightEncoder.setVelocityConversionFactor(conversionFactor); // should the conversion factor be the same as for postion?
+		rightEncoder.setPositionConversionFactor(conversionFactor / 60);
+		rightEncoder.setVelocityConversionFactor(conversionFactor / 60); // should the conversion factor be the same as for postion?
 	}
 
 	@Override

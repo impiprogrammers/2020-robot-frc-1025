@@ -20,9 +20,9 @@ import frc.robot.subsystems.ChassisSubsystem;
 
 public class AutoFollowPath extends RamseteCommand {
 
-    static ChassisSubsystem chassisSubsystem;
+    private final ChassisSubsystem chassisSubsystem;
 
-	public AutoFollowPath(String trajectoryJSON) throws IOException {
+	public AutoFollowPath(ChassisSubsystem chassisSubsystem, String trajectoryJSON) throws IOException {
         super(
             TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON)),
             chassisSubsystem::getPose,
@@ -35,10 +35,7 @@ public class AutoFollowPath extends RamseteCommand {
             chassisSubsystem::voltageTankDrive,
             chassisSubsystem
 		);
-		
-		if (!Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON).toFile().isFile()) {
-			throw new IOException();
-		}
+		this.chassisSubsystem = chassisSubsystem;
 	}
 
 	// Called when the command is initially scheduled.

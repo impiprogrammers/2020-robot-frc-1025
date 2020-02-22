@@ -11,33 +11,34 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyorRoll extends CommandBase {
-  ConveyorSubsystem conveyorSubsystem;
-  double speed;
-  public ConveyorRoll(ConveyorSubsystem conveyorSubsystem, double speed) {
-    this.conveyorSubsystem = conveyorSubsystem;
-    this.speed = speed;
-    addRequirements(conveyorSubsystem);
-  }
+	private final ConveyorSubsystem conveyorSubsystem;
+	private final double speed;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+	public ConveyorRoll(ConveyorSubsystem conveyorSubsystem, double speed) {
+		this.conveyorSubsystem = conveyorSubsystem;
+		this.speed = speed;
+		addRequirements(conveyorSubsystem);
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    conveyorSubsystem.conveyorRoll(speed); // todo: readd support for both joystick and trigger
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+		conveyorSubsystem.conveyorRoll(speed);
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+	}
+
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 }

@@ -9,18 +9,20 @@ package frc.robot.commands.conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ConveyorSubsystem;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+
+import java.util.function.DoubleSupplier;
 import frc.robot.ImpiLib2020;
 
 public class ConveyorRollJoystick extends CommandBase {
 
-	ConveyorSubsystem conveyorSubsystem;
-	XboxController buttonsController;
+	private final ConveyorSubsystem conveyorSubsystem;
+	private final DoubleSupplier joystickValue;
+	private final DoubleSupplier triggerValue;
 
-	public ConveyorRollJoystick(ConveyorSubsystem conveyorSubsystem, XboxController buttonsController) {
+	public ConveyorRollJoystick(ConveyorSubsystem conveyorSubsystem, DoubleSupplier joystickValue, DoubleSupplier triggerValue) {
 		this.conveyorSubsystem = conveyorSubsystem;
-		this.buttonsController = buttonsController;
+		this.joystickValue = joystickValue;
+		this.triggerValue = triggerValue;
 		addRequirements(conveyorSubsystem);
 	}
 
@@ -32,13 +34,10 @@ public class ConveyorRollJoystick extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		double rollJoystickValue = buttonsController.getY(Hand.kRight);
-		double rollTriggerValue = buttonsController.getTriggerAxis(Hand.kRight);
-
-		if (Math.abs(rollJoystickValue) > Math.abs(rollTriggerValue)) {
-			conveyorSubsystem.conveyorRoll(ImpiLib2020.parseJoystick(rollJoystickValue));
+		if (Math.abs(joystickValue.getAsDouble()) > Math.abs(triggerValue.getAsDouble())) {
+			conveyorSubsystem.conveyorRoll(ImpiLib2020.parseJoystick(joystickValue));
 		} else {
-			conveyorSubsystem.conveyorRoll(ImpiLib2020.parseTrigger(rollTriggerValue));
+			conveyorSubsystem.conveyorRoll(ImpiLib2020.parseJoystick(triggerValue));
 		}
 	}
 

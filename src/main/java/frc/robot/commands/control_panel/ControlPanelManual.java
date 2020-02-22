@@ -7,40 +7,24 @@
 
 package frc.robot.commands.control_panel;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
 
-public class ControlPanelManual extends CommandBase {
-  ControlPanelSubsystem controlPanelSubsystem;
-  double speed;
+public class ControlPanelManual extends InstantCommand {
+	ControlPanelSubsystem controlPanelSubsystem;
+	double speed;
 
-  public ControlPanelManual(ControlPanelSubsystem controlPanelSubsystem, double speed) {
-    this.controlPanelSubsystem = controlPanelSubsystem;
-    this.speed = speed;
-    addRequirements(controlPanelSubsystem);
-  }
+	public ControlPanelManual(ControlPanelSubsystem controlPanelSubsystem, double speed) {
+		this.controlPanelSubsystem = controlPanelSubsystem;
+		this.speed = speed;
+		addRequirements(controlPanelSubsystem);
+	}
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    controlPanelSubsystem.controlPanelManual(speed);
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		controlPanelSubsystem.controlPanelManual(speed);
+	}
+	
 }

@@ -7,37 +7,20 @@
 
 package frc.robot.commands.control_panel;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
-public class ControlPanelWheelColor extends CommandBase {
-  ControlPanelSubsystem controlPanelSubsystem;
-   
-  public ControlPanelWheelColor(ControlPanelSubsystem controlPanelSubsystem) {
-    addRequirements(controlPanelSubsystem);
-  }
+public class ControlPanelWheelColor extends InstantCommand {
+	ControlPanelSubsystem controlPanelSubsystem;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+	public ControlPanelWheelColor(ControlPanelSubsystem controlPanelSubsystem) {
+		addRequirements(controlPanelSubsystem);
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-     controlPanelSubsystem.controlPanelWheelColor();
-    
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		controlPanelSubsystem.controlPanelWheelColor();
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
 }

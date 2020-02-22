@@ -7,34 +7,21 @@
 
 package frc.robot.commands.control_panel;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
-public class ControlPanelArmToggle extends CommandBase {
-  ControlPanelSubsystem controlPanelSubsystem;
-  public ControlPanelArmToggle(ControlPanelSubsystem controlPanelSubsystem) {
-    addRequirements(controlPanelSubsystem);
-  }
+public class ControlPanelArmToggle extends InstantCommand {
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+	private final ControlPanelSubsystem controlPanelSubsystem;
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    controlPanelSubsystem.controlPanelArmToggle();
-  }
+	public ControlPanelArmToggle(ControlPanelSubsystem controlPanelSubsystem) {
+		this.controlPanelSubsystem = controlPanelSubsystem;
+		addRequirements(controlPanelSubsystem);
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		controlPanelSubsystem.controlPanelArmToggle();
+	}
 }
