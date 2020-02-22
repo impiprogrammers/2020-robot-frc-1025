@@ -29,7 +29,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
 	// Encoders
 	private CANEncoder shooterEncoder = shooterLeft.getEncoder();
-	// private CANEncoder rightEncoder = shooterRight.getEncoder();
 
 	// Booleans
 	private boolean shooterEnabled = false;
@@ -59,21 +58,6 @@ public class ShooterSubsystem extends SubsystemBase {
 	@Override
 	public void periodic() {
 		SmartDashboard.putNumber("PID Output", shooterEncoder.getVelocity());
-/*
-		SmartDashboard.putNumber("P", p);
-		SmartDashboard.putNumber("i", i);
-		SmartDashboard.putNumber("d", d);
-*/
-
-		// p = SmartDashboard.getNumber("P", 0);
-		// i = SmartDashboard.getNumber("i", 0);
-		// d = SmartDashboard.getNumber("d", 0);
-		// ff = SmartDashboard.getNumber("ff", 0);
-
-		// pidLeft.setP(p);
-		// pidLeft.setI(i);
-		// pidLeft.setD(d);
-		// pidLeft.setFF(ff);
 	}
 
 	public double getShooterVelocity() {
