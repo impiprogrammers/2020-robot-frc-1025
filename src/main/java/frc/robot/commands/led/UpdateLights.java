@@ -7,9 +7,7 @@
 
 package frc.robot.commands.led;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -36,62 +34,30 @@ public class UpdateLights extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-		NetworkTableEntry tx = table.getEntry("tx");
-		double errorValue = tx.getDouble(0);
-		int targetVisibility = 0;
-		if (errorValue > -0.01 && errorValue < 0.01) {
-			targetVisibility = 0;
-		} else {
-			targetVisibility = 1;
-		}
-		double targetCentered = tx.getDouble(0);
+		double xOffset = turretSubsystem.getXOffset();
 		int shooterStatus = 0;
-		double shooterVelocity = shooterSubsystem.getShooterVelocity();
+		double shooterVelocity = Math.abs(shooterSubsystem.getShooterVelocity());
+		SmartDashboard.putNumber("Shooter Velocity", shooterVelocity);
 		if (shooterVelocity > 100) {
 			shooterStatus = 1;
 		} else {
 			shooterStatus = 0;
 		}
 
-		if (turretSubsystem.manualMode) {
+		if (turretSubsystem.isModeAuto()) {
 
-			// set LEDs
-
-			// set Bottom LEDs
-			if (targetVisibility == 1) {
-				if (targetCentered >= 1 && targetCentered <= 2) {
+			// set LEDs Bottom (Auto)
+			if (turretSubsystem.isTargetFound()) {
+				if (xOffset >= 1 && xOffset <= 2) {
 					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
 				} else {
-					if (targetCentered < 1) {
-						if (turretSubsystem.turretAtLeftSoftStop()) {
-							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
-						} else {
-							ledSubsystem.setLEDsBottomRight(42 / 2, 255, 255); // yellow
-						}
-					} else if (targetCentered > 2) {
-						if (turretSubsystem.turretAtRightSoftStop()) {
-							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
-						} else {
-							ledSubsystem.setLEDsBottomLeft(42 / 2, 255, 255); // yellow
-						}
-					}
-				}
-			} else {
-				ledSubsystem.setLEDsBottom(0, 0, 0); // off
-			}
-		} else {
-			if (targetVisibility == 1) {
-				if (targetCentered >= 1 && targetCentered <= 2) {
-					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
-				} else {
-					if (targetCentered < 1) {
+					if (xOffset < 1) {
 						if (turretSubsystem.turretAtLeftSoftStop()) {
 							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
 						} else {
 							ledSubsystem.setLEDsBottom(42 / 2, 255, 255); // yellow
 						}
-					} else if (targetCentered > 2) {
+					} else if (xOffset > 2) {
 						if (turretSubsystem.turretAtRightSoftStop()) {
 							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
 						} else {
@@ -102,11 +68,39 @@ public class UpdateLights extends CommandBase {
 			} else {
 				ledSubsystem.setLEDsBottom(0 / 2, 255, 255); // red
 			}
+
+			
+		} else {
+			
+			// set LEDs
+
+			// set Bottom LEDs (Manual)
+			if (turretSubsystem.isTargetFound()) {
+				if (xOffset >= 1 && xOffset <= 2) {
+					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
+				} else {
+					if (xOffset < 1) {
+						if (turretSubsystem.turretAtLeftSoftStop()) {
+							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
+						} else {
+							ledSubsystem.setLEDsBottomRight(42 / 2, 255, 255); // yellow
+						}
+					} else if (xOffset > 2) {
+						if (turretSubsystem.turretAtRightSoftStop()) {
+							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
+						} else {
+							ledSubsystem.setLEDsBottomLeft(42 / 2, 255, 255); // yellow
+						}
+					}
+				}
+			} else {
+				ledSubsystem.setLEDsBottom(0, 0, 0); // off
+			}
 		}
 
 		// set Top LEDs
 		if (shooterStatus == 1) {
-			if (shooterSubsystem.atSetpoint()) {
+			if (shooterVelocity >= 4500) {
 				ledSubsystem.setLEDsTop(115 / 2, 255, 255); // green
 			} else {
 				ledSubsystem.setLEDsTop(42 / 2, 255, 255); // yellow

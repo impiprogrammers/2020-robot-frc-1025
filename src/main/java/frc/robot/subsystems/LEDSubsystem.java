@@ -37,13 +37,16 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
+	led.setData(ledBuffer);
   }
+  
   public void setLEDsBottom(int h, int s, int v) {
 	for (var i = 0; i < ledBuffer.getLength(); i++) {
 		if ((i >= 40 && i <= 72) || (i >= 119 && i <= 150)) {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
+	led.setData(ledBuffer);
   }
  
   public void setLEDsTopRight(int h, int s, int v) {
@@ -52,6 +55,7 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
+	led.setData(ledBuffer);
   }
   
   public void setLEDsTopLeft(int h, int s, int v) {
@@ -60,6 +64,7 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
+	led.setData(ledBuffer);
   }
 
   public void setLEDsBottomRight(int h, int s, int v) {
@@ -68,6 +73,7 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
+	led.setData(ledBuffer);
   }
 
   public void setLEDsBottomLeft(int h, int s, int v) {
@@ -76,6 +82,7 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
+	led.setData(ledBuffer);
   }
 
   public void setLEDsOff() {

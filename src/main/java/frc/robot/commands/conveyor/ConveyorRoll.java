@@ -10,13 +10,17 @@ package frc.robot.commands.conveyor;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ConveyorSubsystem;
 
-public class ConveyorRoll extends CommandBase {
-	private final ConveyorSubsystem conveyorSubsystem;
-	private final double speed;
+import java.util.function.DoubleSupplier;
+import frc.robot.ImpiLib2020;
 
-	public ConveyorRoll(ConveyorSubsystem conveyorSubsystem, double speed) {
+public class ConveyorRoll extends CommandBase {
+
+	private final ConveyorSubsystem conveyorSubsystem;
+	private final DoubleSupplier joystickValue;
+
+	public ConveyorRoll(ConveyorSubsystem conveyorSubsystem, DoubleSupplier joystickValue) {
 		this.conveyorSubsystem = conveyorSubsystem;
-		this.speed = speed;
+		this.joystickValue = joystickValue;
 		addRequirements(conveyorSubsystem);
 	}
 
@@ -28,7 +32,7 @@ public class ConveyorRoll extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		conveyorSubsystem.conveyorRoll(speed);
+		conveyorSubsystem.conveyorRoll(ImpiLib2020.parseJoystick(joystickValue));
 	}
 
 	// Called once the command ends or is interrupted.

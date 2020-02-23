@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -33,7 +32,7 @@ public class TurretSubsystem extends SubsystemBase {
 	private CANEncoder turretEncoder = turretMotor.getEncoder();
 
 	// Booleans
-	public boolean manualMode = true;
+	private boolean manualMode = true;
 
 	// Network Tables
 	NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -58,7 +57,7 @@ public class TurretSubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		// This method will be called once per scheduler run
+		updateLimelightTracking();
 	}
 
 	public void updateLimelightTracking() {
@@ -66,30 +65,17 @@ public class TurretSubsystem extends SubsystemBase {
 		y = ty.getDouble(0);
 		area = ta.getDouble(0);
 		v = tv.getDouble(0);
-
 	}
 
 	public boolean isTargetFound() {
-		if (v == 1 && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
-			return true;
-		}
-		return false;
+		return ((x > 0.01 || x < -0.01) && y >= Constants.Turret.MIN_TRACKING_HEIGHT);
 	}
 
 	public void turretSpin(double speed) {
-		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-		NetworkTableEntry tx = table.getEntry("tx");
-		double errorValue = tx.getDouble(0);
-		NetworkTableEntry tv = table.getEntry("tv");
 		int targetVisibility = 0;
-		if (errorValue > -0.01 && errorValue < 0.01) {
-			targetVisibility = 0;
-		} else {
-			targetVisibility = 1;
-		}
 		double kp = 0.02;
 		double min_speed = 0.05;
-		double negativeErrorValue = -errorValue;
+		double negativeErrorValue = -x;
 		double steeringAdjustment = 0.0;
 		SmartDashboard.putBoolean("tv", tv.getBoolean(false));
 		SmartDashboard.putNumber("tx", tx.getDouble(0));
@@ -97,7 +83,7 @@ public class TurretSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
 		SmartDashboard.putNumber("targetVisibility", targetVisibility);
 
-		if (!manualMode && isTargetFound()) {
+		if (isModeAuto()) {
 			if (negativeErrorValue > 2.0) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(-steeringAdjustment);
@@ -107,7 +93,13 @@ public class TurretSubsystem extends SubsystemBase {
 			} else {
 				setTurretMotor(0);
 			}
+		} else {
+			setTurretMotor(speed);
 		}
+	}
+
+	public double getXOffset() {
+		return x;
 	}
 
 	public void turretRezero() {
@@ -149,5 +141,9 @@ public class TurretSubsystem extends SubsystemBase {
 		} else {
 			turretMotor.set(-speed);
 		}
+	}
+
+	public boolean isModeAuto() {
+		return (!manualMode && isTargetFound());
 	}
 }

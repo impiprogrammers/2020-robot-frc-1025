@@ -58,7 +58,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 
 	public double getShooterVelocity() {
-		return shooterEncoder.getVelocity();
+		return Math.abs(shooterEncoder.getVelocity());
 	}
 
 	public void shoot(double setpoint) {
@@ -106,7 +106,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 
 	public boolean atSetpoint() {
-		return (Math.abs(5700 - shooterEncoder.getVelocity()) <= 250);
+		return (Math.abs(Constants.Shooter.TELEOP_SETPOINT + getShooterVelocity()) <= 250);
 	} 
 
 }

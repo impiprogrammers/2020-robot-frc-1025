@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.I2C;
 
 import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorSensorV3.RawColor;
 import com.revrobotics.ColorMatchResult;
 
 import com.revrobotics.ColorMatch;

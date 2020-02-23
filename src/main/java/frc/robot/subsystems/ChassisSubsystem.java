@@ -88,7 +88,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	}
 	
 	public void arcadeDrive(double move, double turn) {
-		drive.arcadeDrive(move, turn);
+		drive.arcadeDrive(-move, turn);
 	}
 
 	public void tankDrive(double left, double right) {
