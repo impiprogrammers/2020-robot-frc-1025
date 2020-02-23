@@ -11,8 +11,10 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,44 +22,39 @@ import frc.robot.Constants;
 public class ShooterSubsystem extends SubsystemBase {
 
 	// Motor Controllers
-	private CANSparkMax shooterLeft = new CANSparkMax(Constants.SHOOTER_LEFT_PORT, MotorType.kBrushless);
-	private CANSparkMax shooterRight = new CANSparkMax(Constants.SHOOTER_RIGHT_PORT, MotorType.kBrushless);
+	private final CANSparkMax shooterLeft = new CANSparkMax(Constants.SHOOTER_LEFT_PORT, MotorType.kBrushless);
+	private final CANSparkMax shooterRight = new CANSparkMax(Constants.SHOOTER_RIGHT_PORT, MotorType.kBrushless);
 
 	// PID Controllers
-	private CANPIDController pidLeft = shooterLeft.getPIDController();
+	private final CANPIDController pidLeft = shooterLeft.getPIDController();
 	
 
 	// Encoders
-	private CANEncoder shooterEncoder = shooterLeft.getEncoder();
+	private final CANEncoder shooterEncoder = shooterLeft.getEncoder();
 
 	// Booleans
 	private boolean shooterEnabled = false;
+	private boolean shooterReady = false;
+	private Timer timer = new Timer();
 
-	// PID Values
-	private double p = 0.0001;
-	private double i = 0.0000001;
-	private double d = 0;
-	private double ff = 0.000105;
-	private final double min = -1;
-	private final double max = 1;
 
 	public ShooterSubsystem(){
-
-		shooterLeft.setSmartCurrentLimit(40);
-		shooterRight.setSmartCurrentLimit(40);
-
 		shooterRight.follow(shooterLeft,true);
 
-		pidLeft.setP(p);
-		pidLeft.setI(i);
-		pidLeft.setD(d);
-		pidLeft.setFF(ff);
-		pidLeft.setOutputRange(min, max);
+		pidLeft.setP(Constants.Shooter.SHOOT_P);
+		pidLeft.setI(Constants.Shooter.SHOOT_I);
+		pidLeft.setD(Constants.Shooter.SHOOT_D);
+		pidLeft.setFF(Constants.Shooter.SHOOT_FF);
+		pidLeft.setOutputRange(Constants.Shooter.SHOOT_OUTPUT_MIN, Constants.Shooter.SHOOT_OUTPUT_MAX);
+
+		setCoastMode();
+		setSmartCurrentLimit(Constants.Shooter.CURRENT_LIMIT);
 	}
 
 	@Override
 	public void periodic() {
 		SmartDashboard.putNumber("PID Output", shooterEncoder.getVelocity());
+		SmartDashboard.putBoolean("Shooter Ready", shooterReady);
 	}
 
 	public double getShooterVelocity() {
@@ -65,16 +62,17 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 
 	public void shoot(double setpoint) {
-		shooterEnabled = true;
 		pidLeft.setReference(-setpoint, ControlType.kVelocity);
-	//	pidRight.setReference(setpoint, ControlType.kVelocity);
-
+		timer.reset();
+		shooterEnabled = true;
+		shooterReady = false;
+		SmartDashboard.putNumber("Shooter Set RPM", setpoint);
 	}
 
 	public void stop() {
-		shooterEnabled = false;
 		pidLeft.setReference(0, ControlType.kCurrent);
-	//	pidRight.setReference(0, ControlType.kCurrent);
+		shooterEnabled = false;
+		shooterReady = false;
 	}
 
 	public void toggle(double setpoint) {
@@ -85,7 +83,30 @@ public class ShooterSubsystem extends SubsystemBase {
 		}
 	}
 
-	public boolean atSetpoint() {
-		return (Math.abs(5700 - shooterEncoder.getVelocity()) <= 250); 
+	public boolean isShooterReady() {
+		return shooterReady;
 	}
+
+    public boolean isShooterEnabled() {
+		return shooterEnabled;
+	}
+
+	public void setBrakeMode() {
+		shooterLeft.setIdleMode(IdleMode.kBrake);
+		shooterRight.setIdleMode(IdleMode.kBrake);
+	}
+
+	public void setCoastMode() {
+		shooterLeft.setIdleMode(IdleMode.kCoast);
+		shooterRight.setIdleMode(IdleMode.kCoast);
+	}
+	public void setSmartCurrentLimit(int currentLimit) {
+		shooterLeft.setSmartCurrentLimit(currentLimit);
+		shooterRight.setSmartCurrentLimit(currentLimit);
+	}
+
+	public boolean atSetpoint() {
+		return (Math.abs(5700 - shooterEncoder.getVelocity()) <= 250);
+	} 
+
 }
