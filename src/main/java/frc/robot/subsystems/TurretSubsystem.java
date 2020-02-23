@@ -24,13 +24,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurretSubsystem extends SubsystemBase {
 
 	// Motor Controller
-	private CANSparkMax turretRotate = new CANSparkMax(Constants.TURRET_ROTATE_PORT, MotorType.kBrushless);
+	private CANSparkMax turretMotor = new CANSparkMax(Constants.CAN.TURRET_MOTOR_PORT, MotorType.kBrushless);
 
 	// PID Controller
-	private CANPIDController turretPID = turretRotate.getPIDController();
+	private CANPIDController turretPID = turretMotor.getPIDController();
 
 	// Encoder
-	private CANEncoder turretEncoder = turretRotate.getEncoder();
+	private CANEncoder turretEncoder = turretMotor.getEncoder();
 
 	// Booleans
 	public boolean manualMode = true;
@@ -42,9 +42,6 @@ public class TurretSubsystem extends SubsystemBase {
 	NetworkTableEntry ta = table.getEntry("ta");
 	NetworkTableEntry tv = table.getEntry("tv");
 
-	// Subsystems
-	ShooterSubsystem shooterSubsystem = RobotContainer.shooterSubsystem;
-
 	// read values periodically
 	private double x = tx.getDouble(0);
 	private double y = ty.getDouble(0);
@@ -52,9 +49,9 @@ public class TurretSubsystem extends SubsystemBase {
 	private double v = tv.getDouble(0);
 
 	public TurretSubsystem() {
-		turretRotate.setIdleMode(IdleMode.kBrake);
+		turretMotor.setIdleMode(IdleMode.kBrake);
 
-		turretRotate.setSmartCurrentLimit(20);
+		turretMotor.setSmartCurrentLimit(20);
 
 		turretEncoder.setPosition(0);
 	}
@@ -73,7 +70,7 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public boolean isTargetFound() {
-		if (v == 1 && y >= Constants.TURRET_MIN_TRACKING_HEIGHT) {
+		if (v == 1 && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
 			return true;
 		}
 		return false;
@@ -129,16 +126,16 @@ public class TurretSubsystem extends SubsystemBase {
 		manualMode = state;
 	}
 
-	public boolean TurretAtRightSoftStop() {
-		if(turretEncoder.getPosition() < -Constants.TURRET_RIGHT_LIMIT) {
+	public boolean turretAtRightSoftStop() {
+		if(turretEncoder.getPosition() < -Constants.Turret.RIGHT_POSITION_LIMIT) {
 			return true;
 		}
 	
 		return false;
 	}
 	
-	public boolean TurretAtLeftSoftStop() {
-		if(turretEncoder.getPosition() > Constants.TURRET_LEFT_LIMIT) {
+	public boolean turretAtLeftSoftStop() {
+		if(turretEncoder.getPosition() > Constants.Turret.LEFT_POSITION_LIMIT) {
 			return true;
 		}
 	
@@ -146,11 +143,11 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public void setTurretMotor(double speed) {
-		if (turretEncoder.getPosition() < -Constants.TURRET_RIGHT_LIMIT && speed > 0
-				|| turretEncoder.getPosition() > Constants.TURRET_LEFT_LIMIT && speed < 0) {
-			turretRotate.set(0);
+		if (turretEncoder.getPosition() < -Constants.Turret.RIGHT_POSITION_LIMIT && speed > 0
+				|| turretEncoder.getPosition() > Constants.Turret.LEFT_POSITION_LIMIT && speed < 0) {
+			turretMotor.set(0);
 		} else {
-			turretRotate.set(-speed);
+			turretMotor.set(-speed);
 		}
 	}
 }

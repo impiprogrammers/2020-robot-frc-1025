@@ -1,10 +1,10 @@
-package frc.robot.commands.chassis.auto.paths;
+package frc.robot.commands.auto.paths;
 import java.io.IOException;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.chassis.auto.AutoFollowPath;
+import frc.robot.commands.auto.AutoFollowPath;
 import frc.robot.commands.intake.IntakeRollersSetAuto;
 import frc.robot.commands.shooter.ShooterShoot;
 import frc.robot.commands.shooter.ShooterStop;

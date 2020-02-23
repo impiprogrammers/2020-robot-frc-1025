@@ -12,9 +12,9 @@ import frc.robot.RobotContainer;
 
 public class ClimberSubsystem extends SubsystemBase {
 	
-	DoubleSolenoid climberArm = new DoubleSolenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_EXTENDER_FORWARD_CHANNEL, Constants.CLIMBER_EXTENDER_REVERSE_CHANNEL);
-	Solenoid climberLock = new Solenoid(Constants.PCM_MODULE_PORT, Constants.CLIMBER_LOCK_CHANNEL);
-	TalonSRX climberWinch = new TalonSRX(Constants.CLIMBER_WINCH_PORT);
+	DoubleSolenoid climberArm = new DoubleSolenoid(Constants.CAN.PCM_MODULE_PORT, Constants.PCM.CLIMBER_EXTENDER_FORWARD_CHANNEL, Constants.PCM.CLIMBER_EXTENDER_REVERSE_CHANNEL);
+	Solenoid climberLock = new Solenoid(Constants.CAN.PCM_MODULE_PORT, Constants.PCM.CLIMBER_LOCK_CHANNEL);
+	TalonSRX climberWinch = new TalonSRX(Constants.CAN.CLIMBER_WINCH_PORT);
 
 	public ClimberSubsystem() {
 		climberArm.set(Value.kForward);
@@ -28,6 +28,18 @@ public class ClimberSubsystem extends SubsystemBase {
 	public void extenderRetract() {
 		climberArm.set(Value.kForward);
 		RobotContainer.climberMode = false;
+	}
+
+	public void lockExtend() {
+		if (RobotContainer.climberMode) {
+			climberLock.set(true);
+		}
+	}
+
+	public void lockRetract() {
+		if (RobotContainer.climberMode) {
+			climberLock.set(false);
+		}
 	}
 
 	public void lockToggle() {

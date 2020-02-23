@@ -29,11 +29,11 @@ import frc.robot.Constants;
 public class ChassisSubsystem extends SubsystemBase {
 
 	// Motor Controllers
-	private CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
-	private CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CHASSIS_RIGHT_FRONT_PORT,
+	private CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
+	private CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_FRONT_PORT,
 			MotorType.kBrushless);
-	private CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
-	private CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
+	private CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
+	private CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
 
 	// Speed Controller Groups
 	private SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftFront, driveMotorLeftRear);
@@ -53,7 +53,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	DifferentialDriveOdometry odometry;
 
 	// Kinematics
-	public DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(Constants.CHASSIS_TRACK_WIDTH);
+	public DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(Constants.Chassis.TRACK_WIDTH);
 
 	public ChassisSubsystem() {
 		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
@@ -75,7 +75,7 @@ public class ChassisSubsystem extends SubsystemBase {
 
 		SmartDashboard.putNumber("Target Angle", 0);
 
-		double conversionFactor = Constants.CHASSIS_WHEEL_DIAMETER * Math.PI / Constants.CHASSIS_GEAR_RATIO;
+		double conversionFactor = Constants.Chassis.WHEEL_DIAMETER * Math.PI / Constants.Chassis.GEAR_RATIO;
 		leftEncoder.setPositionConversionFactor(conversionFactor);
 		leftEncoder.setVelocityConversionFactor(conversionFactor); // should the conversion factor be the same as for postion?
 		rightEncoder.setPositionConversionFactor(conversionFactor / 60);
@@ -103,7 +103,7 @@ public class ChassisSubsystem extends SubsystemBase {
 
 	public double getAngle() {
 		double angle = Math.IEEEremainder(ahrs.getAngle(), 360);
-		if (Constants.CHASSIS_GYRO_REVERSED) {
+		if (Constants.Chassis.GYRO_REVERSED) {
 			angle *= -1;
 		}
 		return angle;

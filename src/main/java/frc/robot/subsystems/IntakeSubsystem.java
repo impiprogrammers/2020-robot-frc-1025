@@ -16,8 +16,8 @@ import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-	Solenoid intakeArm = new Solenoid(Constants.PCM_MODULE_PORT, Constants.INTAKE_EXTENDER_CHANNEL);
-	TalonSRX intakeRollers = new TalonSRX(Constants.INTAKE_ROLLERS_PORT);
+	Solenoid intakeArm = new Solenoid(Constants.CAN.PCM_MODULE_PORT, Constants.PCM.INTAKE_EXTENDER_CHANNEL);
+	TalonSRX intakeRollers = new TalonSRX(Constants.CAN.INTAKE_ROLLERS_PORT);
 
 	public IntakeSubsystem() {
 	}

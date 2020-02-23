@@ -10,7 +10,7 @@ import frc.robot.Constants;
 
 public class ConveyorSubsystem extends SubsystemBase {
 
-	TalonSRX conveyorRollers = new TalonSRX(Constants.CONVEYOR_ROLLERS_PORT);
+	TalonSRX conveyorRollers = new TalonSRX(Constants.CAN.CONVEYOR_ROLLERS_PORT);
 
 	public ConveyorSubsystem() {
 		conveyorRollers.set(ControlMode.PercentOutput, 0);

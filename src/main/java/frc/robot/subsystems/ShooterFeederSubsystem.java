@@ -8,10 +8,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterFeederSubsystem extends SubsystemBase {
-    /**
-     * Creates a new ExampleSubsystem.
-     */
-    TalonSRX shooterFeederRoller = new TalonSRX(Constants.SHOOTER_FEEDER_PORT);
+
+    TalonSRX shooterFeederRoller = new TalonSRX(Constants.CAN.SHOOTER_FEEDER_PORT);
 
     public ShooterFeederSubsystem() {
 

@@ -25,6 +25,7 @@ import frc.robot.commands.chassis.auto.paths.*;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
+import frc.robot.commands.led.UpdateLights;
 import frc.robot.commands.shimmy.ShimmyMove;
 import frc.robot.commands.shimmy.ShimmyStop;
 import frc.robot.commands.shooter_feeder.*;
@@ -45,8 +46,8 @@ public class RobotContainer {
 	// Subsystems
 	private final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-	public static final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 	private final ShooterFeederSubsystem shooterFeederSubsystem = new ShooterFeederSubsystem();
 	private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	private final ShimmySubsystem shimmySubsystem = new ShimmySubsystem();
@@ -110,6 +111,8 @@ public class RobotContainer {
 	
 	private final ClimberArmExtend climberArmExtend = new ClimberArmExtend(climberSubsystem);
 	private final ClimberArmRetract climberArmRetract = new ClimberArmRetract(climberSubsystem);
+	private final ClimberLockExtend climberLockExtend = new ClimberLockExtend(climberSubsystem);
+	private final ClimberLockRetract climberLockRetract = new ClimberLockRetract(climberSubsystem);
 	private final ClimberLockToggle climberLockToggle = new ClimberLockToggle(climberSubsystem);
 	private final ClimberWinchMove climberWinchMove = new ClimberWinchMove(climberSubsystem, driverRightTrigger, driverLeftTrigger);
 
@@ -127,16 +130,19 @@ public class RobotContainer {
 	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor(controlPanelSubsystem);
 	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour(controlPanelSubsystem);
 
+	private final UpdateLights updateLights = new UpdateLights(ledSubsystem, shooterSubsystem, turretSubsystem);
+
 	// Global Variables
 	public static boolean climberMode = false;
 
  	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
-		//climberSubsystem.setDefaultCommand(climberLoop);
+		climberSubsystem.setDefaultCommand(climberWinchMove);
 		turretSubsystem.setDefaultCommand(turretSpin);
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
+		ledSubsystem.setDefaultCommand(updateLights);
 		
 		
 		configureButtonBindings();
@@ -168,9 +174,10 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() { 
-		//driverA.whenPressed(climberLockToggle);
-		//driverSelect.whenPressed(climberArmExtend);
-		//driverStart.whenPressed(climberArmRetract);
+		driverA.whenPressed(climberLockExtend);
+		driverB.whenPressed(climberLockRetract)
+		driverSelect.whenPressed(climberArmExtend);
+		driverStart.whenPressed(climberArmRetract);
 
 		buttonsX.whenPressed(turretSetManualMode);
 		buttonsY.whenPressed(turretSetAutoMode);

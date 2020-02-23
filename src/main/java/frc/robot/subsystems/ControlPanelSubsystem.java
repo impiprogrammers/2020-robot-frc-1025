@@ -29,10 +29,10 @@ import frc.robot.Constants;
 public class ControlPanelSubsystem extends SubsystemBase {
 
     // Motor Controllers
-    TalonSRX controlPanelWheel = new TalonSRX(Constants.CONTROL_PANEL_WHEEL_PORT);
+    TalonSRX controlPanelWheel = new TalonSRX(Constants.CAN.CONTROL_PANEL_WHEEL_PORT);
 
     // Solenoids
-    Solenoid controlPanelArm = new Solenoid(Constants.PCM_MODULE_PORT, Constants.CONTROL_PANEL_PISTON_CHANNEL);
+    Solenoid controlPanelArm = new Solenoid(Constants.CAN.PCM_MODULE_PORT, Constants.PCM.CONTROL_PANEL_PISTON_CHANNEL);
 
     // i2c Port
     private final I2C.Port i2cPort = I2C.Port.kOnboard;

@@ -14,7 +14,7 @@ import frc.robot.Constants;
 
 public class ShimmySubsystem extends SubsystemBase {
 
-  TalonSRX climberShimmy = new TalonSRX(Constants.CLMBER_SHIMMY_PORT);
+  TalonSRX climberShimmy = new TalonSRX(Constants.CAN.CLMBER_SHIMMY_PORT);
   
   public ShimmySubsystem() {
   }

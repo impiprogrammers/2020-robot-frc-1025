@@ -1,8 +1,8 @@
-package frc.robot.commands.chassis.auto.paths;
+package frc.robot.commands.auto.paths;
 import java.io.IOException;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.chassis.auto.AutoFollowPath;
+import frc.robot.commands.auto.AutoFollowPath;
 import frc.robot.subsystems.ChassisSubsystem;
 
 public class AutoRight0 extends SequentialCommandGroup {
