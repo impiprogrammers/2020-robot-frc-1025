@@ -89,9 +89,9 @@ public class ChassisSubsystem extends SubsystemBase {
 	}
 	
 	public void arcadeDrive(double move, double turn) {
-		drive.arcadeDrive(-move, turn);
-		// quickTurn = RobotContainer.driverController.getBumper(Hand.kRight);
-		// drive.curvatureDrive(-move, turn, quickTurn);
+		// drive.arcadeDrive(-move, turn);
+		quickTurn = RobotContainer.driverController.getBumper(Hand.kRight);
+		drive.curvatureDrive(-move, turn, quickTurn);
 	}
 
 	public void tankDrive(double left, double right) {

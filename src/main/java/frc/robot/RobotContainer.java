@@ -103,7 +103,7 @@ public class RobotContainer {
 
  	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
-		//climberSubsystem.setDefaultCommand(climberLoop);
+		climberSubsystem.setDefaultCommand(climberLoop);
 		turretSubsystem.setDefaultCommand(turretSpin);
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
@@ -136,9 +136,9 @@ public class RobotContainer {
   	* {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   	*/
  	private void configureButtonBindings() { 
-		//driverA.whenPressed(climberLockToggle);
-		//driverSelect.whenPressed(climberArmExtend);
-		//driverStart.whenPressed(climberArmRetract);
+		driverA.whenPressed(climberLockToggle);
+		driverSelect.whenPressed(climberArmExtend);
+		driverStart.whenPressed(climberArmRetract);
 
 		buttonsX.whenPressed(turretToggleManualMode);
 		// buttonsY.whenPressed(turretCenter);
