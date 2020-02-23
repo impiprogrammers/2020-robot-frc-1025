@@ -26,12 +26,12 @@ public class AutoFollowPath extends RamseteCommand {
         super(
             TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON)),
             chassisSubsystem::getPose,
-            new RamseteController(Constants.Chassis_AUTO_RAMSETE_B, Constants.Chassis_AUTO_RAMSETE_ZETA),
-            new SimpleMotorFeedforward(Constants.Chassis_AUTO_FFS, Constants.Chassis_AUTO_FFV, Constants.Chassis_AUTO_FFA),
+            new RamseteController(Constants.Chassis.AUTO_RAMSETE_B, Constants.Chassis.AUTO_RAMSETE_ZETA),
+            new SimpleMotorFeedforward(Constants.Chassis.AUTO_FFS, Constants.Chassis.AUTO_FFV, Constants.Chassis.AUTO_FFA),
             chassisSubsystem.driveKinematics,
             chassisSubsystem::getWheelSpeeds,
-            new PIDController(Constants.Chassis_AUTO_P, 0, 0),
-            new PIDController(Constants.Chassis_AUTO_P, 0, 0),
+            new PIDController(Constants.Chassis.AUTO_P, 0, 0),
+            new PIDController(Constants.Chassis.AUTO_P, 0, 0),
             chassisSubsystem::voltageTankDrive,
             chassisSubsystem
 		);

@@ -109,7 +109,7 @@ public final class Constants {
 
     // Shooter Constants (No IDs)
     public final class Shooter {
-        public static final double CURRENT_LIMIT = 40;
+        public static final int CURRENT_LIMIT = 40;
         public static final double SHOOT_P = 0.0001;
         public static final double SHOOT_I = 0.0000001;
         public static final double SHOOT_D = 0;
@@ -123,7 +123,7 @@ public final class Constants {
 
     // Turret Constants (No IDs)
     public final class Turret {
-        public static final double CURRENT_LIMIT = 20;
+        public static final int CURRENT_LIMIT = 20;
         public static final double LEFT_POSITION_LIMIT = 0; // turret left, robot right
         public static final double RIGHT_POSITION_LIMIT = 130; // turret right, robot left
         public static final double MIN_TRACKING_HEIGHT = 0; // tbd

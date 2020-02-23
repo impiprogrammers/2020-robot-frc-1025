@@ -64,13 +64,13 @@ public class UpdateLights extends CommandBase {
 					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
 				} else {
 					if (targetCentered < 1) {
-						if (turretSubsystem.TurretAtLeftSoftStop()) {
+						if (turretSubsystem.turretAtLeftSoftStop()) {
 							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
 						} else {
 							ledSubsystem.setLEDsBottomRight(42 / 2, 255, 255); // yellow
 						}
 					} else if (targetCentered > 2) {
-						if (turretSubsystem.TurretAtRightSoftStop()) {
+						if (turretSubsystem.turretAtRightSoftStop()) {
 							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
 						} else {
 							ledSubsystem.setLEDsBottomLeft(42 / 2, 255, 255); // yellow
@@ -86,13 +86,13 @@ public class UpdateLights extends CommandBase {
 					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
 				} else {
 					if (targetCentered < 1) {
-						if (turretSubsystem.TurretAtLeftSoftStop()) {
+						if (turretSubsystem.turretAtLeftSoftStop()) {
 							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
 						} else {
 							ledSubsystem.setLEDsBottom(42 / 2, 255, 255); // yellow
 						}
 					} else if (targetCentered > 2) {
-						if (turretSubsystem.TurretAtRightSoftStop()) {
+						if (turretSubsystem.turretAtRightSoftStop()) {
 							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
 						} else {
 							ledSubsystem.setLEDsBottom(42 / 2, 255, 255); // yellow

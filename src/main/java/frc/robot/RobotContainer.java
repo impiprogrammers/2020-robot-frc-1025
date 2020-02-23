@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.commands.chassis.*;
-import frc.robot.commands.chassis.auto.paths.*;
+import frc.robot.commands.auto.paths.*;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.intake.*;
@@ -56,8 +56,8 @@ public class RobotContainer {
 	private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 		
  	// OI
-	private final XboxController driverController = new XboxController(Constants.XBOX_CONTROLLER_DRIVER);
-	private final XboxController buttonsController = new XboxController(Constants.XBOX_CONTROLLER_BUTTONS);
+	private final XboxController driverController = new XboxController(Constants.OI.XBOX_CONTROLLER_DRIVER);
+	private final XboxController buttonsController = new XboxController(Constants.OI.XBOX_CONTROLLER_BUTTONS);
  
 	private final JoystickButton driverA = new JoystickButton(driverController, XboxController.Button.kA.value);
 	private final JoystickButton driverB = new JoystickButton(driverController, XboxController.Button.kB.value);
@@ -149,14 +149,14 @@ public class RobotContainer {
 
 		// Configure Auto Chooser
 		try {
-			autoChooser.setDefaultOption("Left 3", new AutoLeft3(chassisSubsystem, shooterSubsystem));
-			autoChooser.addOption("Center 3", new AutoCenter3(chassisSubsystem, shooterSubsystem));
+			autoChooser.setDefaultOption("Left 3", new AutoLeft3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+			autoChooser.addOption("Center 3", new AutoCenter3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
 			autoChooser.addOption("Right 0", new AutoRight0(chassisSubsystem));
-			autoChooser.addOption("Right 3", new AutoRight3(chassisSubsystem, shooterSubsystem));
-			autoChooser.addOption("Left 8", new AutoLeft8(chassisSubsystem, intakeSubsystem, shooterSubsystem));
-			autoChooser.addOption("Center 8", new AutoCenter8(chassisSubsystem, intakeSubsystem, shooterSubsystem));
-			autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10(chassisSubsystem, intakeSubsystem, shooterSubsystem));
-			autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10(chassisSubsystem, intakeSubsystem, shooterSubsystem));
+			autoChooser.addOption("Right 3", new AutoRight3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+			autoChooser.addOption("Left 8", new AutoLeft8(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+			autoChooser.addOption("Center 8", new AutoCenter8(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+			autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+			autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
 		} catch(IOException exception) {
 			DriverStation.reportError("Autonomous Path JSON Not Found", true);
 		}
@@ -175,7 +175,7 @@ public class RobotContainer {
   	*/
  	private void configureButtonBindings() { 
 		driverA.whenPressed(climberLockExtend);
-		driverB.whenPressed(climberLockRetract)
+		driverB.whenPressed(climberLockRetract);
 		driverSelect.whenPressed(climberArmExtend);
 		driverStart.whenPressed(climberArmRetract);
 
