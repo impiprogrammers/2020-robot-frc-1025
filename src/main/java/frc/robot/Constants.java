@@ -76,6 +76,11 @@ public final class Constants {
         public static final int XBOX_CONTROLLER_BUTTONS = 1;
     }
 
+    // Sensor Constants
+    public final class Sensor{
+        public static final int TUNNEL_SENSOR_PORT = 0;
+    }
+
     // Chassis Constants (No IDs)
     public final class Chassis {
         public static final double CURRENT_LIMIT = 40;
@@ -100,6 +105,8 @@ public final class Constants {
     // Conveyor Constants (No IDs)
     public final class Conveyor {
         public static final double AUTO_SPEED = 1;
+		public static final double TUNNEL_JAMMED_VOLTAGE = 2;
+		public static final double TUNNEL_TIMER_LIMIT = 2500;
     }
 
     // Shooter Feeder Constants (No IDs)
