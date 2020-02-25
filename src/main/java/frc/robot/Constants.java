@@ -88,7 +88,7 @@ public final class Constants {
 
         public static final double TRACK_WIDTH = 0.4166967348481668;
         public static final double WHEEL_DIAMETER = 0.125;
-        public static final double GEAR_RATIO = 12;
+        public static final double GEAR_RATIO = 8.68;
         public static final boolean GYRO_REVERSED = false;
     }
 
@@ -119,6 +119,7 @@ public final class Constants {
         public static final double CHARGE_DURATION = 1;
         public static final double AUTO_SHOOT_DURATION = 5;
         public static final double AUTO_SETPOINT = 4000;
+        public static final double TELEOP_SETPOINT = 4500;
     }
 
     // Turret Constants (No IDs)
@@ -126,7 +127,7 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 20;
         public static final double LEFT_POSITION_LIMIT = 0; // turret left, robot right
         public static final double RIGHT_POSITION_LIMIT = 130; // turret right, robot left
-        public static final double MIN_TRACKING_HEIGHT = 0; // tbd
+        public static final double MIN_TRACKING_HEIGHT = -20; // tbd
     }
 
 }
