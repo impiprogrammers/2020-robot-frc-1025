@@ -56,6 +56,7 @@ public class LEDSubsystem extends SubsystemBase {
 		}
 	}
 	led.setData(ledBuffer);
+	setLEDsTopLeft(0, 0, 0);
   }
   
   public void setLEDsTopLeft(int h, int s, int v) {
@@ -65,6 +66,7 @@ public class LEDSubsystem extends SubsystemBase {
 		}
 	}
 	led.setData(ledBuffer);
+	setLEDsTopRight(0, 0, 0);
   }
 
   public void setLEDsBottomRight(int h, int s, int v) {
@@ -74,6 +76,7 @@ public class LEDSubsystem extends SubsystemBase {
 		}
 	}
 	led.setData(ledBuffer);
+	setLEDsBottomLeft(0, 0, 0);
   }
 
   public void setLEDsBottomLeft(int h, int s, int v) {
@@ -83,6 +86,7 @@ public class LEDSubsystem extends SubsystemBase {
 		}
 	}
 	led.setData(ledBuffer);
+	setLEDsBottomRight(0, 0, 0);
   }
 
   public void setLEDsOff() {
