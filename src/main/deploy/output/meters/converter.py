@@ -9,7 +9,7 @@ pathNames = [
 
 for pathName in pathNames:
     data = 0
-    fileName = 'src/main/deploy/output/meters/' + pathName + '.wpilib.json'
+    fileName = 'src/main/deploy/output/meters/meters/' + pathName + '.wpilib.json'
     with open(fileName, 'r') as file:
         data = json.load(file)
         # data = data[0]

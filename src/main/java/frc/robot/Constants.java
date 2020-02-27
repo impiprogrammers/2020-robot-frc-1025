@@ -84,15 +84,15 @@ public final class Constants {
     // Chassis Constants (No IDs)
     public final class Chassis {
         public static final double CURRENT_LIMIT = 40;
-        public static final double AUTO_FFS = 0.243;
-        public static final double AUTO_FFV = 3.86;
-        public static final double AUTO_FFA = 1.18;
-        public static final double AUTO_P = 23.3;
+        public static final double AUTO_FFS = 0.2;
+        public static final double AUTO_FFV = 2.3;
+        public static final double AUTO_FFA = 0.537;
+        public static final double AUTO_P = 17.5;
         public static final double AUTO_RAMSETE_B = 2;
         public static final double AUTO_RAMSETE_ZETA = 0.7;
 
-        public static final double TRACK_WIDTH = 0.4166967348481668;
-        public static final double WHEEL_DIAMETER = 0.125;
+        public static final double TRACK_WIDTH = 0.6699771947874105;
+        public static final double WHEEL_DIAMETER = 0.1524;
         public static final double GEAR_RATIO = 8.68;
         public static final boolean GYRO_REVERSED = false;
     }

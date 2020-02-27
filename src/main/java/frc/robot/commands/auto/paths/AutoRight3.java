@@ -15,7 +15,7 @@ public class AutoRight3 extends SequentialCommandGroup {
 	public AutoRight3(ChassisSubsystem chassisSubsystem, ConveyorSubsystem conveyorSubsystem,
 			ShooterFeederSubsystem shooterFeederSubsystem, ShooterSubsystem shooterSubsystem) throws IOException {
 		super(
-			new AutoFollowPath(chassisSubsystem, "output/right3-1.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/right3-1.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem)
 		);
 	}

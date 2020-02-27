@@ -1,5 +1,4 @@
 package frc.robot.commands.auto.paths;
-
 import java.io.IOException;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -14,22 +13,19 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class AutoRightShield10 extends SequentialCommandGroup {
+public class AutoLeft8b extends SequentialCommandGroup {
 
-	public AutoRightShield10(ChassisSubsystem chassisSubsystem, IntakeSubsystem intakeSubsystem,
+	public AutoLeft8b(ChassisSubsystem chassisSubsystem, IntakeSubsystem intakeSubsystem,
 			ConveyorSubsystem conveyorSubsystem, ShooterFeederSubsystem shooterFeederSubsystem,
 			ShooterSubsystem shooterSubsystem) throws IOException {
 		super(
-			new IntakeRollersSetAuto(intakeSubsystem, 1),
-			new AutoFollowPath(chassisSubsystem, "output/meters/right_shield10-1.wpilib.json"),
-			new IntakeRollersSetAuto(intakeSubsystem, 0),
-			new AutoFollowPath(chassisSubsystem, "output/meters/right_shield10-2.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/left8-1.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem),
 			new IntakeRollersSetAuto(intakeSubsystem, 1),
-			new AutoFollowPath(chassisSubsystem, "output/meters/right_shield10-3.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/left8-2.wpilib.json"),
 			new WaitCommand(Constants.Intake.AUTO_MIN_INTAKE_DURATION),
 			new IntakeRollersSetAuto(intakeSubsystem, 0),
-			new AutoFollowPath(chassisSubsystem, "output/meters/right_shield10-3.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/left8-3.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem)
 		);
 	}

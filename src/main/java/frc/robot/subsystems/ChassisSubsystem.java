@@ -101,6 +101,20 @@ public class ChassisSubsystem extends SubsystemBase {
 		drive.feed();
 	}
 
+	public void resetEncoders() {
+		leftEncoder.setPosition(0);
+		rightEncoder.setPosition(0);
+	}
+
+	public void resetGyro() {
+		ahrs.reset();
+		ahrs.resetDisplacement();
+	}
+
+	public double getPosition() { // returns position in meters
+		return leftEncoder.getPosition();
+	}
+
 	public double getAngle() {
 		double angle = Math.IEEEremainder(ahrs.getAngle(), 360);
 		if (Constants.Chassis.GYRO_REVERSED) {

@@ -14,7 +14,7 @@ public class AutoCenter3 extends SequentialCommandGroup {
 	public AutoCenter3(ChassisSubsystem chassisSubsystem, ConveyorSubsystem conveyorSubsystem,
 			ShooterFeederSubsystem shooterFeederSubsystem, ShooterSubsystem shooterSubsystem) throws IOException {
 		super(
-			new AutoFollowPath(chassisSubsystem, "output/center3-1.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/center3-1.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem)
 		);
 	}

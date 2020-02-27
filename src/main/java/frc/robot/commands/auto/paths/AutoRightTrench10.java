@@ -21,15 +21,15 @@ public class AutoRightTrench10 extends SequentialCommandGroup {
 			ShooterSubsystem shooterSubsystem) throws IOException {
 		super(
 			new IntakeRollersSetAuto(intakeSubsystem, 1),
-			new AutoFollowPath(chassisSubsystem, "output/right_trench10-1.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/right_trench10-1.wpilib.json"),
 			new IntakeRollersSetAuto(intakeSubsystem, 0),
-			new AutoFollowPath(chassisSubsystem, "output/right_trench10-2.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/right_trench10-2.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem),
 			new IntakeRollersSetAuto(intakeSubsystem, 1),
-			new AutoFollowPath(chassisSubsystem, "output/right_trench10-3.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/right_trench10-3.wpilib.json"),
 			new WaitCommand(Constants.Intake.AUTO_MIN_INTAKE_DURATION),
 			new IntakeRollersSetAuto(intakeSubsystem, 0),
-			new AutoFollowPath(chassisSubsystem, "output/right_trench10-3.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/right_trench10-3.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem)
 		);
 	}

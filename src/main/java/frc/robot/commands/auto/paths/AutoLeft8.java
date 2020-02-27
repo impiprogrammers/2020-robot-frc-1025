@@ -19,13 +19,13 @@ public class AutoLeft8 extends SequentialCommandGroup {
 			ConveyorSubsystem conveyorSubsystem, ShooterFeederSubsystem shooterFeederSubsystem,
 			ShooterSubsystem shooterSubsystem) throws IOException {
 		super(
-			new AutoFollowPath(chassisSubsystem, "output/left8-1.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/left8-1.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem),
 			new IntakeRollersSetAuto(intakeSubsystem, 1),
-			new AutoFollowPath(chassisSubsystem, "output/left8-2.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/left8-2.wpilib.json"),
 			new WaitCommand(Constants.Intake.AUTO_MIN_INTAKE_DURATION),
 			new IntakeRollersSetAuto(intakeSubsystem, 0),
-			new AutoFollowPath(chassisSubsystem, "output/left8-3.wpilib.json"),
+			new AutoFollowPath(chassisSubsystem, "output/meters/left8-3.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem)
 		);
 	}

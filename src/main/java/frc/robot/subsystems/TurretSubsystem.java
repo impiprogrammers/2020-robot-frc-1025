@@ -73,7 +73,7 @@ public class TurretSubsystem extends SubsystemBase {
 
 	public void turretSpin(double speed) {
 		int targetVisibility = 0;
-		double kp = 0.02;
+		double kp = 0.01;
 		double min_speed = 0.05;
 		double negativeErrorValue = -x;
 		double steeringAdjustment = 0.0;
@@ -84,10 +84,10 @@ public class TurretSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("targetVisibility", targetVisibility);
 
 		if (isModeAuto()) {
-			if (negativeErrorValue > 2.0) {
+			if (negativeErrorValue > .5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(-steeringAdjustment);
-			} else if (negativeErrorValue < 1.0) {
+			} else if (negativeErrorValue < -.5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(steeringAdjustment);
 			} else {

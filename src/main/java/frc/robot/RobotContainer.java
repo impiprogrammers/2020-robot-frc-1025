@@ -102,12 +102,10 @@ public class RobotContainer {
 
 	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, 5700);
 	private final ShooterStop shooterStop = new ShooterStop(shooterSubsystem);
-	private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4500);
-
+	private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4060);
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll(conveyorSubsystem, buttonsRightJoystickY);
 	private final ConveyorRollFailsafe conveyorRollFailsafe = new ConveyorRollFailsafe(conveyorSubsystem, buttonsRightJoystickY);
 	private final ConveyorStop conveyorStop = new ConveyorStop(conveyorSubsystem);
-
 	private final ShooterFeederSpin shooterFeederSpin = new ShooterFeederSpin(shooterFeederSubsystem, buttonsDpad);
 	private final ShooterFeederStop shooterFeederStop = new ShooterFeederStop(shooterFeederSubsystem);
 	
@@ -145,7 +143,7 @@ public class RobotContainer {
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
 		shimmySubsystem.setDefaultCommand(shimmyMove);
-		ledSubsystem.setDefaultCommand(updateLights);
+		//ledSubsystem.setDefaultCommand(updateLights);
 		
 		
 		configureButtonBindings();
@@ -198,6 +196,14 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		return autoChooser.getSelected();
+		// return autoChooser.getSelected();
+		try {
+			// return new AutoLeft3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem);
+			return new IntakeArmExtend(intakeSubsystem);
+		} catch (Exception e) {
+			DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);
+			return null;
+		}
+		
 	}
 }

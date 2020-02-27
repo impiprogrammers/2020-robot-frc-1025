@@ -9,7 +9,7 @@ public class AutoRight0 extends SequentialCommandGroup {
 
 	public AutoRight0(ChassisSubsystem chassisSubsystem) throws IOException {
 		super(
-			new AutoFollowPath(chassisSubsystem, "output/left3-1.wpilib.json")
+			new AutoFollowPath(chassisSubsystem, "output/meters/left3-1.wpilib.json")
 		);
 	}
 }
