@@ -95,6 +95,7 @@ public final class Constants {
         public static final double WHEEL_DIAMETER = 0.1524;
         public static final double GEAR_RATIO = 8.68;
         public static final boolean GYRO_REVERSED = false;
+        public static final double AUTO_PERCENT_OUTPUT = 0.5;
     }
 
     // Intake Constants (No IDs)
