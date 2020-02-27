@@ -198,8 +198,8 @@ public class RobotContainer {
 	public Command getAutonomousCommand() {
 		// return autoChooser.getSelected();
 		try {
-			// return new AutoLeft3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem);
-			return new IntakeArmExtend(intakeSubsystem);
+			return new AutoLeft8b(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem,
+					shooterSubsystem, turretSubsystem);
 		} catch (Exception e) {
 			DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);
 			return null;

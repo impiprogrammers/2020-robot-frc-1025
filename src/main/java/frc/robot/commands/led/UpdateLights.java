@@ -44,10 +44,10 @@ public class UpdateLights extends CommandBase {
 			shooterStatus = 0;
 		}
 
-		if (turretSubsystem.isModeAuto()) {
+		if (turretSubsystem.isAutoReady()) {
 
 			// set LEDs Bottom (Auto)
-			if (turretSubsystem.isTargetFound()) {
+			if (turretSubsystem.isTargetCentered()) {
 				if (xOffset >= 1 && xOffset <= 2) {
 					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
 				} else {
@@ -75,7 +75,7 @@ public class UpdateLights extends CommandBase {
 			// set LEDs
 
 			// set Bottom LEDs (Manual)
-			if (turretSubsystem.isTargetFound()) {
+			if (turretSubsystem.isTargetCentered()) {
 				if (xOffset >= 1 && xOffset <= 2) {
 					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
 				} else {

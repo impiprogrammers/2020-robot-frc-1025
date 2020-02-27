@@ -105,7 +105,7 @@ public final class Constants {
 
     // Conveyor Constants (No IDs)
     public final class Conveyor {
-        public static final double AUTO_SPEED = 1;
+        public static final double AUTO_SPEED = 0.5;
 		public static final double TUNNEL_JAMMED_VOLTAGE = 2;
 		public static final double TUNNEL_TIMER_LIMIT = 2500;
     }

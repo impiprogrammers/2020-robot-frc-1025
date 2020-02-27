@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 
+import java.util.ResourceBundle.Control;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -55,10 +57,9 @@ public class TurretSubsystem extends SubsystemBase {
 		turretMotor.setSmartCurrentLimit(20);
 
 		turretEncoder.setPosition(0);
-		
 
 		turretPID.setP(0.01);
-		turretPID.setI(0.000);
+		turretPID.setI(0);
 		turretPID.setD(0);
 		turretPID.setFF(0);
 	}
@@ -66,6 +67,10 @@ public class TurretSubsystem extends SubsystemBase {
 	@Override
 	public void periodic() {
 		updateLimelightTracking();
+		SmartDashboard.putBoolean("tv", tv.getBoolean(false));
+		SmartDashboard.putNumber("tx", tx.getDouble(0));
+		SmartDashboard.putNumber("Negative Error Value", -x);
+		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
 	}
 
 	public void updateLimelightTracking() {
@@ -75,7 +80,7 @@ public class TurretSubsystem extends SubsystemBase {
 		v = tv.getDouble(0);
 	}
 
-	public boolean isTargetFound() {
+	public boolean isTargetCentered() {
 		return ((x > 0.01 || x < -0.01) && y >= Constants.Turret.MIN_TRACKING_HEIGHT);
 	}
 
@@ -85,13 +90,8 @@ public class TurretSubsystem extends SubsystemBase {
 		double min_speed = 0.05;
 		double negativeErrorValue = -x;
 		double steeringAdjustment = 0.0;
-		SmartDashboard.putBoolean("tv", tv.getBoolean(false));
-		SmartDashboard.putNumber("tx", tx.getDouble(0));
-		SmartDashboard.putNumber("Negative Error Value", negativeErrorValue);
-		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
-		SmartDashboard.putNumber("targetVisibility", targetVisibility);
 
-		if (isModeAuto()) {
+		if (isAutoReady()) {
 			if (negativeErrorValue > .5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
 				setTurretMotor(-steeringAdjustment);
@@ -111,6 +111,7 @@ public class TurretSubsystem extends SubsystemBase {
 		return x;
 	}
 
+	
 	public void turretRezero() {
 		turretEncoder.setPosition(0);
 	}
@@ -143,20 +144,20 @@ public class TurretSubsystem extends SubsystemBase {
 		return false;
 	}
 
-	public void turnToPosiiton(double turretAngle) {
+	public void turnToPosition(double turretAngle) {
 		turretPID.setReference(turretAngle, ControlType.kPosition);
 	}
 
 	public void setTurretMotor(double speed) {
 		if (turretEncoder.getPosition() < -Constants.Turret.RIGHT_POSITION_LIMIT && speed > 0
 				|| turretEncoder.getPosition() > Constants.Turret.LEFT_POSITION_LIMIT && speed < 0) {
-			turretMotor.set(0);
+			turretPID.setReference(0, ControlType.kVoltage);
 		} else {
-			turretMotor.set(-speed);
+			turretPID.setReference(-speed, ControlType.kVoltage);
 		}
 	}
 
-	public boolean isModeAuto() {
-		return (!manualMode && isTargetFound());
+	public boolean isAutoReady() {
+		return (!manualMode && isTargetCentered());
 	}
 }

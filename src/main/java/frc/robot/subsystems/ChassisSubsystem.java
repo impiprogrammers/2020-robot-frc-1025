@@ -56,10 +56,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	public DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(Constants.Chassis.TRACK_WIDTH);
 
 	public ChassisSubsystem() {
-		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
-		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
-		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
-		driveMotorRightRear.setIdleMode(IdleMode.kCoast);
+		setCoastMode();
 
 		driveMotorLeftFront.setSmartCurrentLimit(40);
 		driveMotorRightFront.setSmartCurrentLimit(40);
@@ -77,9 +74,9 @@ public class ChassisSubsystem extends SubsystemBase {
 
 		double conversionFactor = Constants.Chassis.WHEEL_DIAMETER * Math.PI / Constants.Chassis.GEAR_RATIO;
 		leftEncoder.setPositionConversionFactor(conversionFactor);
-		leftEncoder.setVelocityConversionFactor(conversionFactor); // should the conversion factor be the same as for postion?
-		rightEncoder.setPositionConversionFactor(conversionFactor / 60);
-		rightEncoder.setVelocityConversionFactor(conversionFactor / 60); // should the conversion factor be the same as for postion?
+		leftEncoder.setVelocityConversionFactor(conversionFactor / 60);
+		rightEncoder.setPositionConversionFactor(conversionFactor);
+		rightEncoder.setVelocityConversionFactor(conversionFactor / 60);
 	}
 
 	@Override
@@ -111,8 +108,24 @@ public class ChassisSubsystem extends SubsystemBase {
 		ahrs.resetDisplacement();
 	}
 
+	public void setBrakeMode() {
+		driveMotorLeftFront.setIdleMode(IdleMode.kBrake);
+		driveMotorRightFront.setIdleMode(IdleMode.kBrake);
+		driveMotorLeftRear.setIdleMode(IdleMode.kBrake);
+		driveMotorRightRear.setIdleMode(IdleMode.kBrake);
+	}
+
+	public void setCoastMode() {
+		driveMotorLeftFront.setIdleMode(IdleMode.kCoast);
+		driveMotorRightFront.setIdleMode(IdleMode.kCoast);
+		driveMotorLeftRear.setIdleMode(IdleMode.kCoast);
+		driveMotorRightRear.setIdleMode(IdleMode.kCoast);
+	}
+
 	public double getPosition() { // returns position in meters
-		return leftEncoder.getPosition();
+		SmartDashboard.putNumber("Left Encoder Position", leftEncoder.getPosition());
+		SmartDashboard.putNumber("Right Encoder Position", rightEncoder.getPosition());
+		return (Math.abs(leftEncoder.getPosition()) + Math.abs(rightEncoder.getPosition())) / 2;
 	}
 
 	public double getAngle() {
