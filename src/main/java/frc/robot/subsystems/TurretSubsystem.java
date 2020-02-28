@@ -9,9 +9,6 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 
-import java.util.ResourceBundle.Control;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -80,30 +77,37 @@ public class TurretSubsystem extends SubsystemBase {
 		v = tv.getDouble(0);
 	}
 
+	public boolean isModeAuto() {
+		return (!manualMode);
+	}
+
+	public boolean isTargetFound() {
+		return (v == 1);
+	}
+
 	public boolean isTargetCentered() {
-		return ((x > 0.01 || x < -0.01) && y >= Constants.Turret.MIN_TRACKING_HEIGHT);
+		return (x > -1 && x < 1 && y >= Constants.Turret.MIN_TRACKING_HEIGHT);
 	}
 
 	public void turretSpin(double speed) {
-		int targetVisibility = 0;
 		double kp = 0.01;
 		double min_speed = 0.05;
-		double negativeErrorValue = -x;
+		double negativeErrorValue = -x; //todo: rename variable
 		double steeringAdjustment = 0.0;
 
-		if (isAutoReady()) {
+		if (isModeAuto() && isTargetFound()) {
 			if (negativeErrorValue > .5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
-				setTurretMotor(-steeringAdjustment);
-			    //turretPID.setReference(steeringAdjustment, ControlType.kDutyCycle);
+				setMotorTeleop(-steeringAdjustment);
+				//turretPID.setReference(steeringAdjustment, ControlType.kDutyCycle);
 			} else if (negativeErrorValue < -.5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
-				setTurretMotor(-steeringAdjustment);
+				setMotorTeleop(-steeringAdjustment);
 			} else {
-				setTurretMotor(0);
+				setMotorTeleop(0);
 			}
 		} else {
-			setTurretMotor(speed);
+			setMotorTeleop(speed);
 		}
 	}
 
@@ -132,7 +136,6 @@ public class TurretSubsystem extends SubsystemBase {
 		if(turretEncoder.getPosition() < -Constants.Turret.RIGHT_POSITION_LIMIT) {
 			return true;
 		}
-	
 		return false;
 	}
 	
@@ -140,24 +143,26 @@ public class TurretSubsystem extends SubsystemBase {
 		if(turretEncoder.getPosition() > Constants.Turret.LEFT_POSITION_LIMIT) {
 			return true;
 		}
-	
 		return false;
 	}
 
-	public void turnToPosition(double turretAngle) {
-		turretPID.setReference(turretAngle, ControlType.kPosition);
+	public boolean canTurretSpin(double speed) {
+		return (!(turretAtRightSoftStop() && speed > 0 || turretAtLeftSoftStop() && speed < 0)); // might change this later?
 	}
 
-	public void setTurretMotor(double speed) {
-		if (turretEncoder.getPosition() < -Constants.Turret.RIGHT_POSITION_LIMIT && speed > 0
-				|| turretEncoder.getPosition() > Constants.Turret.LEFT_POSITION_LIMIT && speed < 0) {
-			turretPID.setReference(0, ControlType.kVoltage);
+	public void setMotorAuto(double turretAngle) {
+		if (turretAngle > -Constants.Turret.RIGHT_POSITION_LIMIT && turretAngle < Constants.Turret.LEFT_POSITION_LIMIT) {
+			turretPID.setReference(turretAngle, ControlType.kPosition);
 		} else {
-			turretPID.setReference(-speed, ControlType.kVoltage);
+			turretPID.setReference(0, ControlType.kVoltage);
 		}
 	}
 
-	public boolean isAutoReady() {
-		return (!manualMode && isTargetCentered());
+	public void setMotorTeleop(double speed) {
+		if (canTurretSpin(speed))  {
+			turretPID.setReference(-speed, ControlType.kVoltage);
+		} else {
+			turretPID.setReference(0, ControlType.kVoltage);
+		}
 	}
 }

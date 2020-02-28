@@ -3,15 +3,12 @@ import java.io.IOException;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.auto.AutoIntakeOn;
 import frc.robot.commands.chassis.ChassisDriveDistance;
 import frc.robot.commands.conveyor.ConveyorSetAuto;
-import frc.robot.commands.intake.IntakeRollersSetAuto;
 import frc.robot.commands.shooter.ShooterShoot;
 import frc.robot.commands.shooter_feeder.ShooterFeederSetAuto;
-import frc.robot.commands.turret.TurretSetManualMode;
 import frc.robot.commands.turret.TurretSpinToAngle;
 import frc.robot.commands.turret.TurretSynchronousAutoMode;
 import frc.robot.subsystems.ChassisSubsystem;
@@ -35,7 +32,7 @@ public class AutoLeft8b extends SequentialCommandGroup {
 			new IntakeRollersSetAuto(intakeSubsystem, 0),
 			new AutoFollowPath(chassisSubsystem, "output/meters/left8-3.wpilib.json"),
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem) */
-			new InstantCommand(chassisSubsystem::setBrakeMode, chassisSubsystem),
+			new InstantCommand(chassisSubsystem::setBrakeMode, chassisSubsystem), //todo: make unique class
 			new AutoIntakeOn(intakeSubsystem),
 			new ShooterShoot(shooterSubsystem, Constants.Shooter.AUTO_SETPOINT),
 			new TurretSpinToAngle(turretSubsystem, -80),

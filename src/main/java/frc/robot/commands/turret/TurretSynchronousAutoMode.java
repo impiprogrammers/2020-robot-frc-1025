@@ -8,6 +8,7 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretSynchronousAutoMode extends CommandBase {
@@ -28,6 +29,7 @@ public class TurretSynchronousAutoMode extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		turretSubsystem.turretSpin(Constants.Turret.AUTO_PERCENT_OUTPUT); //speed is only used if target is not found
 	}
 
 	// Called once the command ends or is interrupted.
@@ -38,6 +40,6 @@ public class TurretSynchronousAutoMode extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return (turretSubsystem.isAutoReady());
+		return (turretSubsystem.isTargetCentered());
 	}
 }

@@ -7,11 +7,10 @@
 
 package frc.robot.commands.turret;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.TurretSubsystem;
 
-public class TurretSpinToAngle extends CommandBase {
+public class TurretSpinToAngle extends InstantCommand {
 
 	private final TurretSubsystem turretSubsystem;
 	private double angle;
@@ -25,11 +24,6 @@ public class TurretSpinToAngle extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		turretSubsystem.turnToPosition(angle);
-	}
-
-	@Override
-	public void end(boolean interrupted) {
-		turretSubsystem.
+		turretSubsystem.setMotorAuto(angle);
 	}
 }

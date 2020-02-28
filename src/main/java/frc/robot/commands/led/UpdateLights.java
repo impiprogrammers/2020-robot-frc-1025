@@ -34,7 +34,17 @@ public class UpdateLights extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		double xOffset = turretSubsystem.getXOffset();
+		/* 	===========================
+					IMPORTANT!
+			===========================
+		
+			This command needs to be rewritten. isAutoReady() is no longer a method; isModeAuto(), isTargetFound(), and isTargetCentered() should be used instead.
+		*/
+
+
+		
+
+		/*double xOffset = turretSubsystem.getXOffset();
 		int shooterStatus = 0;
 		double shooterVelocity = Math.abs(shooterSubsystem.getShooterVelocity());
 		SmartDashboard.putNumber("Shooter Velocity", shooterVelocity);
@@ -107,7 +117,7 @@ public class UpdateLights extends CommandBase {
 			}
 		} else {
 			ledSubsystem.setLEDsTop(0 / 2, 0, 0); // off
-		}
+		}*/
 	}
 
 	// Called once the command ends or is interrupted.
