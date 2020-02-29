@@ -8,6 +8,10 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorMatch;
+
+import edu.wpi.first.wpilibj.util.Color;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -137,6 +141,14 @@ public final class Constants {
         public static final double RIGHT_POSITION_LIMIT = 130; // turret right, robot left
         public static final double MIN_TRACKING_HEIGHT = -20; // tbd
         public static final double AUTO_PERCENT_OUTPUT = 0.5;
+    }
+
+    // Control Panel Colors
+    public final class ControlPanel {
+        public static final Color BLUE_TARGET = ColorMatch.makeColor(0.143, 0.427, 0.429);
+        public static final Color GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
+        public static final Color RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
+        public static final Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
     }
 
 }

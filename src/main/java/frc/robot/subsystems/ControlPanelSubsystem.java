@@ -39,10 +39,7 @@ public class ControlPanelSubsystem extends SubsystemBase {
     // Color Sensor
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private final ColorMatch colorMatcher = new ColorMatch();
-    private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-    private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-    private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+   
     int colorTracker = 0;
     boolean currentlyRed;
     Color detectedColor;
@@ -65,6 +62,10 @@ public class ControlPanelSubsystem extends SubsystemBase {
                 detectedColor.red * 255 + ", " + detectedColor.green * 255 + ", " + detectedColor.blue * 255);
     }
 
+    public Color getCurrentColor(){
+        return match.color;
+    }
+
     public void controlPanelArmExtend() {
         controlPanelArm.set(true);
     }
@@ -73,25 +74,8 @@ public class ControlPanelSubsystem extends SubsystemBase {
         controlPanelArm.set(false);
     }
 
-    public void controlPanelWheelSpinFour() {
-        if (colorTracker < 8) {
-            controlPanelWheel.set(ControlMode.PercentOutput, 1.0);
-            if (match.color == kRedTarget) {
-                if (!currentlyRed) {
-                    colorTracker += 1;
-                    currentlyRed = true;
-                }
-            } else if (currentlyRed) {
-                currentlyRed = false;
-            }
 
-        } else {
-            controlPanelWheel.set(ControlMode.PercentOutput, 0.0);
-        }
-
-    }
-
-    public void controlPanelWheelColor() {
+    public void controlPanelColor() {
         if (colorString.length() > 0) {
             switch (colorString.charAt(0)) {
             case 'B':
