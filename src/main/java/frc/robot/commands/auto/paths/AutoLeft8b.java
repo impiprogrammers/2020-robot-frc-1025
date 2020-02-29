@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.auto.AutoIntakeOn;
 import frc.robot.commands.chassis.ChassisDriveDistance;
@@ -34,12 +35,15 @@ public class AutoLeft8b extends SequentialCommandGroup {
 			new AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem) */
 			new InstantCommand(chassisSubsystem::setBrakeMode, chassisSubsystem), //todo: make unique class
 			new AutoIntakeOn(intakeSubsystem),
-			new ShooterShoot(shooterSubsystem, Constants.Shooter.AUTO_SETPOINT),
-			new TurretSpinToAngle(turretSubsystem, -80),
+			new ShooterShoot(shooterSubsystem, 4160),
+			new TurretSpinToAngle(turretSubsystem, -65),
 			new ChassisDriveDistance(chassisSubsystem, 2.7432, Constants.Chassis.AUTO_PERCENT_OUTPUT), // 108 inches
 			new TurretSynchronousAutoMode(turretSubsystem),
-			new ConveyorSetAuto(conveyorSubsystem, Constants.Conveyor.AUTO_SPEED),
-			new ShooterFeederSetAuto(shooterFeederSubsystem, Constants.ShooterFeeder.AUTO_SPEED)
+			//new WaitCommand(20),
+			new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
+			new ConveyorSetAuto(conveyorSubsystem, -.4),
+		//	new ChassisDriveDistance(chassisSubsystem, .4, Constants.Chassis.AUTO_PERCENT_OUTPUT), // 108 inches
+			new WaitCommand(9)
 		);
 	}
 }

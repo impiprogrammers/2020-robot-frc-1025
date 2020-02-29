@@ -68,6 +68,7 @@ public class TurretSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("tx", tx.getDouble(0));
 		SmartDashboard.putNumber("Negative Error Value", -x);
 		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
+		SmartDashboard.putBoolean("Is Target Centered", isTargetCentered());
 	}
 
 	public void updateLimelightTracking() {
@@ -86,7 +87,13 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public boolean isTargetCentered() {
-		return (x > -1 && x < 1 && y >= Constants.Turret.MIN_TRACKING_HEIGHT);
+		if(x > -.2 && x < .2 && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
+	//	if(x > -5 && x < 5){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public void turretSpin(double speed) {
@@ -94,17 +101,20 @@ public class TurretSubsystem extends SubsystemBase {
 		double min_speed = 0.05;
 		double negativeErrorValue = -x; //todo: rename variable
 		double steeringAdjustment = 0.0;
+		boolean isTargetCentered;
 
-		if (isModeAuto() && isTargetFound()) {
+		if (isModeAuto()) {
+			setPercentOutput();
 			if (negativeErrorValue > .5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
-				setMotorTeleop(-steeringAdjustment);
+				turretMotor.set(steeringAdjustment);
 				//turretPID.setReference(steeringAdjustment, ControlType.kDutyCycle);
 			} else if (negativeErrorValue < -.5) {
 				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
-				setMotorTeleop(-steeringAdjustment);
+				turretMotor.set(-steeringAdjustment);
 			} else {
 				setMotorTeleop(0);
+				isTargetCentered = true;
 			}
 		} else {
 			setMotorTeleop(speed);
@@ -154,15 +164,21 @@ public class TurretSubsystem extends SubsystemBase {
 		if (turretAngle > -Constants.Turret.RIGHT_POSITION_LIMIT && turretAngle < Constants.Turret.LEFT_POSITION_LIMIT) {
 			turretPID.setReference(turretAngle, ControlType.kPosition);
 		} else {
-			turretPID.setReference(0, ControlType.kVoltage);
+			turretPID.setReference(0, ControlType.kDutyCycle);
 		}
 	}
 
 	public void setMotorTeleop(double speed) {
 		if (canTurretSpin(speed))  {
-			turretPID.setReference(-speed, ControlType.kVoltage);
+			turretPID.setReference(-speed, ControlType.kDutyCycle);
 		} else {
-			turretPID.setReference(0, ControlType.kVoltage);
+			turretPID.setReference(0, ControlType.kDutyCycle);
 		}
+	}
+	public void stopTurretMotor(){
+		turretPID.setReference(0, ControlType.kCurrent);
+	}
+	public void setPercentOutput(){
+		turretPID.setReference(0, ControlType.kDutyCycle);
 	}
 }

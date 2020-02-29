@@ -32,7 +32,7 @@ public class ConveyorSubsystem extends SubsystemBase {
 	public void conveyorRoll(double speed) {
 		conveyorRollers.set(ControlMode.PercentOutput, speed);
 	}
-
+	
 	public void conveyorRollFailsafe(double speed){
 		if(isTunnelJammed()) {
 			conveyorRollers.set(ControlMode.PercentOutput, ImpiLib2020.clamp(speed, -1, 0));

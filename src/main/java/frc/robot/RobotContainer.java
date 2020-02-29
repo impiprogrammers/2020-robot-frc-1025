@@ -184,8 +184,8 @@ public class RobotContainer {
 		buttonsY.whenPressed(turretSetAutoMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
-		buttonsA.whenPressed(controlPanelWheelSpinFour);
-		buttonsB.whenPressed(controlPanelWheelColor);
+		//buttonsA.whenPressed(controlPanelWheelSpinFour);
+		//buttonsB.whenPressed(controlPanelWheelColor);
 		buttonsSelect.whenPressed(controlPanelArmExtend);
 		buttonsStart.whenPressed(controlPanelArmRetract);
 	}

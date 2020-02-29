@@ -24,6 +24,7 @@ public class TurretSynchronousAutoMode extends CommandBase {
 	@Override
 	public void initialize() {
 		turretSubsystem.setManualMode(false);
+		//turretSubsystem.setPercentOutput();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +41,13 @@ public class TurretSynchronousAutoMode extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return (turretSubsystem.isTargetCentered());
+		if(turretSubsystem.isTargetCentered() == true){
+			turretSubsystem.stopTurretMotor();
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }
+
