@@ -33,7 +33,7 @@ public class ShimmyMove extends CommandBase {
 		if (povAngle.getAsInt() == 90) {
 			shimmySubsystem.shimmyMove(0.5);
 		} else if (povAngle.getAsInt() == 270) {
-			shimmySubsystem.shimmyMove(0.5);
+			shimmySubsystem.shimmyMove(-0.5);
 		} else {
 			shimmySubsystem.shimmyMove(0);
 		}
