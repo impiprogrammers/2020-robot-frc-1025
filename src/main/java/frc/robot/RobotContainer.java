@@ -121,9 +121,12 @@ public class RobotContainer {
 
 	private final TurretSpin turretSpin = new TurretSpin(turretSubsystem, buttonsLeftJoystickX);
 	private final TurretRezero turretRezero = new TurretRezero(turretSubsystem);
+	private final TurretTeleop turretTeleop = new TurretTeleop(turretSubsystem, buttonsLeftJoystickX);
 	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode(turretSubsystem);
 	private final TurretSetManualMode turretSetManualMode = new TurretSetManualMode(turretSubsystem, true);
 	private final TurretSetManualMode turretSetAutoMode = new TurretSetManualMode(turretSubsystem, false);
+	private final TurretTrackTarget turretTrackTarget = new TurretTrackTarget(turretSubsystem);
+	private final TurretTurnToTarget turretTurnToTarget = new TurretTurnToTarget(turretSubsystem);
 
 	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend(controlPanelSubsystem);
 	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract(controlPanelSubsystem);
@@ -138,7 +141,7 @@ public class RobotContainer {
  	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
 		climberSubsystem.setDefaultCommand(climberWinchMove);
-		turretSubsystem.setDefaultCommand(turretSpin);
+		turretSubsystem.setDefaultCommand(turretTeleop);
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);

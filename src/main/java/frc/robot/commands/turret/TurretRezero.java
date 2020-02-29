@@ -22,6 +22,6 @@ public class TurretRezero extends InstantCommand {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		turretSubsystem.turretRezero();
+		turretSubsystem.zeroTurret();
 	}
 }
