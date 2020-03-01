@@ -24,6 +24,6 @@ public class TurretSpinToAngle extends InstantCommand {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		turretSubsystem.setMotorAuto(angle);
+		turretSubsystem.rotateToAngle(angle);
 	}
 }

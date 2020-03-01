@@ -21,7 +21,7 @@ package frc.robot;
 public final class Constants {
 
     // CAN Port IDs
-    public final class CAN {
+    public static final class CAN {
         public static final int PCM_MODULE_PORT = 1;
 
         // Chassis
@@ -57,7 +57,7 @@ public final class Constants {
     }
 
     // PCM Port IDs
-    public final class PCM {
+    public static final class PCM {
         // Intake
         public static final int INTAKE_EXTENDER_CHANNEL = 0;
 
@@ -71,18 +71,18 @@ public final class Constants {
     }
 
     // USB Port IDs
-    public final class OI {
+    public static final class OI {
         public static final int XBOX_CONTROLLER_DRIVER = 0;
         public static final int XBOX_CONTROLLER_BUTTONS = 1;
     }
 
     // Sensor Constants
-    public final class Sensor{
+    public static final class Sensor{
         public static final int TUNNEL_SENSOR_PORT = 0;
     }
 
     // Chassis Constants (No IDs)
-    public final class Chassis {
+    public static final class Chassis {
         public static final double CURRENT_LIMIT = 40;
         public static final double AUTO_FFS = 0.2;
         public static final double AUTO_FFV = 2.3;
@@ -99,24 +99,24 @@ public final class Constants {
     }
 
     // Intake Constants (No IDs)
-    public final class Intake {
+    public static final class Intake {
         public static final double AUTO_MIN_INTAKE_DURATION = 2;
     }
 
     // Conveyor Constants (No IDs)
-    public final class Conveyor {
+    public static final class Conveyor {
         public static final double AUTO_SPEED = -0.6;
 		public static final double TUNNEL_JAMMED_VOLTAGE = 2;
 		public static final double TUNNEL_TIMER_LIMIT = 2500;
     }
 
     // Shooter Feeder Constants (No IDs)
-    public final class ShooterFeeder {
+    public static final class ShooterFeeder {
         public static final double AUTO_SPEED = 1;
     }
 
     // Shooter Constants (No IDs)
-    public final class Shooter {
+    public static final class Shooter {
         public static final int CURRENT_LIMIT = 40;
         public static final double SHOOT_P = 0.0001;
         public static final double SHOOT_I = 0.0000001;
@@ -131,12 +131,20 @@ public final class Constants {
     }
 
     // Turret Constants (No IDs)
-    public final class Turret {
+    public static final class Turret {
         public static final int CURRENT_LIMIT = 20;
         public static final double LEFT_POSITION_LIMIT = 0; // turret left, robot right
         public static final double RIGHT_POSITION_LIMIT = 130; // turret right, robot left
         public static final double MIN_TRACKING_HEIGHT = -20; // tbd
         public static final double AUTO_PERCENT_OUTPUT = 0.5;
+    }
+
+    // Control Panel Colors
+    public static final class ControlPanel {
+        public static final double[] blue = {0.143, 0.427, 0.429};
+        public static final double[] green = {0.197, 0.561, 0.240};
+        public static final double[] yellow = {0.361, 0.524, 0.113};
+        public static final double[] red = {0.561, 0.232, 0.114};
     }
 
 }

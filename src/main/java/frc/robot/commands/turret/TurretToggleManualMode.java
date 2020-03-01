@@ -7,7 +7,6 @@
 
 package frc.robot.commands.turret;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.TurretSubsystem;
 
@@ -23,6 +22,6 @@ public class TurretToggleManualMode extends InstantCommand {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		turretSubsystem.toggleManualMode();
+		turretSubsystem.toggleMode();
 	}
 }
