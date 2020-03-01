@@ -39,10 +39,10 @@ public class ControlPanelSubsystem extends SubsystemBase {
     // Color Sensor
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private final ColorMatch colorMatcher = new ColorMatch();
-    private final Color Red = ColorMatch.makeColor(0.561, 0.232, 0.114);
-    private final Color Blue = ColorMatch.makeColor(0.143, 0.427, 0.429);
-    private final Color Green = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    private final Color Yellow = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    private final Color Red = ColorMatch.makeColor(Constants.ControlPanel.red[0] , Constants.ControlPanel.red[1] , Constants.ControlPanel.red[2]);;
+    private final Color Blue = ColorMatch.makeColor(Constants.ControlPanel.blue[0] , Constants.ControlPanel.blue[1] , Constants.ControlPanel.blue[2]);
+    private final Color Green = ColorMatch.makeColor(Constants.ControlPanel.green[0] , Constants.ControlPanel.green[1] , Constants.ControlPanel.green[2]);
+    private final Color Yellow = ColorMatch.makeColor(Constants.ControlPanel.yellow[0] , Constants.ControlPanel.yellow[1] , Constants.ControlPanel.yellow[2]);;
     private final Color Black = ColorMatch.makeColor(0.0, 0.0, 0.0);
    
     int colorTracker = 0;

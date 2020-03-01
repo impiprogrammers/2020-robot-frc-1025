@@ -7,7 +7,6 @@
 
 package frc.robot.commands.control_panel;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 
 import edu.wpi.first.wpilibj.util.Color;
@@ -19,7 +18,7 @@ public class ControlPanelSpinFour extends CommandBase {
 	private final ControlPanelSubsystem controlPanelSubsystem;
 	int colorTracker = 0;
 	int currentlyRed;
-	private final Color RedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+	private final Color Red = ColorMatch.makeColor(Constants.ControlPanel.red[0] , Constants.ControlPanel.red[1] , Constants.ControlPanel.red[2]);
 
 	public ControlPanelSpinFour(ControlPanelSubsystem controlPanelSubsystem) {
 		this.controlPanelSubsystem = controlPanelSubsystem;
@@ -32,7 +31,7 @@ public class ControlPanelSpinFour extends CommandBase {
 	@Override
 	public void initialize() {
 		colorTracker = 0;
-		 if (controlPanelSubsystem.getCurrentColor() == RedTarget){
+		 if (controlPanelSubsystem.getCurrentColor() == Red){
 			 currentlyRed = 1;
 		 } else {
 			 currentlyRed = 0;
@@ -43,7 +42,7 @@ public class ControlPanelSpinFour extends CommandBase {
 	@Override
 	public void execute() {
 		controlPanelSubsystem.controlPanelManual(1.0);
-		if (controlPanelSubsystem.getCurrentColor() == RedTarget) {
+		if (controlPanelSubsystem.getCurrentColor() == Red) {
 			if (currentlyRed == 0) {
 				colorTracker += 1;
 				currentlyRed = 1;
