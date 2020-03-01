@@ -82,43 +82,53 @@ public class TurretSubsystem extends SubsystemBase {
 		return (!manualMode);
 	}
 
+	public boolean isModeManual() {
+		return (manualMode);
+	}
+
+	public void setManualMode(boolean state) {
+		manualMode = state;
+	} 
+
+	public void setManualMode() {
+		manualMode = true;
+	}
+
+	public void setAutoMode() {
+		manualMode = false;
+	}
+
+	public void toggleMode() {
+		if(manualMode) {
+			manualMode = false;
+		} else {
+			manualMode = true;
+		}
+	}
+
 	public boolean isTargetFound() {
 		return (v == 1);
 	}
 
 	public boolean isTargetCentered() {
 		if(x > -.2 && x < .2 && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
-	//	if(x > -5 && x < 5){
+			// if(x > -5 && x < 5){
 			return true;
-		}
-		else{
+		} else {
 			return false;
 		}
 	}
 
-	public void turretSpin(double speed) {
-		double kp = 0.01;
-		double min_speed = 0.05;
-		double negativeErrorValue = -x; //todo: rename variable
-		double steeringAdjustment = 0.0;
-		boolean isTargetCentered;
+	public void rotateToTarget() {
+		turretPID.setReference(turretEncoder.getPosition() - getXOffset(), ControlType.kPosition);
+	}
 
-		if (isModeAuto()) {
-			setPercentOutput();
-			if (negativeErrorValue > .5) {
-				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
-				turretMotor.set(steeringAdjustment);
-				//turretPID.setReference(steeringAdjustment, ControlType.kDutyCycle);
-			} else if (negativeErrorValue < -.5) {
-				steeringAdjustment = kp * Math.abs(negativeErrorValue) + min_speed;
-				turretMotor.set(-steeringAdjustment);
-			} else {
-				setMotorTeleop(0);
-				isTargetCentered = true;
-			}
-		} else {
-			setMotorTeleop(speed);
-		}
+	public void rotateToAngle(double encoderPosition) {
+		turretPID.setReference(encoderPosition, ControlType.kPosition);
+	}
+
+	public void turretSpin(double speed) {
+		turretPID.setReference(speed, ControlType.kDutyCycle);
 	}
 
 	public double getXOffset() {
@@ -126,20 +136,12 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	
-	public void turretRezero() {
+	public void zeroTurret() {
 		turretEncoder.setPosition(0);
 	}
 
-	public void toggleManualMode() {
-		if (manualMode) {
-			manualMode = false;
-		} else {
-			manualMode = true;
-		}
-	}
-
-	public void setManualMode(boolean state) {
-		manualMode = state;
+	public void getTurretPosition() {
+		turretEncoder.getPosition();
 	}
 
 	public boolean turretAtRightSoftStop() {
@@ -175,10 +177,17 @@ public class TurretSubsystem extends SubsystemBase {
 			turretPID.setReference(0, ControlType.kDutyCycle);
 		}
 	}
+	
 	public void stopTurretMotor(){
 		turretPID.setReference(0, ControlType.kCurrent);
 	}
-	public void setPercentOutput(){
-		turretPID.setReference(0, ControlType.kDutyCycle);
+	
+	public void turnOnLimelightLED() {
+		table.getEntry("ledMode").setNumber(3);
 	}
+
+	public void turnOffLimelightLED() {
+		table.getEntry("ledMode").setNumber(1);
+	}
+
 }
