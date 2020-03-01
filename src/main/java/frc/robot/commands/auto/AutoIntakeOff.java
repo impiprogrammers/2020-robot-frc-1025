@@ -16,8 +16,8 @@ public class AutoIntakeOff extends SequentialCommandGroup {
 
 	public AutoIntakeOff(IntakeSubsystem intakeSubsystem) {
 		super(
-			new IntakeArmRetract(intakeSubsystem),
-			new IntakeRollersSetAuto(intakeSubsystem, 0)
+			new IntakeRollersSetAuto(intakeSubsystem, 0),
+			new IntakeArmRetract(intakeSubsystem)
 		);
 	}
 }
