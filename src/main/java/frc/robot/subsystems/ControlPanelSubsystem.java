@@ -39,10 +39,12 @@ public class ControlPanelSubsystem extends SubsystemBase {
     // Color Sensor
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private final ColorMatch colorMatcher = new ColorMatch();
-    private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-    private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-    private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    private final Color Red = ColorMatch.makeColor(Constants.ControlPanel.red[0] , Constants.ControlPanel.red[1] , Constants.ControlPanel.red[2]);;
+    private final Color Blue = ColorMatch.makeColor(Constants.ControlPanel.blue[0] , Constants.ControlPanel.blue[1] , Constants.ControlPanel.blue[2]);
+    private final Color Green = ColorMatch.makeColor(Constants.ControlPanel.green[0] , Constants.ControlPanel.green[1] , Constants.ControlPanel.green[2]);
+    private final Color Yellow = ColorMatch.makeColor(Constants.ControlPanel.yellow[0] , Constants.ControlPanel.yellow[1] , Constants.ControlPanel.yellow[2]);;
+    private final Color Black = ColorMatch.makeColor(0.0, 0.0, 0.0);
+   
     int colorTracker = 0;
     boolean currentlyRed;
     Color detectedColor;
@@ -65,6 +67,33 @@ public class ControlPanelSubsystem extends SubsystemBase {
                 detectedColor.red * 255 + ", " + detectedColor.green * 255 + ", " + detectedColor.blue * 255);
     }
 
+    public Color getCurrentColor(){
+        return match.color;
+    }
+
+    public Color getFMSColor() {
+        if (colorString.length() > 0) {
+            switch (colorString.charAt(0)) {
+            case 'B':
+                return Blue;
+
+            case 'G':
+                return Green;
+
+            case 'R':
+                return Red;
+ 
+            case 'Y':
+                return Yellow;
+
+            default:
+                
+                break;
+            }
+        } 
+        return Black;
+    }
+
     public void controlPanelArmExtend() {
         controlPanelArm.set(true);
     }
@@ -73,60 +102,6 @@ public class ControlPanelSubsystem extends SubsystemBase {
         controlPanelArm.set(false);
     }
 
-    public void controlPanelWheelSpinFour() {
-        if (colorTracker < 8) {
-            controlPanelWheel.set(ControlMode.PercentOutput, 1.0);
-            if (match.color == kRedTarget) {
-                if (!currentlyRed) {
-                    colorTracker += 1;
-                    currentlyRed = true;
-                }
-            } else if (currentlyRed) {
-                currentlyRed = false;
-            }
-
-        } else {
-            controlPanelWheel.set(ControlMode.PercentOutput, 0.0);
-        }
-
-    }
-
-    public void controlPanelWheelColor() {
-        if (colorString.length() > 0) {
-            switch (colorString.charAt(0)) {
-            case 'B':
-                while (match.color != kBlueTarget) {
-                    controlPanelWheel.set(ControlMode.PercentOutput, turn);
-                }
-                colorString = "Blue";
-                break;
-            case 'G':
-                while (match.color != kGreenTarget) {
-                    controlPanelWheel.set(ControlMode.PercentOutput, turn);
-                }
-                colorString = "Green";
-                break;
-            case 'R':
-                while (match.color != kRedTarget) {
-                    controlPanelWheel.set(ControlMode.PercentOutput, turn);
-                }
-                colorString = "Red";
-                break;
-            case 'Y':
-                while (match.color != kYellowTarget) {
-                    controlPanelWheel.set(ControlMode.PercentOutput, turn);
-                }
-                colorString = "Yellow";
-                break;
-            default:
-                // This is corrupt data
-                break;
-            }
-        } else {
-            controlPanelWheel.set(ControlMode.PercentOutput, 0.0);
-        }
-
-    }
      public void controlPanelManual(double speed){
          controlPanelWheel.set(ControlMode.PercentOutput, speed);
      }
