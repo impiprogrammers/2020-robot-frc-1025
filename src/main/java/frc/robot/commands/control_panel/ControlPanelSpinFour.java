@@ -17,7 +17,6 @@ import frc.robot.subsystems.ControlPanelSubsystem;
 
 public class ControlPanelSpinFour extends CommandBase {
 	private final ControlPanelSubsystem controlPanelSubsystem;
-	TalonSRX controlPanelWheel = new TalonSRX(Constants.CAN.CONTROL_PANEL_WHEEL_PORT);
 	int colorTracker = 0;
 	int currentlyRed;
 	private final Color RedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);

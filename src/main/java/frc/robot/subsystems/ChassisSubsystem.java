@@ -30,8 +30,7 @@ public class ChassisSubsystem extends SubsystemBase {
 
 	// Motor Controllers
 	private CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
-	private CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_FRONT_PORT,
-			MotorType.kBrushless);
+	private CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_FRONT_PORT, MotorType.kBrushless);
 	private CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
 	private CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
 

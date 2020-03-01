@@ -39,6 +39,11 @@ public class ControlPanelSubsystem extends SubsystemBase {
     // Color Sensor
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private final ColorMatch colorMatcher = new ColorMatch();
+    private final Color Red = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    private final Color Blue = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    private final Color Green = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    private final Color Yellow = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    private final Color Black = ColorMatch.makeColor(0.0, 0.0, 0.0);
    
     int colorTracker = 0;
     boolean currentlyRed;
@@ -66,6 +71,29 @@ public class ControlPanelSubsystem extends SubsystemBase {
         return match.color;
     }
 
+    public Color getFMSColor() {
+        if (colorString.length() > 0) {
+            switch (colorString.charAt(0)) {
+            case 'B':
+                return Blue;
+
+            case 'G':
+                return Green;
+
+            case 'R':
+                return Red;
+ 
+            case 'Y':
+                return Yellow;
+
+            default:
+                
+                break;
+            }
+        } 
+        return Black;
+    }
+
     public void controlPanelArmExtend() {
         controlPanelArm.set(true);
     }
@@ -74,43 +102,6 @@ public class ControlPanelSubsystem extends SubsystemBase {
         controlPanelArm.set(false);
     }
 
-
-    public void controlPanelColor() {
-        if (colorString.length() > 0) {
-            switch (colorString.charAt(0)) {
-            case 'B':
-                while (match.color != kBlueTarget) {
-                    controlPanelWheel.set(ControlMode.PercentOutput, turn);
-                }
-                colorString = "Blue";
-                break;
-            case 'G':
-                while (match.color != kGreenTarget) {
-                    controlPanelWheel.set(ControlMode.PercentOutput, turn);
-                }
-                colorString = "Green";
-                break;
-            case 'R':
-                while (match.color != kRedTarget) {
-                    controlPanelWheel.set(ControlMode.PercentOutput, turn);
-                }
-                colorString = "Red";
-                break;
-            case 'Y':
-                while (match.color != kYellowTarget) {
-                    controlPanelWheel.set(ControlMode.PercentOutput, turn);
-                }
-                colorString = "Yellow";
-                break;
-            default:
-                // This is corrupt data
-                break;
-            }
-        } else {
-            controlPanelWheel.set(ControlMode.PercentOutput, 0.0);
-        }
-
-    }
      public void controlPanelManual(double speed){
          controlPanelWheel.set(ControlMode.PercentOutput, speed);
      }

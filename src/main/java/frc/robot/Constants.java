@@ -145,10 +145,7 @@ public final class Constants {
 
     // Control Panel Colors
     public final class ControlPanel {
-        public static final Color BLUE_TARGET = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        public static final Color GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
-        public static final Color RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
-        public static final Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    
     }
 
 }
