@@ -130,8 +130,8 @@ public class RobotContainer {
 
 	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend(controlPanelSubsystem);
 	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract(controlPanelSubsystem);
-	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor(controlPanelSubsystem);
-	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour(controlPanelSubsystem);
+	private final ControlPanelColor controlPanelWheelColor = new ControlPanelColor(controlPanelSubsystem);
+	private final ControlPanelSpinFour controlPanelWheelSpinFour = new ControlPanelSpinFour(controlPanelSubsystem);
 
 	private final UpdateLights updateLights = new UpdateLights(ledSubsystem, shooterSubsystem, turretSubsystem);
 
@@ -187,8 +187,8 @@ public class RobotContainer {
 		buttonsY.whenPressed(turretSetAutoMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.whenPressed(shooterToggle);
-		//buttonsA.whenPressed(controlPanelWheelSpinFour);
-		//buttonsB.whenPressed(controlPanelWheelColor);
+		buttonsA.whenPressed(controlPanelWheelSpinFour);
+		buttonsB.whenPressed(controlPanelWheelColor);
 		buttonsSelect.whenPressed(controlPanelArmExtend);
 		buttonsStart.whenPressed(controlPanelArmRetract);
 	}

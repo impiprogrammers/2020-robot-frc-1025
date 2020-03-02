@@ -41,13 +41,7 @@ public class TurretSynchronousAutoMode extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if(turretSubsystem.isTargetCentered() == true){
-			turretSubsystem.stopTurretMotor();
-			return true;
-		}
-		else{
-			return false;
-		}
+		return (turretSubsystem.isTargetCentered());
 	}
 }
 

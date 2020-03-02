@@ -31,7 +31,8 @@ public class ControlPanelColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    colorString = DriverStation.getInstance().getGameSpecificMessage();
+   colorString = DriverStation.getInstance().getGameSpecificMessage();
+   // colorString = "Blue";
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,23 +41,23 @@ public class ControlPanelColor extends CommandBase {
     if (colorString.length() > 0) {
       switch (colorString.charAt(0)) {
       case 'B':
-          if (controlPanelSubsystem.getCurrentColor() != Blue) {
-              controlPanelSubsystem.controlPanelManual(1.0);
+          if (controlPanelSubsystem.getCurrentColorString() != "blue") {
+              controlPanelSubsystem.controlPanelSpin(0.5);
           }
           break;
       case 'G':
-          if (controlPanelSubsystem.getCurrentColor() != Green) {
-            controlPanelSubsystem.controlPanelManual(1.0);
+          if (controlPanelSubsystem.getCurrentColorString() != "green") {
+            controlPanelSubsystem.controlPanelSpin(0.5);
           }
           break;
       case 'R':
-          if (controlPanelSubsystem.getCurrentColor() != Red) {
-            controlPanelSubsystem.controlPanelManual(1.0);
+          if (controlPanelSubsystem.getCurrentColorString() != "red") {
+            controlPanelSubsystem.controlPanelSpin(0.5);
           }
           break;
       case 'Y':
-          if (controlPanelSubsystem.getCurrentColor() != Yellow) {
-            controlPanelSubsystem.controlPanelManual(1.0);
+          if (controlPanelSubsystem.getCurrentColorString() != "yellow" ) {
+            controlPanelSubsystem.controlPanelSpin(0.5);
           }
           break;
       default:
@@ -64,18 +65,19 @@ public class ControlPanelColor extends CommandBase {
           break;
       }
   } else {
-    controlPanelSubsystem.controlPanelManual(0.0);
+    controlPanelSubsystem.controlPanelSpin(0.0);
   }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    controlPanelSubsystem.controlPanelStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (colorString.length() == 0) || (controlPanelSubsystem.getCurrentColor() == controlPanelSubsystem.getFMSColor());
+    return (colorString.length() == 0) || (controlPanelSubsystem.getCurrentColorString().equalsIgnoreCase(colorString));
   }
 }

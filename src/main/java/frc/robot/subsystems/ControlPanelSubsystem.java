@@ -50,12 +50,17 @@ public class ControlPanelSubsystem extends SubsystemBase {
     Color detectedColor;
     ColorMatchResult match;
     String colorString;
+    String currentColorString;
     double turn;
 
     public ControlPanelSubsystem() {
         controlPanelWheel.configFactoryDefault();
         setBrakeMode();
         turn = 0.75;
+        colorMatcher.addColorMatch(Blue);
+        colorMatcher.addColorMatch(Green);
+        colorMatcher.addColorMatch(Red);
+        colorMatcher.addColorMatch(Yellow);
     }
 
     @Override
@@ -65,9 +70,12 @@ public class ControlPanelSubsystem extends SubsystemBase {
         match = colorMatcher.matchClosestColor(detectedColor);
         SmartDashboard.putString("Color Sensor Detected Color (0-255)",
                 detectedColor.red * 255 + ", " + detectedColor.green * 255 + ", " + detectedColor.blue * 255);
+        SmartDashboard.putString("Color Sensor Detected Color (0-1)",
+                detectedColor.red + ", " + detectedColor.green + ", " + detectedColor.blue);
+        SmartDashboard.putString("Current Color String" , getCurrentColorString()); 
     }
 
-    public Color getCurrentColor(){
+    public Color getCurrentColor() {
         return match.color;
     }
 
@@ -94,6 +102,23 @@ public class ControlPanelSubsystem extends SubsystemBase {
         return Black;
     }
 
+    public String getCurrentColorString() {
+        if (match.color == Blue) {
+            currentColorString = "blue";
+          } else if (match.color == Red) {
+            currentColorString = "red";
+          } else if (match.color == Green) {
+            currentColorString = "green";
+          } else if (match.color == Yellow) {
+            currentColorString = "yellow";
+          } else {
+            currentColorString = "unknown";
+          }
+          return currentColorString;
+      
+
+    }
+
     public void controlPanelArmExtend() {
         controlPanelArm.set(true);
     }
@@ -102,7 +127,7 @@ public class ControlPanelSubsystem extends SubsystemBase {
         controlPanelArm.set(false);
     }
 
-     public void controlPanelManual(double speed){
+     public void controlPanelSpin(double speed){
          controlPanelWheel.set(ControlMode.PercentOutput, speed);
      }
 

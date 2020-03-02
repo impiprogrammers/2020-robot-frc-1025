@@ -14,6 +14,7 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
@@ -50,15 +51,22 @@ public class TurretSubsystem extends SubsystemBase {
 
 	public TurretSubsystem() {
 		turretMotor.setIdleMode(IdleMode.kBrake);
-
 		turretMotor.setSmartCurrentLimit(20);
+		turretMotor.setSoftLimit(SoftLimitDirection.kReverse, -Constants.Turret.RIGHT_POSITION_LIMIT);
+		turretMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.Turret.LEFT_POSITION_LIMIT);
+		turretMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
+		turretMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
 
 		turretEncoder.setPosition(0);
 
-		turretPID.setP(0.01);
-		turretPID.setI(0);
+		turretPID.setP(0.025);
+		turretPID.setI(0.000025);
 		turretPID.setD(0);
 		turretPID.setFF(0);
+		
+		turretSpin(0);
+
+		table.getEntry("getpipe").setNumber(1);
 	}
 
 	@Override
@@ -111,7 +119,7 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public boolean isTargetCentered() {
-		if(x > -.2 && x < .2 && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
+		if(x > -Constants.Turret.TARGET_CENTER_RANGE && x < Constants.Turret.TARGET_CENTER_RANGE && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
 			// if(x > -5 && x < 5){
 			return true;
 		} else {
@@ -128,14 +136,13 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public void turretSpin(double speed) {
-		turretPID.setReference(speed, ControlType.kDutyCycle);
+		turretPID.setReference(-speed, ControlType.kDutyCycle);
 	}
 
 	public double getXOffset() {
 		return x;
 	}
 
-	
 	public void zeroTurret() {
 		turretEncoder.setPosition(0);
 	}

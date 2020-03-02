@@ -10,16 +10,17 @@ package frc.robot.commands.turret;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ImpiLib2020;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class TurretTeleop extends CommandBase {
 
   private final TurretSubsystem turretSubsystem;
-  private final DoubleSupplier joyStick;
+  private final DoubleSupplier joystick;
 
-  public TurretTeleop(TurretSubsystem turretSubsystem, DoubleSupplier joyStick) {
+  public TurretTeleop(TurretSubsystem turretSubsystem, DoubleSupplier joystick) {
     this.turretSubsystem = turretSubsystem;
-    this.joyStick = joyStick;
+    this.joystick = joystick;
     addRequirements(turretSubsystem);
   }
 
@@ -32,7 +33,7 @@ public class TurretTeleop extends CommandBase {
   @Override
   public void execute() {
     if((turretSubsystem.isModeManual()) || (turretSubsystem.isModeAuto() && turretSubsystem.isTargetFound())) {
-      turretSubsystem.turretSpin(joyStick.getAsDouble());  
+      turretSubsystem.turretSpin(ImpiLib2020.parseJoystick(joystick));  
     } else {
       turretSubsystem.rotateToTarget();
     }

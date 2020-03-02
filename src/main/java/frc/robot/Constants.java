@@ -133,18 +133,24 @@ public final class Constants {
     // Turret Constants (No IDs)
     public static final class Turret {
         public static final int CURRENT_LIMIT = 20;
-        public static final double LEFT_POSITION_LIMIT = 0; // turret left, robot right
-        public static final double RIGHT_POSITION_LIMIT = 130; // turret right, robot left
+        public static final float LEFT_POSITION_LIMIT = 0; // turret left, robot right
+        public static final float RIGHT_POSITION_LIMIT = 130; // turret right, robot left
         public static final double MIN_TRACKING_HEIGHT = -20; // tbd
         public static final double AUTO_PERCENT_OUTPUT = 0.5;
+        public static final double TARGET_CENTER_RANGE = 0.2;
     }
 
     // Control Panel Colors
     public static final class ControlPanel {
-        public static final double[] blue = {0.143, 0.427, 0.429};
-        public static final double[] green = {0.197, 0.561, 0.240};
-        public static final double[] yellow = {0.361, 0.524, 0.113};
-        public static final double[] red = {0.561, 0.232, 0.114};
+        // public static final double[] blue = {0.143, 0.427, 0.429}; // <- field values
+        // public static final double[] green = {0.197, 0.561, 0.240};
+        // public static final double[] yellow = {0.361, 0.524, 0.113};
+        // public static final double[] red = {0.561, 0.232, 0.114};
+
+        public static final double[] blue = {0.149, 0.443, 0.407}; // <- practice values
+        public static final double[] green = {0.166, 0.553, 0.283};
+        public static final double[] yellow = {0.310, 0.559, 0.132};
+        public static final double[] red = {0.458, 0.366, 0.176};
     }
 
 }
