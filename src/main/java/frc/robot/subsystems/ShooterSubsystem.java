@@ -83,6 +83,10 @@ public class ShooterSubsystem extends SubsystemBase {
 		}
 	}
 
+	public double calcRPM(double area) {
+		return -1538.46 * area + 5353.85;
+	}
+
 	public boolean isShooterReady() {
 		return shooterReady;
 	}

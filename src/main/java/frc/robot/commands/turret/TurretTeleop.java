@@ -32,8 +32,8 @@ public class TurretTeleop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if((turretSubsystem.isModeManual()) || (turretSubsystem.isModeAuto() && turretSubsystem.isTargetFound())) {
-      turretSubsystem.turretSpin(ImpiLib2020.parseJoystick(joystick));  
+    if((turretSubsystem.isModeManual()) || (turretSubsystem.isModeAuto() && !turretSubsystem.isTargetFound())) {
+      turretSubsystem.turretSpin(ImpiLib2020.parseJoystick(joystick));
     } else {
       turretSubsystem.rotateToTarget();
     }

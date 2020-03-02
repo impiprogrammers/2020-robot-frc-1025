@@ -59,14 +59,16 @@ public class TurretSubsystem extends SubsystemBase {
 
 		turretEncoder.setPosition(0);
 
-		turretPID.setP(0.025);
-		turretPID.setI(0.000025);
-		turretPID.setD(0);
+		turretPID.setP(0.06);
+		//turretPID.setI(0.00002675);
+		//turretPID.setP(0.1);
+		turretPID.setI(0);
+		turretPID.setD(0.0);
 		turretPID.setFF(0);
 		
 		turretSpin(0);
 
-		table.getEntry("getpipe").setNumber(1);
+		table.getEntry("pipeline").setNumber(3);
 	}
 
 	@Override
@@ -74,6 +76,7 @@ public class TurretSubsystem extends SubsystemBase {
 		updateLimelightTracking();
 		SmartDashboard.putBoolean("tv", tv.getBoolean(false));
 		SmartDashboard.putNumber("tx", tx.getDouble(0));
+		SmartDashboard.putNumber("ta", ta.getDouble(0));
 		SmartDashboard.putNumber("Negative Error Value", -x);
 		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
 		SmartDashboard.putBoolean("Is Target Centered", isTargetCentered());
@@ -119,7 +122,7 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public boolean isTargetCentered() {
-		if(x > -Constants.Turret.TARGET_CENTER_RANGE && x < Constants.Turret.TARGET_CENTER_RANGE && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
+		if (x > -Constants.Turret.TARGET_CENTER_RANGE && x < Constants.Turret.TARGET_CENTER_RANGE && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
 			// if(x > -5 && x < 5){
 			return true;
 		} else {
@@ -129,10 +132,11 @@ public class TurretSubsystem extends SubsystemBase {
 
 	public void rotateToTarget() {
 		turretPID.setReference(turretEncoder.getPosition() - getXOffset(), ControlType.kPosition);
+		
 	}
 
 	public void rotateToAngle(double encoderPosition) {
-		turretPID.setReference(encoderPosition, ControlType.kPosition);
+		turretPID.setReference(-encoderPosition, ControlType.kPosition);
 	}
 
 	public void turretSpin(double speed) {
@@ -141,6 +145,10 @@ public class TurretSubsystem extends SubsystemBase {
 
 	public double getXOffset() {
 		return x;
+	}
+
+	public double getArea() {
+		return area;
 	}
 
 	public void zeroTurret() {

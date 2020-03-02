@@ -100,9 +100,9 @@ public class RobotContainer {
 	private final IntakeArmRetract intakeArmRetract = new IntakeArmRetract(intakeSubsystem);
 	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll(intakeSubsystem, buttonsRightTrigger, buttonsLeftTrigger);
 
-	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, 5700);
+	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, turretSubsystem, 4060);
 	private final ShooterStop shooterStop = new ShooterStop(shooterSubsystem);
-	private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4060);
+	// private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4060);
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll(conveyorSubsystem, buttonsRightJoystickY);
 	private final ConveyorRollFailsafe conveyorRollFailsafe = new ConveyorRollFailsafe(conveyorSubsystem, buttonsRightJoystickY);
 	private final ConveyorStop conveyorStop = new ConveyorStop(conveyorSubsystem);
@@ -186,7 +186,7 @@ public class RobotContainer {
 		buttonsX.whenPressed(turretSetManualMode);
 		buttonsY.whenPressed(turretSetAutoMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
-		buttonsRightBumper.whenPressed(shooterToggle);
+		buttonsRightBumper.toggleWhenPressed(shooterShoot);
 		buttonsA.whenPressed(controlPanelWheelSpinFour);
 		buttonsB.whenPressed(controlPanelWheelColor);
 		buttonsSelect.whenPressed(controlPanelArmExtend);

@@ -137,7 +137,7 @@ public final class Constants {
         public static final float RIGHT_POSITION_LIMIT = 130; // turret right, robot left
         public static final double MIN_TRACKING_HEIGHT = -20; // tbd
         public static final double AUTO_PERCENT_OUTPUT = 0.5;
-        public static final double TARGET_CENTER_RANGE = 0.2;
+        public static final double TARGET_CENTER_RANGE = 0.5;
     }
 
     // Control Panel Colors
