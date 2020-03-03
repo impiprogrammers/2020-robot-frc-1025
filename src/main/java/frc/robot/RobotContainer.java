@@ -100,7 +100,7 @@ public class RobotContainer {
 	private final IntakeArmRetract intakeArmRetract = new IntakeArmRetract(intakeSubsystem);
 	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll(intakeSubsystem, buttonsRightTrigger, buttonsLeftTrigger);
 
-	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, turretSubsystem, 4060);
+	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, turretSubsystem, 4300);
 	private final ShooterStop shooterStop = new ShooterStop(shooterSubsystem);
 	// private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4060);
 	private final ShooterTeleop shooterTeleop = new ShooterTeleop(shooterSubsystem);

@@ -26,9 +26,9 @@ public class ShooterShoot extends CommandBase {
 	@Override
 	public void execute() {
 		shooterSubsystem.shoot(setpoint);
-		if (turretSubsystem.isTargetFound()) {
-			shooterSubsystem.shoot(shooterSubsystem.calcRPM(turretSubsystem.getArea()));
-		}
+		// if (turretSubsystem.isTargetFound()) {
+		// 	shooterSubsystem.shoot(shooterSubsystem.calcRPM(turretSubsystem.getArea()));
+		// }
 	}
 
 	// Called once the command ends or is interrupted.
