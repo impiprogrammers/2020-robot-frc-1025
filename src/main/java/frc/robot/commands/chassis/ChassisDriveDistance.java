@@ -29,6 +29,7 @@ public class ChassisDriveDistance extends CommandBase {
 	public void initialize() {
 		chassisSubsystem.resetEncoders();
 		chassisSubsystem.resetGyro();
+		chassisSubsystem.setBrakeMode();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.

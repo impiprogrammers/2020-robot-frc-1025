@@ -44,10 +44,9 @@ public class AutoLeft8b extends SequentialCommandGroup {
 			 */
 			
 			// Part 1
-			new ChassisSetBrakeMode(chassisSubsystem),
 			new AutoIntakeOn(intakeSubsystem),
-			new ShooterSetAuto(shooterSubsystem, 4400),
-			new TurretSpinToAngle(turretSubsystem, 80),
+			new ShooterSetAuto(shooterSubsystem, 4600),
+			new TurretSpinToAngle(turretSubsystem, 70),
 			new ChassisDriveDistance(chassisSubsystem, 2.7432, Constants.Chassis.AUTO_SPEED), // 108 inches
 			new ParallelRaceGroup(
 				new TurretTrackTarget(turretSubsystem),
@@ -55,31 +54,40 @@ public class AutoLeft8b extends SequentialCommandGroup {
 					new WaitCommand(0.5),
 					// new TurretTurnToTarget(turretSubsystem),
 					new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
-					new ConveyorSetAuto(conveyorSubsystem, -0.5),
-					new WaitCommand(3.5),
+					new ConveyorSetAuto(conveyorSubsystem, -0.7),
+					new WaitCommand(5),
 					// new ShooterStop(shooterSubsystem)
 					new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
 
 					// Part 2
-					new ConveyorSetAuto(conveyorSubsystem, -0.6)
+					new ConveyorSetAuto(conveyorSubsystem, -0.8)
 					// new TurretSetManualMode(turretSubsystem, true),
 					// new ShooterSetAuto(shooterSubsystem, 4400)
 				)
 			),
 			// new TurretSetManualMode(turretSubsystem, true),
-			new ChassisDriveDistance(chassisSubsystem, 3., .7), // 72 inches
-			new WaitCommand(.3),
+			new TurretSpinToAngle(turretSubsystem, 50),
+			new ChassisDriveDistance(chassisSubsystem, 2.5, .7), // 72 inches
+			new IntakeRollersSetAuto(intakeSubsystem, 0.3),
+			new ChassisDriveDistance(chassisSubsystem, 0.5, .7),
+			new WaitCommand(.15),
 			// new AutoIntakeOff(intakeSubsystem),
 			// new TurretSetManualMode(turretSubsystem, false),
 			new ParallelRaceGroup(
 				new TurretTrackTarget(turretSubsystem),
 				new SequentialCommandGroup(
-					new ConveyorSetAuto(conveyorSubsystem, 0), new ChassisDriveDistance(chassisSubsystem, 3, -.6),
+					new ConveyorSetAuto(conveyorSubsystem, 0),
+					new IntakeRollersSetAuto(intakeSubsystem, 0),
+					new ChassisDriveDistance(chassisSubsystem, 3, -0.6),
 					// new TurretTurnToTarget(turretSubsystem),
-					new IntakeRollersSetAuto(intakeSubsystem, 0.6),
+					// new IntakeRollersSetAuto(intakeSubsystem, 0.6),
 					new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
-					new ConveyorSetAuto(conveyorSubsystem, -0.8), new WaitCommand(6),
-					new ConveyorSetAuto(conveyorSubsystem, 0), new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
+					new ConveyorSetAuto(conveyorSubsystem, -0.8), 
+					new WaitCommand(2),
+					new IntakeRollersSetAuto(intakeSubsystem, 1),
+					new WaitCommand(4),
+					new ConveyorSetAuto(conveyorSubsystem, 0),
+					new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
 					new ShooterStop(shooterSubsystem), new AutoIntakeOff(intakeSubsystem)
 				)
 			)

@@ -103,6 +103,8 @@ public class RobotContainer {
 	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, turretSubsystem, 4060);
 	private final ShooterStop shooterStop = new ShooterStop(shooterSubsystem);
 	// private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4060);
+	private final ShooterTeleop shooterTeleop = new ShooterTeleop(shooterSubsystem);
+
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll(conveyorSubsystem, buttonsRightJoystickY);
 	private final ConveyorRollFailsafe conveyorRollFailsafe = new ConveyorRollFailsafe(conveyorSubsystem, buttonsRightJoystickY);
 	private final ConveyorStop conveyorStop = new ConveyorStop(conveyorSubsystem);
@@ -146,6 +148,7 @@ public class RobotContainer {
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
 		shimmySubsystem.setDefaultCommand(shimmyMove);
+		shooterSubsystem.setDefaultCommand(shooterTeleop);
 		//ledSubsystem.setDefaultCommand(updateLights);
 		
 		
