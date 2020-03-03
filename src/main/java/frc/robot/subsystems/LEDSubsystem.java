@@ -18,18 +18,18 @@ public class LEDSubsystem extends SubsystemBase {
    */
 
   private AddressableLED led = new AddressableLED(0);
-	private static AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(150);
-  private static int timer = 0;
+  private static AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(150);
   
   public LEDSubsystem() {
     led.setLength(ledBuffer.getLength());
 
 		led.setData(ledBuffer);
 		led.start();
-
   }
 
-  public void updateLEDs() {}
+  public void setLEDBuffer() {
+	  led.setData(ledBuffer);
+  }
 
   public void setLEDsTop(int h, int s, int v) {
 	for (var i = 0; i < ledBuffer.getLength(); i++) {
@@ -37,7 +37,6 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
-	led.setData(ledBuffer);
   }
   
   public void setLEDsBottom(int h, int s, int v) {
@@ -46,7 +45,6 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
-	led.setData(ledBuffer);
   }
  
   public void setLEDsTopRight(int h, int s, int v) {
@@ -55,7 +53,6 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
-	led.setData(ledBuffer);
 	setLEDsTopLeft(0, 0, 0);
   }
   
@@ -65,7 +62,6 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
-	led.setData(ledBuffer);
 	setLEDsTopRight(0, 0, 0);
   }
 
@@ -75,7 +71,6 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
-	led.setData(ledBuffer);
 	setLEDsBottomLeft(0, 0, 0);
   }
 
@@ -85,22 +80,20 @@ public class LEDSubsystem extends SubsystemBase {
 			ledBuffer.setHSV(i, h, s, v);
 		}
 	}
-	led.setData(ledBuffer);
 	setLEDsBottomRight(0, 0, 0);
   }
 
   public void setLEDsOff() {
-		for (var i = 0; i < ledBuffer.getLength(); i++) {
-			ledBuffer.setHSV(i, 0, 0, 0);
+	for (var i = 0; i < ledBuffer.getLength(); i++) {
+		ledBuffer.setHSV(i, 0, 0, 0);
     }
-    led.setData(ledBuffer);
-	}
-
+  }
+	  
+  	/*
 	public void setLEDsSolidOrange() {
 		for (var i = 0; i < ledBuffer.getLength(); i++) {
 			ledBuffer.setHSV(i, 30 / 2, 255, 255);
-    }
-    led.setData(ledBuffer);
+    	}
 	}
 
 	public void setLEDsFlashBlueRight() {
@@ -245,8 +238,10 @@ public class LEDSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+  // This method will be called once per scheduler run
+  
   }
+  */
 }
 /*
 /give @p minecraft:netherite_sword {Enchantment:[{id:sharpness,lvl:32767}]}
