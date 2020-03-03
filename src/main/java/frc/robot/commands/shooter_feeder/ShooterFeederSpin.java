@@ -31,6 +31,11 @@ public class ShooterFeederSpin extends CommandBase {
     }
 
     @Override
+	public void end(boolean interrupted) {
+		shooterFeederSubsystem.stop();
+	}
+
+    @Override
     public boolean isFinished() {
         return false;
     }

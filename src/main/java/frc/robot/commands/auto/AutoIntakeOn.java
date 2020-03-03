@@ -14,6 +14,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class AutoIntakeOn extends SequentialCommandGroup {
 
+	// ask mitch if this class should be removed
 	public AutoIntakeOn(IntakeSubsystem intakeSubsystem) {
 		super(
 			new IntakeArmExtend(intakeSubsystem),

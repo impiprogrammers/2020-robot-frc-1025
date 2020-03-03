@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		// CommandScheduler.getInstance().cancelAll(); // remove this later
+		//CommandScheduler.getInstance().cancelAll(); // remove this later
 	}
 
 	@Override
