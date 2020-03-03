@@ -5,22 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.control_panel;
+package frc.robot.commands.chassis;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.ControlPanelSubsystem;
+import frc.robot.subsystems.ChassisSubsystem;
 
-public class ControlPanelWheelColor extends InstantCommand {
-	ControlPanelSubsystem controlPanelSubsystem;
+public class ChassisSetBrakeMode extends InstantCommand {
 
-	public ControlPanelWheelColor(ControlPanelSubsystem controlPanelSubsystem) {
-		addRequirements(controlPanelSubsystem);
+	private final ChassisSubsystem chassisSubsystem;
+
+	public ChassisSetBrakeMode(ChassisSubsystem chassisSubsystem) {
+		this.chassisSubsystem = chassisSubsystem;
+		addRequirements(chassisSubsystem);			
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		controlPanelSubsystem.controlPanelWheelColor();
+		chassisSubsystem.setBrakeMode();
 	}
-
 }

@@ -21,7 +21,7 @@ package frc.robot;
 public final class Constants {
 
     // CAN Port IDs
-    public final class CAN {
+    public static final class CAN {
         public static final int PCM_MODULE_PORT = 1;
 
         // Chassis
@@ -57,7 +57,7 @@ public final class Constants {
     }
 
     // PCM Port IDs
-    public final class PCM {
+    public static final class PCM {
         // Intake
         public static final int INTAKE_EXTENDER_CHANNEL = 0;
 
@@ -71,18 +71,18 @@ public final class Constants {
     }
 
     // USB Port IDs
-    public final class OI {
+    public static final class OI {
         public static final int XBOX_CONTROLLER_DRIVER = 0;
         public static final int XBOX_CONTROLLER_BUTTONS = 1;
     }
 
     // Sensor Constants
-    public final class Sensor{
+    public static final class Sensor{
         public static final int TUNNEL_SENSOR_PORT = 0;
     }
 
     // Chassis Constants (No IDs)
-    public final class Chassis {
+    public static final class Chassis {
         public static final double CURRENT_LIMIT = 40;
         public static final double AUTO_FFS = 0.2;
         public static final double AUTO_FFV = 2.3;
@@ -95,28 +95,28 @@ public final class Constants {
         public static final double WHEEL_DIAMETER = 0.1524;
         public static final double GEAR_RATIO = 8.68;
         public static final boolean GYRO_REVERSED = false;
-        public static final double AUTO_PERCENT_OUTPUT = 0.5;
+        public static final double AUTO_SPEED = 0.7;
     }
 
     // Intake Constants (No IDs)
-    public final class Intake {
+    public static final class Intake {
         public static final double AUTO_MIN_INTAKE_DURATION = 2;
     }
 
     // Conveyor Constants (No IDs)
-    public final class Conveyor {
-        public static final double AUTO_SPEED = .5;
+    public static final class Conveyor {
+        public static final double AUTO_SPEED = -0.6;
 		public static final double TUNNEL_JAMMED_VOLTAGE = 2;
 		public static final double TUNNEL_TIMER_LIMIT = 2500;
     }
 
     // Shooter Feeder Constants (No IDs)
-    public final class ShooterFeeder {
+    public static final class ShooterFeeder {
         public static final double AUTO_SPEED = 1;
     }
 
     // Shooter Constants (No IDs)
-    public final class Shooter {
+    public static final class Shooter {
         public static final int CURRENT_LIMIT = 40;
         public static final double SHOOT_P = 0.0001;
         public static final double SHOOT_I = 0.0000001;
@@ -125,18 +125,32 @@ public final class Constants {
         public static final double SHOOT_OUTPUT_MIN = -1;
         public static final double SHOOT_OUTPUT_MAX = 1;
         public static final double CHARGE_DURATION = 1;
-        public static final double AUTO_SHOOT_DURATION = 5;
-        public static final double AUTO_SETPOINT = 4200;
+        public static final double AUTO_SHOOT_DURATION = 4;
+        public static final double AUTO_SETPOINT = 4160;
         public static final double TELEOP_SETPOINT = 4500;
     }
 
     // Turret Constants (No IDs)
-    public final class Turret {
+    public static final class Turret {
         public static final int CURRENT_LIMIT = 20;
-        public static final double LEFT_POSITION_LIMIT = 0; // turret left, robot right
-        public static final double RIGHT_POSITION_LIMIT = 130; // turret right, robot left
+        public static final float LEFT_POSITION_LIMIT = 0; // turret left, robot right
+        public static final float RIGHT_POSITION_LIMIT = 130; // turret right, robot left
         public static final double MIN_TRACKING_HEIGHT = -20; // tbd
         public static final double AUTO_PERCENT_OUTPUT = 0.5;
+        public static final double TARGET_CENTER_RANGE = 0.5;
+    }
+
+    // Control Panel Colors
+    public static final class ControlPanel {
+        // public static final double[] blue = {0.143, 0.427, 0.429}; // <- field values
+        // public static final double[] green = {0.197, 0.561, 0.240};
+        // public static final double[] yellow = {0.361, 0.524, 0.113};
+        // public static final double[] red = {0.561, 0.232, 0.114};
+
+        public static final double[] blue = {0.149, 0.443, 0.407}; // <- practice values
+        public static final double[] green = {0.166, 0.553, 0.283};
+        public static final double[] yellow = {0.310, 0.559, 0.132};
+        public static final double[] red = {0.458, 0.366, 0.176};
     }
 
 }

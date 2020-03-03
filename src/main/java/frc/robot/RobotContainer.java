@@ -100,9 +100,9 @@ public class RobotContainer {
 	private final IntakeArmRetract intakeArmRetract = new IntakeArmRetract(intakeSubsystem);
 	private final IntakeRollersRoll intakeRollersRoll = new IntakeRollersRoll(intakeSubsystem, buttonsRightTrigger, buttonsLeftTrigger);
 
-	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, 5700);
+	private final ShooterShoot shooterShoot = new ShooterShoot(shooterSubsystem, turretSubsystem, 4060);
 	private final ShooterStop shooterStop = new ShooterStop(shooterSubsystem);
-	private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4060);
+	// private final ShooterToggle shooterToggle = new ShooterToggle(shooterSubsystem, 4060);
 	private final ConveyorRoll conveyorRoll = new ConveyorRoll(conveyorSubsystem, buttonsRightJoystickY);
 	private final ConveyorRollFailsafe conveyorRollFailsafe = new ConveyorRollFailsafe(conveyorSubsystem, buttonsRightJoystickY);
 	private final ConveyorStop conveyorStop = new ConveyorStop(conveyorSubsystem);
@@ -121,14 +121,17 @@ public class RobotContainer {
 
 	private final TurretSpin turretSpin = new TurretSpin(turretSubsystem, buttonsLeftJoystickX);
 	private final TurretRezero turretRezero = new TurretRezero(turretSubsystem);
+	private final TurretTeleop turretTeleop = new TurretTeleop(turretSubsystem, buttonsLeftJoystickX);
 	private final TurretToggleManualMode turretToggleManualMode = new TurretToggleManualMode(turretSubsystem);
 	private final TurretSetManualMode turretSetManualMode = new TurretSetManualMode(turretSubsystem, true);
 	private final TurretSetManualMode turretSetAutoMode = new TurretSetManualMode(turretSubsystem, false);
+	private final TurretTrackTarget turretTrackTarget = new TurretTrackTarget(turretSubsystem);
+	private final TurretTurnToTarget turretTurnToTarget = new TurretTurnToTarget(turretSubsystem);
 
 	private final ControlPanelArmExtend controlPanelArmExtend = new ControlPanelArmExtend(controlPanelSubsystem);
 	private final ControlPanelArmRetract controlPanelArmRetract = new ControlPanelArmRetract(controlPanelSubsystem);
-	private final ControlPanelWheelColor controlPanelWheelColor = new ControlPanelWheelColor(controlPanelSubsystem);
-	private final ControlPanelWheelSpinFour controlPanelWheelSpinFour = new ControlPanelWheelSpinFour(controlPanelSubsystem);
+	private final ControlPanelColor controlPanelWheelColor = new ControlPanelColor(controlPanelSubsystem);
+	private final ControlPanelSpinFour controlPanelWheelSpinFour = new ControlPanelSpinFour(controlPanelSubsystem);
 
 	private final UpdateLights updateLights = new UpdateLights(ledSubsystem, shooterSubsystem, turretSubsystem);
 
@@ -138,7 +141,7 @@ public class RobotContainer {
  	public RobotContainer() {
 		chassisSubsystem.setDefaultCommand(chassisDrive);
 		climberSubsystem.setDefaultCommand(climberWinchMove);
-		turretSubsystem.setDefaultCommand(turretSpin);
+		turretSubsystem.setDefaultCommand(turretTeleop);
 		conveyorSubsystem.setDefaultCommand(conveyorRoll);
 		intakeSubsystem.setDefaultCommand(intakeRollersRoll);
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
@@ -183,9 +186,9 @@ public class RobotContainer {
 		buttonsX.whenPressed(turretSetManualMode);
 		buttonsY.whenPressed(turretSetAutoMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
-		buttonsRightBumper.whenPressed(shooterToggle);
-		//buttonsA.whenPressed(controlPanelWheelSpinFour);
-		//buttonsB.whenPressed(controlPanelWheelColor);
+		buttonsRightBumper.toggleWhenPressed(shooterShoot);
+		buttonsA.whenPressed(controlPanelWheelSpinFour);
+		buttonsB.whenPressed(controlPanelWheelColor);
 		buttonsSelect.whenPressed(controlPanelArmExtend);
 		buttonsStart.whenPressed(controlPanelArmRetract);
 	}

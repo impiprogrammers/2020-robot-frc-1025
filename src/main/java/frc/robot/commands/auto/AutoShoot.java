@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.conveyor.ConveyorSetAuto;
-import frc.robot.commands.shooter.ShooterShoot;
+import frc.robot.commands.shooter.ShooterSetAuto;
 import frc.robot.commands.shooter.ShooterStop;
 import frc.robot.commands.shooter_feeder.ShooterFeederSetAuto;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -22,7 +22,7 @@ public class AutoShoot extends SequentialCommandGroup {
 
 	public AutoShoot(ConveyorSubsystem conveyorSubsystem, ShooterFeederSubsystem shooterFeederSubsystem, ShooterSubsystem shooterSubsystem) {
 		super(
-			new ShooterShoot(shooterSubsystem, Constants.Shooter.AUTO_SETPOINT),
+			new ShooterSetAuto(shooterSubsystem, Constants.Shooter.AUTO_SETPOINT),
 			new WaitCommand(Constants.Shooter.CHARGE_DURATION),
 			new ShooterFeederSetAuto(shooterFeederSubsystem, Constants.ShooterFeeder.AUTO_SPEED),
 			new ConveyorSetAuto(conveyorSubsystem, Constants.Conveyor.AUTO_SPEED),

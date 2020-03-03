@@ -5,23 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.control_panel;
+package frc.robot.commands.chassis;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.ControlPanelSubsystem;
+import frc.robot.subsystems.ChassisSubsystem;
 
-public class ControlPanelWheelSpinFour extends InstantCommand {
+public class ChassisSetCoastMode extends InstantCommand {
 
-	private final ControlPanelSubsystem controlPanelSubsystem;
+	private final ChassisSubsystem chassisSubsystem;
 
-	public ControlPanelWheelSpinFour(ControlPanelSubsystem controlPanelSubsystem) {
-		this.controlPanelSubsystem = controlPanelSubsystem;
-		addRequirements(controlPanelSubsystem);
+	public ChassisSetCoastMode(ChassisSubsystem chassisSubsystem) {
+		this.chassisSubsystem = chassisSubsystem;
+		addRequirements(chassisSubsystem);			
 	}
 
+	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		controlPanelSubsystem.controlPanelWheelSpinFour();
+		chassisSubsystem.setCoastMode();
 	}
-
 }
