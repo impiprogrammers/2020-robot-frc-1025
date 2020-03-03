@@ -7,7 +7,7 @@
 
 package frc.robot.commands.led;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -19,7 +19,7 @@ public class UpdateLights extends CommandBase {
 	private final ShooterSubsystem shooterSubsystem;
 	private final TurretSubsystem turretSubsystem;
 
-	private static int timer = 0;
+	private final Timer timer = new Timer();
 
 	public UpdateLights(LEDSubsystem ledSubsystem, ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem) {
 		this.ledSubsystem = ledSubsystem;
@@ -31,36 +31,26 @@ public class UpdateLights extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		timer.start();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {		
-
 		double xOffset = turretSubsystem.getXOffset();
-		int shooterStatus = 0;
-		double shooterVelocity = Math.abs(shooterSubsystem.getShooterVelocity());
-		SmartDashboard.putNumber("Shooter Velocity", shooterVelocity);
-		if (shooterVelocity > 100) {
-			shooterStatus = 1;
-		} else {
-			shooterStatus = 0;
-		}
 
 		if (turretSubsystem.isModeAuto()) {
-
-			// set LEDs Bottom (Auto)
-			if (turretSubsystem.isTargetCentered()) {
-				if (xOffset >= 1 && xOffset <= 2) {
+			if(turretSubsystem.isTargetFound()) {
+				if (turretSubsystem.isTargetCentered()) {
 					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
-				} else {
-					if (xOffset < 1) {
+				 } else {
+					if (xOffset < 0) {
 						if (turretSubsystem.turretAtLeftSoftStop()) {
 							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
 						} else {
 							ledSubsystem.setLEDsBottom(42 / 2, 255, 255); // yellow
 						}
-					} else if (xOffset > 2) {
+					} else if (xOffset > 0) {
 						if (turretSubsystem.turretAtRightSoftStop()) {
 							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
 						} else {
@@ -69,26 +59,21 @@ public class UpdateLights extends CommandBase {
 					}
 				}
 			} else {
-				ledSubsystem.setLEDsBottom(0 / 2, 255, 255); // red
+				ledSubsystem.setLEDsBottom(0/2, 255, 255); // red
 			}
-
-			
 		} else {
-			
-			// set LEDs
-
 			// set Bottom LEDs (Manual)
-			if (turretSubsystem.isTargetCentered()) {
-				if (xOffset >= 1 && xOffset <= 2) {
+			if(turretSubsystem.isTargetFound()) {
+				if (turretSubsystem.isTargetCentered()) {
 					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
 				} else {
-					if (xOffset < 1) {
+					if (xOffset < 0) {
 						if (turretSubsystem.turretAtLeftSoftStop()) {
 							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
 						} else {
 							ledSubsystem.setLEDsBottomRight(42 / 2, 255, 255); // yellow
 						}
-					} else if (xOffset > 2) {
+					} else if (xOffset > 0) {
 						if (turretSubsystem.turretAtRightSoftStop()) {
 							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
 						} else {
@@ -102,7 +87,9 @@ public class UpdateLights extends CommandBase {
 		}
 
 		// set Top LEDs
-		if (shooterStatus == 1) {
+		double shooterVelocity = Math.abs(shooterSubsystem.getShooterVelocity());
+
+		if (shooterVelocity > 100) {
 			if (shooterVelocity >= 4500) {
 				ledSubsystem.setLEDsTop(115 / 2, 255, 255); // green
 			} else {
@@ -111,11 +98,10 @@ public class UpdateLights extends CommandBase {
 		} else {
 			ledSubsystem.setLEDsTop(0 / 2, 0, 0); // off
 		}
-		
-		timer++;
-		if(timer >= 15) {
+
+		if(timer.get() > 0.1) {
 			ledSubsystem.setLEDBuffer();
-			timer = 0;
+			timer.reset();
 		}
 	}
 
