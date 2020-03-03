@@ -190,10 +190,12 @@ public class RobotContainer {
 		buttonsY.whenPressed(turretSetAutoMode);
 		buttonsLeftBumper.whenPressed(intakeExtenderToggle);
 		buttonsRightBumper.toggleWhenPressed(shooterShoot);
-		buttonsA.whenPressed(controlPanelWheelSpinFour);
-		buttonsB.whenPressed(controlPanelWheelColor);
+		buttonsA.toggleWhenPressed(controlPanelWheelSpinFour);
+		buttonsB.toggleWhenPressed(controlPanelWheelColor);
 		buttonsSelect.whenPressed(controlPanelArmExtend);
 		buttonsStart.whenPressed(controlPanelArmRetract);
+
+		driverX.toggleWhenPressed(new ConveyorRollCosineAuto(conveyorSubsystem, 0.5, 0.5, 0.5));
 	}
 
 	/**
