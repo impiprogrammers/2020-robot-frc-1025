@@ -194,6 +194,8 @@ public class RobotContainer {
 		buttonsB.whenPressed(controlPanelWheelColor);
 		buttonsSelect.whenPressed(controlPanelArmExtend);
 		buttonsStart.whenPressed(controlPanelArmRetract);
+
+		driverX.toggleWhenPressed(new ConveyorRollCosineAuto(conveyorSubsystem, 0.5, 0.5, 0.5));
 	}
 
 	/**

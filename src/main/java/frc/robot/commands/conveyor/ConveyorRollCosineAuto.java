@@ -7,41 +7,42 @@
 
 package frc.robot.commands.conveyor;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ConveyorSubsystem;
 
 public class ConveyorRollCosineAuto extends CommandBase {
 
 	private final ConveyorSubsystem conveyorSubsystem;
-	private final double speed;
-	private final double intercept;
+	private final double amplitude;
 	private final double period;
+	private final double intercept;
+	private final Timer timer = new Timer();
 
-	private double iteration = 0;
-
-	public ConveyorRollCosineAuto(ConveyorSubsystem conveyorSubsystem, double speed, double intercept, double period) {
+	public ConveyorRollCosineAuto(ConveyorSubsystem conveyorSubsystem, double amplitude, double period, double intercept) {
 		this.conveyorSubsystem = conveyorSubsystem;
-		this.speed = speed;
-		this.intercept = intercept;
+		this.amplitude = amplitude;
 		this.period = period;
+		this.intercept = intercept;
 		addRequirements(conveyorSubsystem);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		timer.start();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		iteration++;
-		conveyorSubsystem.conveyorRoll(speed * Math.cos(iteration / period) + intercept);
+		conveyorSubsystem.conveyorRoll(amplitude * Math.cos(2 * Math.PI * timer.get() / period) + intercept);
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		timer.stop();
 	}
 
 	// Returns true when the command should end.
