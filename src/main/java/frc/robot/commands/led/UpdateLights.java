@@ -90,7 +90,7 @@ public class UpdateLights extends CommandBase {
 		double shooterVelocity = Math.abs(shooterSubsystem.getShooterVelocity());
 
 		if (shooterVelocity > 100) {
-			if (shooterVelocity >= 4500) {
+			if (shooterSubsystem.isShooterReady()) {
 				ledSubsystem.setLEDsTop(115 / 2, 255, 255); // green
 			} else {
 				ledSubsystem.setLEDsTop(42 / 2, 255, 255); // yellow
@@ -99,7 +99,7 @@ public class UpdateLights extends CommandBase {
 			ledSubsystem.setLEDsTop(0 / 2, 0, 0); // off
 		}
 
-		if(timer.get() > 0.1) {
+		if (timer.get() > 0.1) {
 			ledSubsystem.setLEDBuffer();
 			timer.reset();
 		}

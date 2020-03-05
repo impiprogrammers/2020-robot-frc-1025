@@ -154,6 +154,8 @@ public class RobotContainer {
 		
 		configureButtonBindings();
 
+		SmartDashboard.putData("Run Shooter Backwards", new ShooterSetAuto(shooterSubsystem, -2000));
+
 		// Configure Auto Chooser
 		try {
 			autoChooser.setDefaultOption("Left 3", new AutoLeft3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));

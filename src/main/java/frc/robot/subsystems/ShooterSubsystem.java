@@ -35,6 +35,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	// Booleans
 	private boolean shooterEnabled = false;
 	private boolean shooterReady = false;
+	private double shooterSetpoint = 0;
 	private Timer timer = new Timer();
 
 
@@ -64,6 +65,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	public void shoot(double setpoint) {
 		pidLeft.setReference(-setpoint, ControlType.kVelocity);
 		timer.reset();
+		shooterSetpoint = -setpoint;
 		shooterEnabled = true;
 		shooterReady = false;
 		SmartDashboard.putNumber("Shooter Set RPM", setpoint);
@@ -88,7 +90,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 
 	public boolean isShooterReady() {
-		return shooterReady;
+		return shooterEncoder.getVelocity() > (shooterSetpoint - 225);
 	}
 
     public boolean isShooterEnabled() {
