@@ -7,21 +7,20 @@
 
 package frc.robot.commands.control_panel;
 
-import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
 public class ControlPanelColor extends CommandBase {
   private final ControlPanelSubsystem controlPanelSubsystem;
-  private final Color Blue = ColorMatch.makeColor(Constants.ControlPanel.blue[0] , Constants.ControlPanel.blue[1] , Constants.ControlPanel.blue[2]);
-  private final Color Green = ColorMatch.makeColor(Constants.ControlPanel.green[0] , Constants.ControlPanel.green[1] , Constants.ControlPanel.green[2]);
-  private final Color Red = ColorMatch.makeColor(Constants.ControlPanel.red[0] , Constants.ControlPanel.red[1] , Constants.ControlPanel.red[2]);
-  private final Color Yellow = ColorMatch.makeColor(Constants.ControlPanel.yellow[0] , Constants.ControlPanel.yellow[1] , Constants.ControlPanel.yellow[2]);
+  
   String colorString;
+  private Color detectedColor;
+  private ColorMatchResult match;
 
   public ControlPanelColor(ControlPanelSubsystem controlPanelSubsystem) {
     this.controlPanelSubsystem = controlPanelSubsystem;
@@ -32,41 +31,23 @@ public class ControlPanelColor extends CommandBase {
   @Override
   public void initialize() {
    colorString = DriverStation.getInstance().getGameSpecificMessage();
+   detectedColor = controlPanelSubsystem.getColorSensor().getColor();
+   match = controlPanelSubsystem.getColorMatch().matchClosestColor(detectedColor);
+   controlPanelSubsystem.controlPanelSpin(0.5);
+        SmartDashboard.putString("Color Sensor Detected Color (0-255)",
+                detectedColor.red * 255 + ", " + detectedColor.green * 255 + ", " + detectedColor.blue * 255);
+        SmartDashboard.putString("Color Sensor Detected Color (0-1)",
+                detectedColor.red + ", " + detectedColor.green + ", " + detectedColor.blue);
+        SmartDashboard.putString("Current Color String" , controlPanelSubsystem.getCurrentColorString(match.color)); 
    // colorString = "Blue";
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (colorString.length() > 0) {
-      switch (colorString.charAt(0)) {
-      case 'B':
-          if (controlPanelSubsystem.getCurrentColorString() != "blue") {
-              controlPanelSubsystem.controlPanelSpin(0.5);
-          }
-          break;
-      case 'G':
-          if (controlPanelSubsystem.getCurrentColorString() != "green") {
-            controlPanelSubsystem.controlPanelSpin(0.5);
-          }
-          break;
-      case 'R':
-          if (controlPanelSubsystem.getCurrentColorString() != "red") {
-            controlPanelSubsystem.controlPanelSpin(0.5);
-          }
-          break;
-      case 'Y':
-          if (controlPanelSubsystem.getCurrentColorString() != "yellow" ) {
-            controlPanelSubsystem.controlPanelSpin(0.5);
-          }
-          break;
-      default:
-          // This is corrupt data
-          break;
-      }
-  } else {
-    controlPanelSubsystem.controlPanelSpin(0.0);
-  }
+    detectedColor = controlPanelSubsystem.getColorSensor().getColor();
+    match = controlPanelSubsystem.getColorMatch().matchClosestColor(detectedColor);
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -78,6 +59,6 @@ public class ControlPanelColor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (colorString.length() == 0) || (controlPanelSubsystem.getCurrentColorString().equalsIgnoreCase(colorString));
+    return (colorString.length() == 0) || (controlPanelSubsystem.getOffsetColorString(match.color).equalsIgnoreCase(colorString));
   }
 }

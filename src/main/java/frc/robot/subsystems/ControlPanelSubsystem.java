@@ -14,13 +14,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.I2C;
 
 import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorMatchResult;
 
 import com.revrobotics.ColorMatch;
-import edu.wpi.first.wpilibj.DriverStation;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -28,10 +25,10 @@ import frc.robot.Constants;
 public class ControlPanelSubsystem extends SubsystemBase {
 
     // Motor Controllers
-    TalonSRX controlPanelWheel = new TalonSRX(Constants.CAN.CONTROL_PANEL_WHEEL_PORT);
+    private final TalonSRX controlPanelWheel = new TalonSRX(Constants.CAN.CONTROL_PANEL_WHEEL_PORT);
 
     // Solenoids
-    Solenoid controlPanelArm = new Solenoid(Constants.CAN.PCM_MODULE_PORT, Constants.PCM.CONTROL_PANEL_PISTON_CHANNEL);
+    private final Solenoid controlPanelArm = new Solenoid(Constants.CAN.PCM_MODULE_PORT, Constants.PCM.CONTROL_PANEL_PISTON_CHANNEL);
 
     // i2c Port
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -39,84 +36,64 @@ public class ControlPanelSubsystem extends SubsystemBase {
     // Color Sensor
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private final ColorMatch colorMatcher = new ColorMatch();
-    private final Color Red = ColorMatch.makeColor(Constants.ControlPanel.red[0] , Constants.ControlPanel.red[1] , Constants.ControlPanel.red[2]);;
-    private final Color Blue = ColorMatch.makeColor(Constants.ControlPanel.blue[0] , Constants.ControlPanel.blue[1] , Constants.ControlPanel.blue[2]);
-    private final Color Green = ColorMatch.makeColor(Constants.ControlPanel.green[0] , Constants.ControlPanel.green[1] , Constants.ControlPanel.green[2]);
-    private final Color Yellow = ColorMatch.makeColor(Constants.ControlPanel.yellow[0] , Constants.ControlPanel.yellow[1] , Constants.ControlPanel.yellow[2]);;
-    private final Color Black = ColorMatch.makeColor(0.0, 0.0, 0.0);
+    private final Color red = ColorMatch.makeColor(Constants.ControlPanel.red[0] , Constants.ControlPanel.red[1] , Constants.ControlPanel.red[2]);;
+    private final Color blue = ColorMatch.makeColor(Constants.ControlPanel.blue[0] , Constants.ControlPanel.blue[1] , Constants.ControlPanel.blue[2]);
+    private final Color green = ColorMatch.makeColor(Constants.ControlPanel.green[0] , Constants.ControlPanel.green[1] , Constants.ControlPanel.green[2]);
+    private final Color yellow = ColorMatch.makeColor(Constants.ControlPanel.yellow[0] , Constants.ControlPanel.yellow[1] , Constants.ControlPanel.yellow[2]);;
    
-    int colorTracker = 0;
-    boolean currentlyRed;
-    Color detectedColor;
-    ColorMatchResult match;
-    String colorString;
-    String currentColorString;
-    double turn;
+    private String currentColorString;
 
     public ControlPanelSubsystem() {
         controlPanelWheel.configFactoryDefault();
         setBrakeMode();
-        turn = 0.75;
-        colorMatcher.addColorMatch(Blue);
-        colorMatcher.addColorMatch(Green);
-        colorMatcher.addColorMatch(Red);
-        colorMatcher.addColorMatch(Yellow);
+        colorMatcher.addColorMatch(blue);
+        colorMatcher.addColorMatch(green);
+        colorMatcher.addColorMatch(red);
+        colorMatcher.addColorMatch(yellow);
     }
 
     @Override
     public void periodic() {
-        colorString = DriverStation.getInstance().getGameSpecificMessage();
-        detectedColor = colorSensor.getColor();
-        match = colorMatcher.matchClosestColor(detectedColor);
-        SmartDashboard.putString("Color Sensor Detected Color (0-255)",
-                detectedColor.red * 255 + ", " + detectedColor.green * 255 + ", " + detectedColor.blue * 255);
-        SmartDashboard.putString("Color Sensor Detected Color (0-1)",
-                detectedColor.red + ", " + detectedColor.green + ", " + detectedColor.blue);
-        SmartDashboard.putString("Current Color String" , getCurrentColorString()); 
+         
     }
 
-    public Color getCurrentColor() {
-        return match.color;
-    }
-
-    public Color getFMSColor() {
-        if (colorString.length() > 0) {
-            switch (colorString.charAt(0)) {
-            case 'B':
-                return Blue;
-
-            case 'G':
-                return Green;
-
-            case 'R':
-                return Red;
- 
-            case 'Y':
-                return Yellow;
-
-            default:
-                
-                break;
-            }
-        } 
-        return Black;
-    }
-
-    public String getCurrentColorString() {
-        if (match.color == Blue) {
+    public String getCurrentColorString(Color color) {
+        if (color == blue) {
             currentColorString = "blue";
-          } else if (match.color == Red) {
+          } else if (color == red) {
             currentColorString = "red";
-          } else if (match.color == Green) {
+          } else if (color == green) {
             currentColorString = "green";
-          } else if (match.color == Yellow) {
+          } else if (color == yellow) {
             currentColorString = "yellow";
           } else {
             currentColorString = "unknown";
           }
           return currentColorString;
-      
+    }
 
+    public String getOffsetColorString(Color color) {
+        if (color == blue) {
+            currentColorString = "red";
+          } else if (color == red) {
+            currentColorString = "blue";
+          } else if (color == green) {
+            currentColorString = "yellow";
+          } else if (color == yellow) {
+            currentColorString = "green";
+          } else {
+            currentColorString = "unknown";
+          }
+          return currentColorString;
+    }
+
+    public ColorSensorV3 getColorSensor(){
+        return colorSensor;
+
+    }
+
+    public ColorMatch getColorMatch(){
+        return colorMatcher;
     }
 
     public void controlPanelArmExtend() {
@@ -132,12 +109,7 @@ public class ControlPanelSubsystem extends SubsystemBase {
      }
 
      public void controlPanelArmToggle(){
-        if (controlPanelArm.get()) {
-            
-			controlPanelArm.set(false);
-		} else {
-			controlPanelArm.set(true);
-		}
+        controlPanelArm.set(!controlPanelArm.get());
      }
      
 
