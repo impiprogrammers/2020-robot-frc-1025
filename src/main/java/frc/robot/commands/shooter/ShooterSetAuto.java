@@ -1,5 +1,6 @@
 package frc.robot.commands.shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -17,6 +18,6 @@ public class ShooterSetAuto extends InstantCommand {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-        shooterSubsystem.shoot(setpoint);
+		shooterSubsystem.shoot(setpoint);
 	}
 }
