@@ -17,13 +17,15 @@ public class ConveyorRollCosineAuto extends CommandBase {
 	private final double amplitude;
 	private final double period;
 	private final double intercept;
+	private final double duration;
 	private final Timer timer = new Timer();
 
-	public ConveyorRollCosineAuto(ConveyorSubsystem conveyorSubsystem, double amplitude, double period, double intercept) {
+	public ConveyorRollCosineAuto(ConveyorSubsystem conveyorSubsystem, double intercept, double amplitude, double period, double duration) {
 		this.conveyorSubsystem = conveyorSubsystem;
+		this.intercept = intercept;
 		this.amplitude = amplitude;
 		this.period = period;
-		this.intercept = intercept;
+		this.duration = duration;
 		addRequirements(conveyorSubsystem);
 	}
 
@@ -48,6 +50,6 @@ public class ConveyorRollCosineAuto extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return (timer.get() >= duration);
 	}
 }

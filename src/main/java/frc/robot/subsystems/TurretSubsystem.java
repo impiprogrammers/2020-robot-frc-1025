@@ -50,8 +50,10 @@ public class TurretSubsystem extends SubsystemBase {
 	private double v = tv.getDouble(0);
 
 	public TurretSubsystem() {
+		turretMotor.restoreFactoryDefaults();
 		turretMotor.setIdleMode(IdleMode.kBrake);
-		turretMotor.setSmartCurrentLimit(20);
+		turretMotor.setSmartCurrentLimit(Constants.Turret.CURRENT_LIMIT);
+
 		turretMotor.setSoftLimit(SoftLimitDirection.kReverse, -Constants.Turret.RIGHT_POSITION_LIMIT);
 		turretMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.Turret.LEFT_POSITION_LIMIT);
 		turretMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
@@ -66,8 +68,6 @@ public class TurretSubsystem extends SubsystemBase {
 		turretPID.setD(0.0);
 		turretPID.setFF(0);
 		
-		turretSpin(0);
-
 		table.getEntry("pipeline").setNumber(3);
 	}
 
@@ -160,14 +160,14 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public boolean turretAtRightSoftStop() {
-		if(turretEncoder.getPosition() < -Constants.Turret.RIGHT_POSITION_LIMIT) {
+		if(turretEncoder.getPosition() < -Constants.Turret.RIGHT_POSITION_LIMIT+1) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean turretAtLeftSoftStop() {
-		if(turretEncoder.getPosition() > Constants.Turret.LEFT_POSITION_LIMIT) {
+		if(turretEncoder.getPosition() > Constants.Turret.LEFT_POSITION_LIMIT-1) {
 			return true;
 		}
 		return false;
@@ -203,6 +203,30 @@ public class TurretSubsystem extends SubsystemBase {
 
 	public void turnOffLimelightLED() {
 		table.getEntry("ledMode").setNumber(1);
+	}
+
+	
+	public double calcRPM(){
+		if(isTargetFound() == true){
+		if(area >= 1){
+			return 3300;
+		}
+		else if(area >=.65 && area<1){
+			return 3700;
+		}
+		else if(area <.65 && area>=.5){
+			return 4100;
+		}
+		else if(area<.5){
+			return 4400;
+		}
+		else{
+			return 3750;
+		}
+	}
+	else{
+		return 3750;
+	}
 	}
 
 }

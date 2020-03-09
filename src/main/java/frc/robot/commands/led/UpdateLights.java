@@ -36,53 +36,60 @@ public class UpdateLights extends CommandBase {
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
-	public void execute() {		
+	public void execute() {
+
 		double xOffset = turretSubsystem.getXOffset();
 
 		if (turretSubsystem.isModeAuto()) {
-			if(turretSubsystem.isTargetFound()) {
-				if (turretSubsystem.isTargetCentered()) {
-					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
-				 } else {
-					if (xOffset < 0) {
-						if (turretSubsystem.turretAtLeftSoftStop()) {
-							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
-						} else {
-							ledSubsystem.setLEDsBottom(42 / 2, 255, 255); // yellow
-						}
-					} else if (xOffset > 0) {
-						if (turretSubsystem.turretAtRightSoftStop()) {
-							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
-						} else {
-							ledSubsystem.setLEDsBottom(42 / 2, 255, 255); // yellow
-						}
-					}
-				}
-			} else {
-				ledSubsystem.setLEDsBottom(0/2, 255, 255); // red
-			}
-		} else {
-			// set Bottom LEDs (Manual)
-			if(turretSubsystem.isTargetFound()) {
+			if (turretSubsystem.isTargetFound()) {
 				if (turretSubsystem.isTargetCentered()) {
 					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
 				} else {
 					if (xOffset < 0) {
 						if (turretSubsystem.turretAtLeftSoftStop()) {
-							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
+							ledSubsystem.setLEDsBottomLeft(255, 255, 255); // magenta
+							ledSubsystem.setLEDsBottomRight(0, 0, 0);
 						} else {
-							ledSubsystem.setLEDsBottomRight(42 / 2, 255, 255); // yellow
+							ledSubsystem.setLEDsBottom(42 / 2, 255, 255); // yellow
 						}
 					} else if (xOffset > 0) {
 						if (turretSubsystem.turretAtRightSoftStop()) {
-							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
+							ledSubsystem.setLEDsBottomRight(255, 255, 255); // magenta
+							ledSubsystem.setLEDsBottomLeft(0, 0, 0);
 						} else {
-							ledSubsystem.setLEDsBottomLeft(42 / 2, 255, 255); // yellow
+							ledSubsystem.setLEDsBottom(42 / 2, 255, 255); // yellow
 						}
 					}
 				}
 			} else {
-				ledSubsystem.setLEDsBottom(0, 0, 0); // off
+				ledSubsystem.setLEDsBottom(0 / 2, 255, 255); // red
+			}
+		} else {
+			// set Bottom LEDs (Manual)
+			if (turretSubsystem.isTargetFound()) {
+				if (turretSubsystem.isTargetCentered()) {
+					ledSubsystem.setLEDsBottom(115 / 2, 255, 255); // green
+				} else {
+					if (xOffset < 0) {
+						if (turretSubsystem.turretAtLeftSoftStop()) {
+							ledSubsystem.setLEDsBottomLeft(30 / 2, 255, 255); // orange
+							ledSubsystem.setLEDsBottomRight(0, 0, 0);
+						} else {
+							ledSubsystem.setLEDsBottomLeft(42 / 2, 255, 255); // yellow
+							ledSubsystem.setLEDsBottomRight(0, 0, 0);
+						}
+					} else if (xOffset > 0) {
+						if (turretSubsystem.turretAtRightSoftStop()) {
+							ledSubsystem.setLEDsBottomRight(30 / 2, 255, 255); // orange
+							ledSubsystem.setLEDsBottomLeft(0, 0, 0);
+						} else {
+							ledSubsystem.setLEDsBottomRight(42 / 2, 255, 255); // yellow
+							ledSubsystem.setLEDsBottomLeft(0, 0, 0);
+						}
+					}
+				}
+			} else {
+				ledSubsystem.setLEDsBottom(0, 255, 255); // red
 			}
 		}
 
@@ -90,16 +97,17 @@ public class UpdateLights extends CommandBase {
 		double shooterVelocity = Math.abs(shooterSubsystem.getShooterVelocity());
 
 		if (shooterVelocity > 100) {
-			if (shooterVelocity >= 4500) {
+			if (shooterVelocity >= 4000) {
 				ledSubsystem.setLEDsTop(115 / 2, 255, 255); // green
 			} else {
 				ledSubsystem.setLEDsTop(42 / 2, 255, 255); // yellow
 			}
 		} else {
-			ledSubsystem.setLEDsTop(0 / 2, 0, 0); // off
+			ledSubsystem.setLEDsTop(0, 0, 0); // off
 		}
 
-		if(timer.get() > 0.1) {
+		if (timer.get() > 0.1) {
+			// ledSubsystem.setLEDsTop(115 / 2, 255, 255); // green
 			ledSubsystem.setLEDBuffer();
 			timer.reset();
 		}
@@ -108,6 +116,7 @@ public class UpdateLights extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		ledSubsystem.setLEDsOff();
 	}
 
 	// Returns true when the command should end.

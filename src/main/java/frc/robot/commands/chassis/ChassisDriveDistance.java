@@ -35,13 +35,13 @@ public class ChassisDriveDistance extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		chassisSubsystem.arcadeDrive(-speed, -chassisSubsystem.getAngle() * 0.2);
+		chassisSubsystem.arcadeDrive(-speed, -chassisSubsystem.getAngle() * 0.1);
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		chassisSubsystem.arcadeDrive(0, 0);
+		chassisSubsystem.stopChassis();
 	}
 
 	// Returns true when the command should end.

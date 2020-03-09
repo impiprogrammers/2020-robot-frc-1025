@@ -83,7 +83,7 @@ public final class Constants {
 
     // Chassis Constants (No IDs)
     public static final class Chassis {
-        public static final double CURRENT_LIMIT = 40;
+        public static final int CURRENT_LIMIT = 40;
         public static final double AUTO_FFS = 0.2;
         public static final double AUTO_FFV = 2.3;
         public static final double AUTO_FFA = 0.537;
@@ -95,7 +95,6 @@ public final class Constants {
         public static final double WHEEL_DIAMETER = 0.1524;
         public static final double GEAR_RATIO = 8.68;
         public static final boolean GYRO_REVERSED = false;
-        public static final double AUTO_SPEED = 0.7;
     }
 
     // Intake Constants (No IDs)

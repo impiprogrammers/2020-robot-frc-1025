@@ -40,7 +40,8 @@ public class ChassisDrive extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		chassisSubsystem.arcadeDrive(0, 0);
+		// chassisSubsystem.arcadeDrive(0, 0);
+		chassisSubsystem.stopChassis();
 	}
 
 	// Returns true when the command should end.

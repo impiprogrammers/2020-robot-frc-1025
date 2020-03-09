@@ -149,7 +149,7 @@ public class RobotContainer {
 		shooterFeederSubsystem.setDefaultCommand(shooterFeederSpin);
 		shimmySubsystem.setDefaultCommand(shimmyMove);
 		shooterSubsystem.setDefaultCommand(shooterTeleop);
-		//ledSubsystem.setDefaultCommand(updateLights);
+		ledSubsystem.setDefaultCommand(updateLights);
 		
 		
 		configureButtonBindings();
@@ -195,7 +195,7 @@ public class RobotContainer {
 		buttonsSelect.whenPressed(controlPanelArmExtend);
 		buttonsStart.whenPressed(controlPanelArmRetract);
 
-		driverX.toggleWhenPressed(new ConveyorRollCosineAuto(conveyorSubsystem, 0.5, 0.5, 0.5));
+	//	driverX.toggleWhenPressed(new ConveyorRollCosineAuto(conveyorSubsystem, 0.5, 0.5, 0.5));
 	}
 
 	/**
@@ -205,13 +205,13 @@ public class RobotContainer {
 	 */
 	public Command getAutonomousCommand() {
 		// return autoChooser.getSelected();
-		try {
-			return new AutoLeft8b(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem,
+		//try {
+			return new AutoTrench2(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem,
 					shooterSubsystem, turretSubsystem);
-		} catch (Exception e) {
-			DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);
-			return null;
+		// } catch (Exception e) {
+		// 	DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);
+		// 	return null;
 		}
 		
-	}
+//	}
 }

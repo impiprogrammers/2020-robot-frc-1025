@@ -30,7 +30,7 @@ public class ConveyorSubsystem extends SubsystemBase {
 	}
 
 	public void conveyorRoll(double speed) {
-		conveyorRollers.set(ControlMode.PercentOutput, speed);
+		conveyorRollers.set(ControlMode.PercentOutput, -speed);
 	}
 	
 	public void conveyorRollFailsafe(double speed){

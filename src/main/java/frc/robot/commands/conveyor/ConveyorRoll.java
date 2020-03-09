@@ -32,7 +32,7 @@ public class ConveyorRoll extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		conveyorSubsystem.conveyorRoll(ImpiLib2020.parseJoystick(joystickValue));
+		conveyorSubsystem.conveyorRoll(-ImpiLib2020.parseJoystick(joystickValue));
 	}
 
 	// Called once the command ends or is interrupted.

@@ -37,18 +37,21 @@ public class ShooterSubsystem extends SubsystemBase {
 	private boolean shooterReady = false;
 	private Timer timer = new Timer();
 
+	private double currentSetpoint;
 
 	public ShooterSubsystem(){
-		shooterRight.follow(shooterLeft,true);
+		shooterLeft.restoreFactoryDefaults();
+		shooterRight.restoreFactoryDefaults();
+		setCoastMode();
+		setSmartCurrentLimit(Constants.Shooter.CURRENT_LIMIT);
+
+		shooterRight.follow(shooterLeft, true);
 
 		pidLeft.setP(Constants.Shooter.SHOOT_P);
 		pidLeft.setI(Constants.Shooter.SHOOT_I);
 		pidLeft.setD(Constants.Shooter.SHOOT_D);
 		pidLeft.setFF(Constants.Shooter.SHOOT_FF);
 		pidLeft.setOutputRange(Constants.Shooter.SHOOT_OUTPUT_MIN, Constants.Shooter.SHOOT_OUTPUT_MAX);
-
-		setCoastMode();
-		setSmartCurrentLimit(Constants.Shooter.CURRENT_LIMIT);
 	}
 
 	@Override
@@ -62,6 +65,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 
 	public void shoot(double setpoint) {
+		currentSetpoint = setpoint;
 		pidLeft.setReference(-setpoint, ControlType.kVelocity);
 		timer.reset();
 		shooterEnabled = true;
@@ -83,9 +87,6 @@ public class ShooterSubsystem extends SubsystemBase {
 		}
 	}
 
-	public double calcRPM(double area) {
-		return -1538.46 * area + 5653.85;
-	}
 
 	public boolean isShooterReady() {
 		return shooterReady;
@@ -110,7 +111,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 
 	public boolean atSetpoint() {
-		return (Math.abs(Constants.Shooter.TELEOP_SETPOINT + getShooterVelocity()) <= 250);
+		return (Math.abs(currentSetpoint - getShooterVelocity()) <= 50);
 	} 
 
 }

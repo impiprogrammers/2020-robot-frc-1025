@@ -29,45 +29,46 @@ import frc.robot.Constants;
 public class ChassisSubsystem extends SubsystemBase {
 
 	// Motor Controllers
-	private CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
-	private CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_FRONT_PORT, MotorType.kBrushless);
-	private CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
-	private CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
+	private final CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_FRONT_PORT,
+			MotorType.kBrushless);
+	private final CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_FRONT_PORT,
+			MotorType.kBrushless);
+	private final CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_REAR_PORT,
+			MotorType.kBrushless);
+	private final CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_REAR_PORT,
+			MotorType.kBrushless);
 
 	// Speed Controller Groups
-	private SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftFront, driveMotorLeftRear);
-	private SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRightFront, driveMotorRightRear);
+	private final SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftFront, driveMotorLeftRear);
+	private final SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(driveMotorRightFront, driveMotorRightRear);
 
 	// Encoders
-	private CANEncoder leftEncoder = driveMotorLeftFront.getEncoder();
-	private CANEncoder rightEncoder = driveMotorRightFront.getEncoder();
+	private final CANEncoder leftEncoder = driveMotorLeftFront.getEncoder();
+	private final CANEncoder rightEncoder = driveMotorRightFront.getEncoder();
 
 	// Drivetrain
-	private DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+	private final DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
 	// Gyroscope
 	private AHRS ahrs;
 
 	// Odometry
-	DifferentialDriveOdometry odometry;
+	private DifferentialDriveOdometry odometry;
 
 	// Kinematics
 	public DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(Constants.Chassis.TRACK_WIDTH);
 
 	public ChassisSubsystem() {
+		restoreFactoryDefaults();
+		setSmartCurrentLimit(Constants.Chassis.CURRENT_LIMIT);
 		setCoastMode();
 
-		driveMotorLeftFront.setSmartCurrentLimit(40);
-		driveMotorRightFront.setSmartCurrentLimit(40);
-		driveMotorLeftRear.setSmartCurrentLimit(40);
-		driveMotorRightRear.setSmartCurrentLimit(40);
-
-		try {
+		//try {
 			ahrs = new AHRS(SPI.Port.kMXP);
-			odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
-		} catch (RuntimeException exception) {
-			DriverStation.reportError("Error instantiating navX-MXP: " + exception.getMessage(), true);
-		}
+	//		odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
+	//	} catch (RuntimeException exception) {
+	//		DriverStation.reportError("Error instantiating navX-MXP: " + exception.getMessage(), true);
+	//	}
 
 		SmartDashboard.putNumber("Target Angle", 0);
 
@@ -76,13 +77,30 @@ public class ChassisSubsystem extends SubsystemBase {
 		leftEncoder.setVelocityConversionFactor(conversionFactor / 60);
 		rightEncoder.setPositionConversionFactor(conversionFactor);
 		rightEncoder.setVelocityConversionFactor(conversionFactor / 60);
+		resetEncoders();
+		resetGyro();
 	}
 
 	@Override
 	public void periodic() {
-		odometry.update(Rotation2d.fromDegrees(getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
+		
+	//	odometry.update(Rotation2d.fromDegrees(getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
 	}
-	
+
+	public void setSmartCurrentLimit(int currentLimit) {
+		driveMotorLeftFront.setSmartCurrentLimit(currentLimit);
+		driveMotorRightFront.setSmartCurrentLimit(currentLimit);
+		driveMotorLeftRear.setSmartCurrentLimit(currentLimit);
+		driveMotorRightRear.setSmartCurrentLimit(currentLimit);
+	}
+
+	public void restoreFactoryDefaults(){
+		driveMotorLeftFront.restoreFactoryDefaults();
+		driveMotorLeftRear.restoreFactoryDefaults();
+		driveMotorRightFront.restoreFactoryDefaults();
+		driveMotorRightRear.restoreFactoryDefaults();
+	}
+
 	public void arcadeDrive(double move, double turn) {
 		drive.arcadeDrive(-move, turn);
 	}
@@ -94,7 +112,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	public void voltageTankDrive(double leftVoltage, double rightVoltage) {
 		leftMotorGroup.setVoltage(leftVoltage);
 		rightMotorGroup.setVoltage(-rightVoltage);
-		drive.feed();
+		//drive.feed();
 	}
 
 	public void resetEncoders() {
@@ -141,5 +159,10 @@ public class ChassisSubsystem extends SubsystemBase {
 
 	public Pose2d getPose() {
 		return odometry.getPoseMeters();
+	}
+
+	public void stopChassis() {
+		rightMotorGroup.stopMotor();
+		leftMotorGroup.stopMotor();
 	}
 }

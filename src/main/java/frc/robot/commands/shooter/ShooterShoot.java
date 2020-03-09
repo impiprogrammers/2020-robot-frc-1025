@@ -1,5 +1,6 @@
 package frc.robot.commands.shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -25,11 +26,17 @@ public class ShooterShoot extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		shooterSubsystem.shoot(setpoint);
-		// if (turretSubsystem.isTargetFound()) {
-		// 	shooterSubsystem.shoot(shooterSubsystem.calcRPM(turretSubsystem.getArea()));
-		// }
-	}
+		//double speed = SmartDashboard.getNumber("Shooter Speed", 0);
+
+		//shooterSubsystem.shoot(setpoint);
+	
+	//	if (turretSubsystem.isTargetFound()) {
+			//shooterSubsystem.shoot(shooterSubsystem.calcRPM(turretSubsystem.getArea()));
+			//SmartDashboard.putNumber("Shooter Speed", speed);
+			//shooterSubsystem.shoot(SmartDashboard.getNumber("Shooter Speed", speed));
+	//	}
+		shooterSubsystem.shoot(turretSubsystem.calcRPM());
+}
 
 	// Called once the command ends or is interrupted.
 	@Override

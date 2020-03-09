@@ -23,10 +23,10 @@ import frc.robot.subsystems.ShooterFeederSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 
-public class AutoLeft8b extends SequentialCommandGroup {
-	public AutoLeft8b(ChassisSubsystem chassisSubsystem, IntakeSubsystem intakeSubsystem,
+public class AutoTrench extends SequentialCommandGroup {
+	public AutoTrench(ChassisSubsystem chassisSubsystem, IntakeSubsystem intakeSubsystem,
 			ConveyorSubsystem conveyorSubsystem, ShooterFeederSubsystem shooterFeederSubsystem,
-			ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem){
+			ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem) {
 		super(
 			/*
 			 * new AutoFollowPath(chassisSubsystem, "output/meters/left8-1.wpilib.json"),
@@ -38,52 +38,54 @@ public class AutoLeft8b extends SequentialCommandGroup {
 			 * AutoFollowPath(chassisSubsystem, "output/meters/left8-3.wpilib.json"), new
 			 * AutoShoot(conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem)
 			 */
-			
+		
 			// Part 1
 			new ConveyorSetAuto(conveyorSubsystem, 0),
 			new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
 			new AutoIntakeOn(intakeSubsystem),
-			new ShooterSetAuto(shooterSubsystem, 3550),
+			new ShooterSetAuto(shooterSubsystem, turretSubsystem.calcRPM()),
 			new TurretSpinToAngle(turretSubsystem, 70),
-			new ChassisDriveDistance(chassisSubsystem, 2.7432, 0.7), // 108 inches
+			new ChassisDriveDistance(chassisSubsystem, 2.7432, 0.75), // 108 inches
 			new ParallelRaceGroup(
 				new TurretTrackTarget(turretSubsystem),
 				new SequentialCommandGroup(
 					new WaitCommand(0.5),
-					// new TurretTurnToTarget(turretSubsystem),
+					///////////////new TurretTurnToTarget(turretSubsystem),
 					new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
 					new ConveyorSetAuto(conveyorSubsystem, 0.7),
-					new WaitCommand(5),
+					new WaitCommand(3.5),
 					// new ShooterStop(shooterSubsystem)
-					new ShooterFeederSetAuto(shooterFeederSubsystem, 0)
-				)
-			),
+                    new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
 
-			// Part 2
-			new ConveyorSetAuto(conveyorSubsystem, 0.8),
-			// new TurretSetManualMode(turretSubsystem, true),
-			// new ShooterSetAuto(shooterSubsystem, 4400)
-			// new TurretSetManualMode(turretSubsystem, true),
-			new TurretSpinToAngle(turretSubsystem, 70),
-			new ChassisDriveDistance(chassisSubsystem, 2, .7), // 72 inches
-			new IntakeRollersSetAuto(intakeSubsystem, 0.3),
-			new ChassisDriveDistance(chassisSubsystem, 1, .7),
-			new WaitCommand(.15),
+                    // Part 2
+			        new ConveyorSetAuto(conveyorSubsystem, 1),
+		        	// new TurretSetManualMode(turretSubsystem, true),
+	     		    new ShooterSetAuto(shooterSubsystem, turretSubsystem.calcRPM()),
+		        	// new TurretSetManualMode(turretSubsystem, true),
+		            // new TurretSpinToAngle(turretSubsystem, 70),
+                    new ChassisDriveDistance(chassisSubsystem, 1.5, .55), // 72 inches
+                    new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
+                    new WaitCommand(3)
+				)
+
+            ),
+            new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
+            new ConveyorSetAuto(conveyorSubsystem, 0),
+            new ChassisDriveDistance(chassisSubsystem, 1.3, .7),
 			// new AutoIntakeOff(intakeSubsystem),
-			// new TurretSetManualMode(turretSubsystem, false),
-			new ConveyorSetAuto(conveyorSubsystem, 0),
-			new IntakeRollersSetAuto(intakeSubsystem, 0),
-			new ChassisDriveDistance(chassisSubsystem, 3, -0.6),
+            // new TurretSetManualMode(turretSubsystem, false),
+            new ConveyorSetAuto(conveyorSubsystem, 1),
+            new ShooterSetAuto(shooterSubsystem, turretSubsystem.calcRPM()),
+            new ChassisDriveDistance(chassisSubsystem, 2.8, -0.7),
+            new WaitCommand(0.2),
 			new ParallelRaceGroup(
 				new TurretTrackTarget(turretSubsystem),
 				new SequentialCommandGroup(
 					// new TurretTurnToTarget(turretSubsystem),
 					// new IntakeRollersSetAuto(intakeSubsystem, 0.6),
 					new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
-					new ConveyorSetAuto(conveyorSubsystem, 0.8), 
-					new WaitCommand(2),
-					new IntakeRollersSetAuto(intakeSubsystem, 1),
-					new WaitCommand(4),
+					// new ConveyorSetAuto(conveyorSubsystem, 0.8), 
+					new WaitCommand(3),
 					new ConveyorSetAuto(conveyorSubsystem, 0),
 					new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
 					new ShooterStop(shooterSubsystem), new AutoIntakeOff(intakeSubsystem)
