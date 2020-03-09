@@ -7,49 +7,35 @@
 
 package frc.robot.commands.auto.paths;
 
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.chassis.ChassisDriveDistance;
+import frc.robot.commands.conveyor.ConveyorSetAuto;
+import frc.robot.commands.shooter_feeder.ShooterFeederSetAuto;
+import frc.robot.commands.turret.TurretSpinToAngle;
+import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterFeederSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
-import frc.robot.commands.auto.AutoIntakeOn;
-import frc.robot.commands.chassis.ChassisDriveDistance;
-import frc.robot.commands.shooter_feeder.ShooterFeederSetAuto;
-import frc.robot.commands.turret.TurretSpinToAngle;
-import frc.robot.commands.turret.TurretTrackTarget;
-import frc.robot.commands.conveyor.ConveyorSetAuto;
-import frc.robot.commands.shooter.ShooterSetAuto;
-import frc.robot.subsystems.ChassisSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoStraightBack extends SequentialCommandGroup {
+public class AutoInitiationLine extends SequentialCommandGroup {
   /**
-   * Creates a new AutoStraightBack.
+   * Creates a new AutoInitiationLine.
    */
-  public AutoStraightBack(ChassisSubsystem chassisSubsystem, IntakeSubsystem intakeSubsystem,
+  public AutoInitiationLine(ChassisSubsystem chassisSubsystem, IntakeSubsystem intakeSubsystem,
   ConveyorSubsystem conveyorSubsystem, ShooterFeederSubsystem shooterFeederSubsystem,
   ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem) {
     super(
     new ConveyorSetAuto(conveyorSubsystem, 0),
     new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
-    new ShooterSetAuto(shooterSubsystem, 3500),
     new TurretSpinToAngle(turretSubsystem, 90),
-    new ChassisDriveDistance(chassisSubsystem, 1.5, 0.75), // 108 inches
-    new ParallelRaceGroup(
-      new TurretTrackTarget(turretSubsystem),
-      new SequentialCommandGroup(
-        new WaitCommand(3),
-    	new ConveyorSetAuto(conveyorSubsystem, .7),
-      new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
-      new ConveyorSetAuto(conveyorSubsystem, 1),
-      new WaitCommand(8.0)
-    )
-    )
+    new ChassisDriveDistance(chassisSubsystem, 1.5, 0.75),
+    new WaitCommand(3)
     );
   }
 }

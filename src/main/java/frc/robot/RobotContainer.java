@@ -155,18 +155,19 @@ public class RobotContainer {
 		configureButtonBindings();
 
 		// Configure Auto Chooser
-		try {
-			autoChooser.setDefaultOption("Left 3", new AutoLeft3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
-			autoChooser.addOption("Center 3", new AutoCenter3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
-			autoChooser.addOption("Right 0", new AutoRight0(chassisSubsystem));
-			autoChooser.addOption("Right 3", new AutoRight3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
-			autoChooser.addOption("Left 8", new AutoLeft8(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
-			autoChooser.addOption("Center 8", new AutoCenter8(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
-			autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
-			autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
-		} catch(IOException exception) {
-			DriverStation.reportError("Autonomous Path JSON Not Found", true);
-		}
+		//try {
+			autoChooser.setDefaultOption("AutoTrench2", new AutoTrench2(chassisSubsystem, intakeSubsystem,
+					conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem, turretSubsystem));
+		// 	autoChooser.addOption("Center 3", new AutoCenter3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+		// 	autoChooser.addOption("Right 0", new AutoRight0(chassisSubsystem));
+		// 	autoChooser.addOption("Right 3", new AutoRight3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+		// 	autoChooser.addOption("Left 8", new AutoLeft8(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+		// 	autoChooser.addOption("Center 8", new AutoCenter8(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+		// 	autoChooser.addOption("Right 10 (Trench)", new AutoRightTrench10(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+		// 	autoChooser.addOption("Right 10 (Shield)", new AutoRightShield10(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
+		// } catch(IOException exception) {
+		// 	DriverStation.reportError("Autonomous Path JSON Not Found", true);
+		// }
 
 		SmartDashboard.putData("Autonomous Path (Station, Ball Count)", autoChooser);
 
@@ -206,7 +207,7 @@ public class RobotContainer {
 	public Command getAutonomousCommand() {
 		// return autoChooser.getSelected();
 		//try {
-			return new AutoTrench2(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem,
+			return new AutoInitiationLine(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem,
 					shooterSubsystem, turretSubsystem);
 		// } catch (Exception e) {
 		// 	DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);

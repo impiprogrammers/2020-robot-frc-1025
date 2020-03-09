@@ -59,7 +59,7 @@ public class AutoTrench2 extends SequentialCommandGroup {
 		///////////////new TurretTurnToTarget(turretSubsystem),
 		
         new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
-    	new ConveyorSetAuto(conveyorSubsystem, 1),
+    	new ConveyorSetAuto(conveyorSubsystem, .7),
 		new WaitCommand(4),
 	//	new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
 	//	new ConveyorRollCosineAuto(conveyorSubsystem, 0.75, 0.25, .5, 1.5),
@@ -67,14 +67,14 @@ public class AutoTrench2 extends SequentialCommandGroup {
         new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
 
                   // Part 2
-            new ConveyorSetAuto(conveyorSubsystem, 1),
+            new ConveyorSetAuto(conveyorSubsystem, .5),
             // new TurretSetManualMode(turretSubsystem, true),
              new ShooterSetAuto(shooterSubsystem, 3500),
             // new TurretSetManualMode(turretSubsystem, true),
               // new TurretSpinToAngle(turretSubsystem, 70),
                   new ChassisDriveDistance(chassisSubsystem, 2.55, .6), // 72 inches
                   //
-                  new WaitCommand(.25),
+                  new WaitCommand(.1),
                   new ChassisDriveDistance(chassisSubsystem, 2.45 , -.75),
                  // new ChassisTurnToAngle(chassisSubsystem, 10 , .4),
 				  new WaitCommand(.1),
