@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
 
-public class ControlPanelManual extends InstantCommand {
+public class ControlPanelSpin extends InstantCommand {
 	ControlPanelSubsystem controlPanelSubsystem;
 	double speed;
 
-	public ControlPanelManual(ControlPanelSubsystem controlPanelSubsystem, double speed) {
+	public ControlPanelSpin(ControlPanelSubsystem controlPanelSubsystem, double speed) {
 		this.controlPanelSubsystem = controlPanelSubsystem;
 		this.speed = speed;
 		addRequirements(controlPanelSubsystem);
