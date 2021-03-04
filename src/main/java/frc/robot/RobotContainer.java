@@ -158,6 +158,8 @@ public class RobotContainer {
 		//try {
 			autoChooser.setDefaultOption("AutoTrench2", new AutoTrench2(chassisSubsystem, intakeSubsystem,
 					conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem, turretSubsystem));
+					autoChooser.addOption("Auto Straight Back", new AutoStraightBack(chassisSubsystem, intakeSubsystem,
+				conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem, turretSubsystem));
 		// 	autoChooser.addOption("Center 3", new AutoCenter3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
 		// 	autoChooser.addOption("Right 0", new AutoRight0(chassisSubsystem));
 		// 	autoChooser.addOption("Right 3", new AutoRight3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem));
@@ -172,7 +174,7 @@ public class RobotContainer {
 		SmartDashboard.putData("Autonomous Path (Station, Ball Count)", autoChooser);
 
 		// Add Buttons to SmartDashboard
-		SmartDashboard.putData("Rezero Turret", turretRezero);
+		// SmartDashboard.putData("Rezero Turret", turretRezero);
 	}
 
   	/**
@@ -205,10 +207,9 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		// return autoChooser.getSelected();
+		return autoChooser.getSelected();
 		//try {
-			return new AutoInitiationLine(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem,
-					shooterSubsystem, turretSubsystem);
+		//return new AutoTrench2(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem, turretSubsystem);
 		// } catch (Exception e) {
 		// 	DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);
 		// 	return null;

@@ -46,7 +46,7 @@ public class ControlPanelSpinFour extends CommandBase {
 	public void execute() {
 		detectedColor = controlPanelSubsystem.getColorSensor().getColor();
         match = controlPanelSubsystem.getColorMatch().matchClosestColor(detectedColor);
-		SmartDashboard.putString("SpinFour Color String", controlPanelSubsystem.getCurrentColorString(match.color));
+		// SmartDashboard.putString("SpinFour Color String", controlPanelSubsystem.getCurrentColorString(match.color));
 		if (controlPanelSubsystem.getCurrentColorString(match.color) == "red") {
 			if (currentlyRed == 0) {
 				colorTracker += 1;
@@ -59,7 +59,7 @@ public class ControlPanelSpinFour extends CommandBase {
 
 		}
 
-		SmartDashboard.putNumber("Color Sensor Currently Red", currentlyRed);
+		// SmartDashboard.putNumber("Color Sensor Currently Red", currentlyRed);
 	}
 
 	// Called once the command ends or is interrupted.

@@ -37,18 +37,20 @@ public class AutoStraightBack extends SequentialCommandGroup {
     super(
     new ConveyorSetAuto(conveyorSubsystem, 0),
     new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
-    new ShooterSetAuto(shooterSubsystem, 3500),
+    new ShooterSetAuto(shooterSubsystem, turretSubsystem.calcRPM()),
     new TurretSpinToAngle(turretSubsystem, 90),
     new ChassisDriveDistance(chassisSubsystem, 1.5, 0.75), // 108 inches
     new ParallelRaceGroup(
       new TurretTrackTarget(turretSubsystem),
       new SequentialCommandGroup(
         new WaitCommand(3),
-    	new ConveyorSetAuto(conveyorSubsystem, .7),
+    	new ConveyorSetAuto(conveyorSubsystem, .6),
       new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
       new ConveyorSetAuto(conveyorSubsystem, 1),
-      new WaitCommand(8.0)
-    )
+      new WaitCommand(4.0)
+    
+    
+  )
     )
     );
   }

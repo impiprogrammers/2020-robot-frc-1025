@@ -16,6 +16,7 @@ import frc.robot.Constants;
 import frc.robot.commands.auto.AutoIntakeOff;
 import frc.robot.commands.auto.AutoIntakeOn;
 import frc.robot.commands.chassis.ChassisDriveDistance;
+import frc.robot.commands.chassis.ChassisDriveDistanceCoast;
 import frc.robot.commands.chassis.ChassisTurnToAngle;
 import frc.robot.commands.conveyor.ConveyorRollCosineAuto;
 import frc.robot.commands.conveyor.ConveyorSetAuto;
@@ -48,9 +49,10 @@ public class AutoTrench2 extends SequentialCommandGroup {
     new ConveyorSetAuto(conveyorSubsystem, 0),
     new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
     new AutoIntakeOn(intakeSubsystem),
-    new ShooterSetAuto(shooterSubsystem, 3500),
+    new ShooterSetAuto(shooterSubsystem, 3700),
     new TurretSpinToAngle(turretSubsystem, 70),
-    new ChassisDriveDistance(chassisSubsystem, 2.7432, 0.75), // 108 inches
+    new ChassisDriveDistance(chassisSubsystem, 2.7432, 0.75),
+    new WaitCommand(0.1), // 108 inches
     new ChassisDriveDistance(chassisSubsystem, 0.9,-.7),
     new ParallelRaceGroup(
       new TurretTrackTarget(turretSubsystem),
@@ -60,7 +62,7 @@ public class AutoTrench2 extends SequentialCommandGroup {
 		
         new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
     	new ConveyorSetAuto(conveyorSubsystem, .7),
-		new WaitCommand(4),
+		new WaitCommand(4.5),
 	//	new ShooterFeederSetAuto(shooterFeederSubsystem, 1),
 	//	new ConveyorRollCosineAuto(conveyorSubsystem, 0.75, 0.25, .5, 1.5),
         // new ShooterStop(shooterSubsystem)
@@ -69,7 +71,7 @@ public class AutoTrench2 extends SequentialCommandGroup {
                   // Part 2
             new ConveyorSetAuto(conveyorSubsystem, .5),
             // new TurretSetManualMode(turretSubsystem, true),
-             new ShooterSetAuto(shooterSubsystem, 3500),
+             new ShooterSetAuto(shooterSubsystem, 3700),
             // new TurretSetManualMode(turretSubsystem, true),
               // new TurretSpinToAngle(turretSubsystem, 70),
                   new ChassisDriveDistance(chassisSubsystem, 2.55, .6), // 72 inches
@@ -107,11 +109,10 @@ public class AutoTrench2 extends SequentialCommandGroup {
     //     new ShooterFeederSetAuto(shooterFeederSubsystem, 0),
     //     new ShooterStop(shooterSubsystem), new AutoIntakeOff(intakeSubsystem)
       ),
-      new ParallelRaceGroup(
-      new IntakeRollersSetAuto(intakeSubsystem , 1.),
-      new ChassisDriveDistance(chassisSubsystem , 3 , .7),
-      new WaitCommand(6)
-      )
+  
+      new ChassisDriveDistanceCoast(chassisSubsystem , 1.5 , .7)
+
+      
     );
  // );
 }

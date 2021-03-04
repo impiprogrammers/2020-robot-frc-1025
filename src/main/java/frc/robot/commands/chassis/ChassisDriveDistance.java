@@ -47,8 +47,8 @@ public class ChassisDriveDistance extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		SmartDashboard.putNumber("Auto Drive Position", Math.abs(chassisSubsystem.getPosition()));
-		SmartDashboard.putNumber("Auto Drive Target Distance", Math.abs(distance));
+		// SmartDashboard.putNumber("Auto Drive Position", Math.abs(chassisSubsystem.getPosition()));
+		// SmartDashboard.putNumber("Auto Drive Target Distance", Math.abs(distance));
 		return (Math.abs(chassisSubsystem.getPosition()) >= Math.abs(distance));
 	}
 }

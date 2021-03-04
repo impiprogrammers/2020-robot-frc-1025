@@ -37,7 +37,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	private boolean shooterReady = false;
 	private Timer timer = new Timer();
 
-	private double currentSetpoint;
+	private double currentSetpoint = 0;
 
 	public ShooterSubsystem(){
 		shooterLeft.restoreFactoryDefaults();
@@ -56,8 +56,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		SmartDashboard.putNumber("PID Output", shooterEncoder.getVelocity());
-		SmartDashboard.putBoolean("Shooter Ready", shooterReady);
+		// SmartDashboard.putNumber("PID Output", shooterEncoder.getVelocity());
+		SmartDashboard.putBoolean("Shooter Ready", atSetpoint());
 	}
 
 	public double getShooterVelocity() {
@@ -70,7 +70,7 @@ public class ShooterSubsystem extends SubsystemBase {
 		timer.reset();
 		shooterEnabled = true;
 		shooterReady = false;
-		SmartDashboard.putNumber("Shooter Set RPM", setpoint);
+		// SmartDashboard.putNumber("Shooter Set RPM", setpoint);
 	}
 
 	public void stop() {
@@ -111,7 +111,10 @@ public class ShooterSubsystem extends SubsystemBase {
 	}
 
 	public boolean atSetpoint() {
-		return (Math.abs(currentSetpoint - getShooterVelocity()) <= 50);
+		if (currentSetpoint == 0) {
+			return false;
+		}
+		return (Math.abs(currentSetpoint - getShooterVelocity()) <= 250);
 	} 
 
 }

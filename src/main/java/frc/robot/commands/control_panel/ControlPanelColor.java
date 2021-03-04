@@ -34,11 +34,9 @@ public class ControlPanelColor extends CommandBase {
    detectedColor = controlPanelSubsystem.getColorSensor().getColor();
    match = controlPanelSubsystem.getColorMatch().matchClosestColor(detectedColor);
    controlPanelSubsystem.controlPanelSpin(0.5);
-        SmartDashboard.putString("Color Sensor Detected Color (0-255)",
-                detectedColor.red * 255 + ", " + detectedColor.green * 255 + ", " + detectedColor.blue * 255);
-        SmartDashboard.putString("Color Sensor Detected Color (0-1)",
-                detectedColor.red + ", " + detectedColor.green + ", " + detectedColor.blue);
-        SmartDashboard.putString("Current Color String" , controlPanelSubsystem.getCurrentColorString(match.color)); 
+        // SmartDashboard.putString("Color Sensor Detected Color (0-255)", detectedColor.red * 255 + ", " + detectedColor.green * 255 + ", " + detectedColor.blue * 255);
+        // SmartDashboard.putString("Color Sensor Detected Color (0-1)", detectedColor.red + ", " + detectedColor.green + ", " + detectedColor.blue);
+        // SmartDashboard.putString("Current Color String" , controlPanelSubsystem.getCurrentColorString(match.color)); 
    // colorString = "Blue";
   }
 

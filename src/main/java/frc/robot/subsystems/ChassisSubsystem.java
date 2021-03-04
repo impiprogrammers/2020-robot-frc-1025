@@ -13,12 +13,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
@@ -29,14 +27,10 @@ import frc.robot.Constants;
 public class ChassisSubsystem extends SubsystemBase {
 
 	// Motor Controllers
-	private final CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_FRONT_PORT,
-			MotorType.kBrushless);
-	private final CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_FRONT_PORT,
-			MotorType.kBrushless);
-	private final CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_REAR_PORT,
-			MotorType.kBrushless);
-	private final CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_REAR_PORT,
-			MotorType.kBrushless);
+	private final CANSparkMax driveMotorLeftFront = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_FRONT_PORT, MotorType.kBrushless);
+	private final CANSparkMax driveMotorRightFront = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_FRONT_PORT, MotorType.kBrushless);
+	private final CANSparkMax driveMotorLeftRear = new CANSparkMax(Constants.CAN.CHASSIS_LEFT_REAR_PORT, MotorType.kBrushless);
+	private final CANSparkMax driveMotorRightRear = new CANSparkMax(Constants.CAN.CHASSIS_RIGHT_REAR_PORT, MotorType.kBrushless);
 
 	// Speed Controller Groups
 	private final SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(driveMotorLeftFront, driveMotorLeftRear);
@@ -63,14 +57,7 @@ public class ChassisSubsystem extends SubsystemBase {
 		setSmartCurrentLimit(Constants.Chassis.CURRENT_LIMIT);
 		setCoastMode();
 
-		//try {
-			ahrs = new AHRS(SPI.Port.kMXP);
-	//		odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
-	//	} catch (RuntimeException exception) {
-	//		DriverStation.reportError("Error instantiating navX-MXP: " + exception.getMessage(), true);
-	//	}
-
-		SmartDashboard.putNumber("Target Angle", 0);
+		ahrs = new AHRS(SPI.Port.kMXP);
 
 		double conversionFactor = Constants.Chassis.WHEEL_DIAMETER * Math.PI / Constants.Chassis.GEAR_RATIO;
 		leftEncoder.setPositionConversionFactor(conversionFactor);
@@ -83,8 +70,10 @@ public class ChassisSubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		
-	//	odometry.update(Rotation2d.fromDegrees(getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
+		SmartDashboard.putNumber("Wheel Encoders", getPosition());
+		// SmartDashboard.putNumber("Left Encoder Position", leftEncoder.getPosition());
+		// SmartDashboard.putNumber("Right Encoder Position", rightEncoder.getPosition());		
+	    // odometry.update(Rotation2d.fromDegrees(getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
 	}
 
 	public void setSmartCurrentLimit(int currentLimit) {
@@ -102,7 +91,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	}
 
 	public void arcadeDrive(double move, double turn) {
-		drive.arcadeDrive(-move, turn);
+		drive.arcadeDrive(-move, (turn/2)); //done on thursday, needs to be tested > "(... /2)"
 	}
 
 	public void tankDrive(double left, double right) {
@@ -112,7 +101,6 @@ public class ChassisSubsystem extends SubsystemBase {
 	public void voltageTankDrive(double leftVoltage, double rightVoltage) {
 		leftMotorGroup.setVoltage(leftVoltage);
 		rightMotorGroup.setVoltage(-rightVoltage);
-		//drive.feed();
 	}
 
 	public void resetEncoders() {
@@ -140,8 +128,6 @@ public class ChassisSubsystem extends SubsystemBase {
 	}
 
 	public double getPosition() { // returns position in meters
-		SmartDashboard.putNumber("Left Encoder Position", leftEncoder.getPosition());
-		SmartDashboard.putNumber("Right Encoder Position", rightEncoder.getPosition());
 		return (Math.abs(leftEncoder.getPosition()) + Math.abs(rightEncoder.getPosition())) / 2;
 	}
 

@@ -97,7 +97,7 @@ public class UpdateLights extends CommandBase {
 		double shooterVelocity = Math.abs(shooterSubsystem.getShooterVelocity());
 
 		if (shooterVelocity > 100) {
-			if (shooterVelocity >= 4000) {
+			if (shooterSubsystem.atSetpoint() == true) {
 				ledSubsystem.setLEDsTop(115 / 2, 255, 255); // green
 			} else {
 				ledSubsystem.setLEDsTop(42 / 2, 255, 255); // yellow

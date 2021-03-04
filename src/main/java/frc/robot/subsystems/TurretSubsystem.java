@@ -61,7 +61,7 @@ public class TurretSubsystem extends SubsystemBase {
 
 		turretEncoder.setPosition(0);
 
-		turretPID.setP(0.06);
+		turretPID.setP(0.05);
 		//turretPID.setI(0.00002675);
 		//turretPID.setP(0.1);
 		turretPID.setI(0);
@@ -74,12 +74,11 @@ public class TurretSubsystem extends SubsystemBase {
 	@Override
 	public void periodic() {
 		updateLimelightTracking();
-		SmartDashboard.putBoolean("tv", tv.getBoolean(false));
-		SmartDashboard.putNumber("tx", tx.getDouble(0));
-		SmartDashboard.putNumber("ta", ta.getDouble(0));
-		SmartDashboard.putNumber("Negative Error Value", -x);
-		SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
-		SmartDashboard.putBoolean("Is Target Centered", isTargetCentered());
+		SmartDashboard.putBoolean("Target Visible", isTargetFound());
+		SmartDashboard.putNumber("Target X", x);
+		// SmartDashboard.putNumber("Target Area", ta.getDouble(0));
+		// SmartDashboard.putNumber("Turret Encoder Position", turretEncoder.getPosition());
+		SmartDashboard.putBoolean("Target Centered", isTargetCentered());
 	}
 
 	public void updateLimelightTracking() {
@@ -122,7 +121,7 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public boolean isTargetCentered() {
-		if (x > -Constants.Turret.TARGET_CENTER_RANGE && x < Constants.Turret.TARGET_CENTER_RANGE && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
+		if (isTargetFound() && x > -Constants.Turret.TARGET_CENTER_RANGE && x < Constants.Turret.TARGET_CENTER_RANGE && y >= Constants.Turret.MIN_TRACKING_HEIGHT) {
 			// if(x > -5 && x < 5){
 			return true;
 		} else {
@@ -209,15 +208,15 @@ public class TurretSubsystem extends SubsystemBase {
 	public double calcRPM(){
 		if(isTargetFound() == true){
 		if(area >= 1){
-			return 3300;
+			return 3600;
 		}
-		else if(area >=.65 && area<1){
+		else if(area >=.7 && area<1){
 			return 3700;
 		}
-		else if(area <.65 && area>=.5){
-			return 4100;
+		else if(area <.7 && area>=.4){
+			return 3700;
 		}
-		else if(area<.5){
+		else if(area<.4){
 			return 4400;
 		}
 		else{
