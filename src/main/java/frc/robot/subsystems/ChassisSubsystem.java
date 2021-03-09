@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
@@ -58,6 +59,7 @@ public class ChassisSubsystem extends SubsystemBase {
 		setCoastMode();
 
 		ahrs = new AHRS(SPI.Port.kMXP);
+		odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(ahrs.getAngle()));
 
 		double conversionFactor = Constants.Chassis.WHEEL_DIAMETER * Math.PI / Constants.Chassis.GEAR_RATIO;
 		leftEncoder.setPositionConversionFactor(conversionFactor);
@@ -73,7 +75,7 @@ public class ChassisSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Wheel Encoders", getPosition());
 		// SmartDashboard.putNumber("Left Encoder Position", leftEncoder.getPosition());
 		// SmartDashboard.putNumber("Right Encoder Position", rightEncoder.getPosition());		
-	    // odometry.update(Rotation2d.fromDegrees(getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
+	    odometry.update(Rotation2d.fromDegrees(ahrs.getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
 	}
 
 	public void setSmartCurrentLimit(int currentLimit) {
@@ -101,6 +103,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	public void voltageTankDrive(double leftVoltage, double rightVoltage) {
 		leftMotorGroup.setVoltage(leftVoltage);
 		rightMotorGroup.setVoltage(-rightVoltage);
+		drive.feed();
 	}
 
 	public void resetEncoders() {

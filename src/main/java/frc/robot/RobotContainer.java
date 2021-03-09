@@ -207,13 +207,13 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		return autoChooser.getSelected();
-		//try {
-		//return new AutoTrench2(chassisSubsystem, intakeSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem, turretSubsystem);
-		// } catch (Exception e) {
-		// 	DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);
-		// 	return null;
+		//return autoChooser.getSelected();
+		try {
+		return new AutoCenter3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem);
+		 } catch (Exception e) {
+		 	DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);
+		 	return null;
 		}
 		
-//	}
+	}
 }
