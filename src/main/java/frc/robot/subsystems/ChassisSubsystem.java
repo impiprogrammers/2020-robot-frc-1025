@@ -111,6 +111,11 @@ public class ChassisSubsystem extends SubsystemBase {
 		rightEncoder.setPosition(0);
 	}
 
+	public void resetOdometry(Pose2d pose) {
+		resetEncoders();
+		odometry.resetPosition(pose, Rotation2d.fromDegrees(ahrs.getAngle()));
+	  }
+
 	public void resetGyro() {
 		ahrs.reset();
 		ahrs.resetDisplacement();
