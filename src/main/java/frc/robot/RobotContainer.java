@@ -12,11 +12,14 @@ import java.util.function.DoubleSupplier;
 import java.util.function.IntSupplier;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
@@ -209,10 +212,13 @@ public class RobotContainer {
 	public Command getAutonomousCommand() {
 		//return autoChooser.getSelected();
 		try {
-		return new AutoCenter3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem);
-		 } catch (Exception e) {
+			// This should be in the command class, but we are testing it.
+			// Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve("paths/center3-1.wpilib.json"));
+			// chassisSubsystem.resetOdometry(trajectory.getInitialPose());
+			return new AutoCenter3(chassisSubsystem, conveyorSubsystem, shooterFeederSubsystem, shooterSubsystem);
+		} catch (Exception e) {
 		 	DriverStation.reportError("Auto Command Error: " + e.getMessage(), true);
-		 	return null;
+		    return null;
 		}
 		
 	}

@@ -31,7 +31,7 @@ public class AutoFollowPath extends RamseteCommand {
             chassisSubsystem::getPose,
             new RamseteController(Constants.Chassis.AUTO_RAMSETE_B, Constants.Chassis.AUTO_RAMSETE_ZETA),
             new SimpleMotorFeedforward(Constants.Chassis.AUTO_FFS, Constants.Chassis.AUTO_FFV, Constants.Chassis.AUTO_FFA),
-            chassisSubsystem.driveKinematics,
+            ChassisSubsystem.driveKinematics,
             chassisSubsystem::getWheelSpeeds,
             new PIDController(Constants.Chassis.AUTO_P, 0, 0),
             new PIDController(Constants.Chassis.AUTO_P, 0, 0),
@@ -49,26 +49,24 @@ public class AutoFollowPath extends RamseteCommand {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		DriverStation.reportError("Auto Follow Path Initialize", true);
+		System.out.println("Auto Follow Path Initialize");
 		chassisSubsystem.resetOdometry(trajectory.getInitialPose());
+		super.initialize();
+
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		DriverStation.reportError("Auto Follow Path Excecute", true);
+		System.out.println("Auto Follow Path Excecute");
+		super.execute();
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 		chassisSubsystem.voltageTankDrive(0, 0);
-		DriverStation.reportError("Auto Follow Path End", true);
-	}
-
-	// Returns true when the command should end.
-	@Override
-	public boolean isFinished() {
-		return false;
+		System.out.println("Auto Follow Path End");
+		super.end(interrupted);
 	}
 }

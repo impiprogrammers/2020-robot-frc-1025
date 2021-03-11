@@ -51,7 +51,7 @@ public class ChassisSubsystem extends SubsystemBase {
 	private DifferentialDriveOdometry odometry;
 
 	// Kinematics
-	public DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(Constants.Chassis.TRACK_WIDTH);
+	public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(Constants.Chassis.TRACK_WIDTH);
 
 	public ChassisSubsystem() {
 		restoreFactoryDefaults();
@@ -59,7 +59,7 @@ public class ChassisSubsystem extends SubsystemBase {
 		setCoastMode();
 
 		ahrs = new AHRS(SPI.Port.kMXP);
-		odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(ahrs.getAngle()));
+		odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(-ahrs.getAngle()));
 
 		double conversionFactor = Constants.Chassis.WHEEL_DIAMETER * Math.PI / Constants.Chassis.GEAR_RATIO;
 		leftEncoder.setPositionConversionFactor(conversionFactor);
@@ -75,7 +75,7 @@ public class ChassisSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Wheel Encoders", getPosition());
 		// SmartDashboard.putNumber("Left Encoder Position", leftEncoder.getPosition());
 		// SmartDashboard.putNumber("Right Encoder Position", rightEncoder.getPosition());		
-	    odometry.update(Rotation2d.fromDegrees(ahrs.getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
+	    odometry.update(Rotation2d.fromDegrees(-ahrs.getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
 	}
 
 	public void setSmartCurrentLimit(int currentLimit) {
@@ -104,6 +104,7 @@ public class ChassisSubsystem extends SubsystemBase {
 		leftMotorGroup.setVoltage(leftVoltage);
 		rightMotorGroup.setVoltage(-rightVoltage);
 		drive.feed();
+		System.out.println("Voltage Tank Drive");
 	}
 
 	public void resetEncoders() {
@@ -113,7 +114,7 @@ public class ChassisSubsystem extends SubsystemBase {
 
 	public void resetOdometry(Pose2d pose) {
 		resetEncoders();
-		odometry.resetPosition(pose, Rotation2d.fromDegrees(ahrs.getAngle()));
+		odometry.resetPosition(pose, Rotation2d.fromDegrees(-ahrs.getAngle()));
 	  }
 
 	public void resetGyro() {
